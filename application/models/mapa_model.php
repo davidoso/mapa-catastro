@@ -3,11 +3,15 @@ class Mapa_model extends CI_Model {
 
 	public function getCapas()
 	{
-		$query =
+		/*$query =
 		"SELECT carpeta, capa FROM
 		ctrl_select_capas ORDER BY 1, 2";
+s
+		$query = $this->db->query($query);*/
 
-		$query = $this->db->query($query);
+		$this->db->select('carpeta, capa');
+		$this->db->order_by('carpeta, capa');
+		$query = $this->db->get('ctrl_select_capas');
         return $query->result_array();
 	}
 
@@ -48,33 +52,44 @@ class Mapa_model extends CI_Model {
 
 	public function getEmpresa($dbTable)
 	{
-		$query =
+		/*$query =
 		"SELECT DISTINCT(empresa_responsable)
 		FROM dbTable ORDER BY 1";
 
 		$query = str_replace("dbTable", $dbTable, $query);
-		$query = $this->db->query($query);
+		$query = $this->db->query($query);*/
+
+		$this->db->select('DISTINCT(empresa_responsable)');
+		$this->db->order_by(1);
+		$query = $this->db->get($dbTable);
         return $query->result_array();
 	}
 
 	public function getBancoServicio()
 	{
-		$query =
+		/*$query =
 		"SELECT DISTINCT(tipo)
 		FROM generales_tbl_bancos ORDER BY 1";
 
-		$query = $this->db->query($query);
+		$query = $this->db->query($query);*/
+
+		$this->db->select('DISTINCT(tipo)');
+		$this->db->order_by(1);
+		$query = $this->db->get('generales_tbl_bancos');
         return $query->result_array();
 	}
 
 	public function getTelefonoCampo($campo)
 	{
-		$query =
+		/*$query =
 		"SELECT DISTINCT(campo)
 		FROM generales_tbl_telefonos_publicos";
 
 		$query = str_replace("campo", $campo, $query);
-		$query = $this->db->query($query);
+		$query = $this->db->query($query);*/
+
+		$this->db->select('DISTINCT(' . $campo . ')');
+		$query = $this->db->get('generales_tbl_telefonos_publicos');
         return $query->result_array();
 	}
 
@@ -90,12 +105,16 @@ class Mapa_model extends CI_Model {
 
 	public function getMonumentoCampo($campo)
 	{
-		$query =
+		/*$query =
 		"SELECT DISTINCT(campo)
 		FROM inah_tbl_monumentos_historicos ORDER BY 1";
 
 		$query = str_replace("campo", $campo, $query);
-		$query = $this->db->query($query);
+		$query = $this->db->query($query);*/
+
+		$this->db->select('DISTINCT(' . $campo . ')');
+		$this->db->order_by(1);
+		$query = $this->db->get('inah_tbl_monumentos_historicos');
         return $query->result_array();
 	}
 }
