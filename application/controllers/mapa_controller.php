@@ -20,9 +20,9 @@ class Mapa_controller extends CI_Controller {
 		$data['cbCapas'] = $cbCapas;
 
 		// Llenar select cbCampos (campos a filtrar según capa)
-		$db_campos_ = $this->mapa_model->getCampos();
+		$db_campos = $this->mapa_model->getCampos();
 		$cbCampos = array();
-		foreach($db_campos_ as $key => $value) {
+		foreach($db_campos as $key => $value) {
     		$cbCampos[$value['capa']][] = array(
         		'campo' => $value['campo']
     		);

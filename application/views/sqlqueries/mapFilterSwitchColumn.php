@@ -101,7 +101,6 @@
         } // catch
     }
 
-
     function pointsArrayToString($pointsArray) {
         $polygonCoordinates = "";
         for ($i = 0; $i < count($pointsArray); $i++) {

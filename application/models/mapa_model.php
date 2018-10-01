@@ -23,7 +23,7 @@ s
 		JOIN ctrl_campos_a_filtrar CF ON SC.id_capa = CF.id_capa ORDER BY SC.carpeta, SC.capa";
 
 		$query = $this->db->query($query);
-        return $query->result_array();
+		return $query->result_array();
 	}
 
 	public function getMaterial($dbTable)
@@ -35,7 +35,7 @@ s
 
 		$query = str_replace("dbTable", $dbTable, $query);
 		$query = $this->db->query($query);
-        return $query->result_array();
+		return $query->result_array();
 	}
 
 	public function getCondFisica($dbTable)
@@ -62,7 +62,7 @@ s
 		$this->db->select('DISTINCT(empresa_responsable)');
 		$this->db->order_by(1);
 		$query = $this->db->get($dbTable);
-        return $query->result_array();
+		return $query->result_array();
 	}
 
 	public function getBancoServicio()
@@ -90,7 +90,7 @@ s
 
 		$this->db->select('DISTINCT(' . $campo . ')');
 		$query = $this->db->get('generales_tbl_telefonos_publicos');
-        return $query->result_array();
+		return $query->result_array();
 	}
 
 	public function getLuminariaFuente()
