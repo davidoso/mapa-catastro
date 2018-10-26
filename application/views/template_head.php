@@ -3,7 +3,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<base href="<?php echo base_url();?>">
 <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="images/favicons/db.ico"/>
+    <link rel="icon" type="image/png" href="images/favicons/map.ico"/>
 <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <!--===============================================================================================-->
