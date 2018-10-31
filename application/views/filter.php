@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
-	<?php $this->load->view('template_head'); ?>
+	<?php $this->load->view('sections/head'); ?>
 </head>
 <body>
 <!--
     IMPORTANTE:
         1. Este header se debe reemplazar con la barra de navegación azul del mapa cartográfico
-        2. El botón "Aplicar filtro" de la barra de herramientas del mapa puede abrir este proyecto (en realidad es sólo esta vista filter.php que carga otros módulos php al final)
+        2. El botón "Aplicar filtro" de la barra de herramientas del mapa puede abrir este proyecto (el frontend es sólo esta vista filter.php que carga otros vistas php al final con scripts JS y modales)
 -->
-	<?php $this->load->view('template_header'); ?>
+	<?php $this->load->view('sections/header'); ?>
 
     <form action="#" id="formFilter" onsubmit="addFilter(); return false">
         <div class="row">
@@ -65,9 +65,9 @@
                     <label for="valor"><span style="color: red;"><b>*</b></span> Opción para unir condiciones:</label>
                     <br>
                     <center>
-                        <input type="radio" name="booleanOps" id="rbtnOR" value="OR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" style="margin-left: -6px; margin-right: 3px;" checked><b> O (OR)</b>
+                        <input type="radio" name="booleanOps" id="rbtnOR" value="OR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" checked><b> O (OR)</b>
                         <span style="display: inline-block; width: 6px;"></span>
-                        <input type="radio" name="booleanOps" id="rbtnAND" value="AND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND" style="margin-right: 3px;"><b> Y (AND)</b>
+                        <input type="radio" name="booleanOps" id="rbtnAND" value="AND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND"><b> Y (AND)</b>
                     </center>
                     <br>
                 </div>
@@ -118,16 +118,16 @@
                             </h4>
                         </div>
                         <div id="filtrosAgregados" class="collapse in"> <!-- panel-collapse -->
-                            <div class="panel-body" style="overflow-y: scroll; height: 195px;"> <!-- panel-body -->
+                            <div class="panel-body"> <!-- panel-body -->
                                 <!-- <h3 align="center" class="text-info"><strong>Filtros agregados</strong></h3> -->
                                 <div class="row">
                                     <div class="col-sm-11" style="width: 88%;">
                                         <table class="table table-bordered">
                                             <thead id="tblFiltrosH">
-                                                <th width="20%" style="text-align: center;">CAPA</th>
-                                                <th width="35%" style="text-align: center;">CAMPO</th>
-                                                <th width="35%" style="text-align: center;">VALOR</th>
-                                                <th width="10%" style="text-align: center;">OPCIONES</th>
+                                                <th width="20%">CAPA</th>
+                                                <th width="35%">CAMPO</th>
+                                                <th width="35%">VALOR</th>
+                                                <th width="10%">OPCIONES</th>
                                             </thead>
                                             <tbody id="tblFiltros">
                                             </tbody>
@@ -136,9 +136,9 @@
                                     <div class="col-sm-1" style="width: 12%; padding: 0px;">
                                         <table class="table">
                                             <thead id="tblTotalesH">
-                                                <th width="120%" style="text-align: center;">TOTALES</th>
+                                                <th width="120%">TOTALES</th>
                                             </thead>
-                                            <tbody id="tblTotales" style="text-align: center; font-weight: bold;">
+                                            <tbody id="tblTotales">
                                             </tbody>
                                         </table>
                                     </div>
@@ -148,14 +148,14 @@
                     </div> <!-- accordion -->
                 </div> <!-- panel-group -->
 	        </div> <!-- navbar-main -->
-                <div class="panel panel-default" style="border-color: #aaa;">
-                    <div class="panel-heading" style="border-bottom: 1px solid #bbb;">Mapa</div>
-                    <!-- Comentar este panel-body para mostrar el mapa sin bordes -->
-                    <!-- <div class="panel-body panel-height"> -->
-                        <div id="map" class="map" style="height: 371px;"></div>
-                        <div id="mouse-position" class="text-success" align="right" style="padding-right: 10px; border-top: 1px solid #bbb;"></div>
-                    <!-- </div> -->
-                </div>
+            <div class="panel panel-default" style="border-color: #aaa;">
+                <div class="panel-heading" style="border-bottom: 1px solid #bbb;">Mapa</div>
+                <!-- Comentar este panel-body para mostrar el mapa sin bordes -->
+                <!-- <div class="panel-body panel-height"> -->
+                    <div id="map" class="map"></div>
+                    <div id="mouse-position" class="text-success" align="right"></div>
+                <!-- </div> -->
+            </div>
         </div> <!-- col-sm-8 -->
         </div> <!-- ¿row? -->
     </form>
@@ -548,15 +548,14 @@
             default:
                 clear(false);
         } // switch(capa)
-    }
+    } // function switchSelect1()
 
-    /*  Adaptar opciones del 3er combobox según el campo seleccionado (2do combobox)
-        Hay 2 opciones para ingresar valores de búsqueda:
-        1. Mediante INPUTS DE TEXTO: se deben especificar 3 parámetros en el array enviado a "macro_valor_input":
-        la clase a validar (vLetras, vNumeros, o vAlfanumerico), el placeholder y el maxlength del input; y
-        2. Mediante SELECTS: esta vista recibe del controlador arrays con los valores disponibles para el campo
-        en cuestión y los envía a macro_valor_select. Sólo se debe especificar el nombre del array
-    */
+    //  Adaptar opciones del 3er combobox según el campo seleccionado (2do combobox)
+    //  Hay 2 opciones para ingresar valores de búsqueda:
+    //  1. Mediante INPUTS DE TEXTO: se deben especificar 3 parámetros en el array enviado a "macro_valor_input":
+    //  la clase a validar (vLetras, vNumeros, o vAlfanumerico), el placeholder y el maxlength del input; y
+    //  2. Mediante SELECTS: esta vista recibe del controlador arrays con los valores disponibles para el campo
+    //  en cuestión y los envía a "macro_valor_select". Sólo se debe especificar el nombre del array
     function switchSelect2() {
         var cbCapas = document.getElementById("cbCapas");
         var capa = cbCapas.options[cbCapas.selectedIndex].value;
@@ -783,17 +782,17 @@
 	    function validarAlfanumerico(charCode){
 			return (validarLetras(charCode) || validarNumeros(charCode) || charCode == 45); // 45 es '-'
         }
-    }
+    } // function switchSelect2()
 </script>
 
-<?php $this->load->view('template_map'); ?>
-<?php $this->load->view('template_map_dec2utm'); ?>
-<?php $this->load->view('template_map_utm2dec'); ?>
-<?php $this->load->view('template_footer'); ?>
-<?php $this->load->view('template_modal_help'); ?>
-<?php $this->load->view('template_modal_warning'); ?>
-<?php $this->load->view('template_modal_warning2'); ?>
-<?php $this->load->view('template_modal_marker'); ?>
+<?php $this->load->view('sections/map'); ?>
+<?php $this->load->view('sections/map_dec2utm'); ?>
+<?php $this->load->view('sections/map_utm2dec'); ?>
+<?php $this->load->view('sections/footer'); ?>
+<?php $this->load->view('modals/modal_help'); ?>
+<?php $this->load->view('modals/modal_warning'); ?>
+<?php $this->load->view('modals/modal_warning2'); ?>
+<?php $this->load->view('modals/modal_marker'); ?>
 
 </body>
 </html>

@@ -1,0 +1,152 @@
+/* STYLES ADDED BY DAVID OSORIO */
+
+#map {
+  height: 371px;
+  width: 100%;
+}
+
+#logo-alerta {
+	width: 50px;
+  height: 30px;
+	max-height: 100%;
+	margin-left: 10px;
+}
+
+#logo-alertaModal {
+	width: 90px;
+	height: 70px;
+	max-height: 100%;
+	margin-left: 10px;
+}
+
+.active-item {
+	color: #565656 !important;
+	background-color: #38b449;
+}
+
+.panel-body {
+  overflow-y: scroll;
+  height: 195px;
+}
+
+h3, h4, h5, h6 {
+  font-family: 'ColabReg' !important;
+}
+
+@font-face {
+  font-family: "ColabReg";
+  src: url(../fonts/ColabReg.otf) format("truetype");
+}
+
+td input[type="checkbox"] {
+  float: left;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#btnContinue {
+  pointer-events: none;
+}
+
+#formbtnContinue {
+  cursor: not-allowed;
+}
+
+#rbtnOR {
+  margin-left: -6px;
+  margin-right: 3px;
+}
+
+#rbtnAND {
+  margin-right: 3px;
+}
+
+tr:nth-child(even) {
+  background-color: #E5E5E5;
+}
+
+#tblFiltrosH {
+  background: #E4E4E4;
+  text-align: center;
+  font-size: 15px;
+  color: #3498DB;
+}
+
+#tblFiltrosH th {
+  border: 1px solid #EC4A94;
+  text-align: center;
+}
+
+#tblFiltros {
+  font-size: 15px;
+  color: #333;
+}
+
+#tblFiltros td {
+  vertical-align: middle;
+}
+
+#tblTotalesH {
+  background: #DFF0D8;
+  text-align: center;
+  font-size: 15px;
+  color: #EC4A94;
+}
+
+#tblTotalesH th {
+  border: 1px solid #88C542;
+  text-align: center;
+}
+
+#tblTotales {
+  font-size: 16px;
+  color: #EC4A94;
+  text-align: center;
+  font-weight: bold;
+}
+
+#tblTotales td {
+  border: 1px solid #88C542;
+  vertical-align: middle;
+}
+
+#tblMarkerInfo {
+  border: 1px solid #5B9BD5;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#tblMarkerInfo td {
+  font-size: 14px;
+  vertical-align: middle;
+  padding: 8px;
+}
+
+#tblMarkerInfo tr:nth-child(even) {
+  background-color: #DEEAF6 !important;
+}
+
+#tblMarkerInfo td:nth-child(odd) {
+  border-right: 1px solid #5B9BD5 !important;
+}
+
+.text-pink {
+  color: #EA2882;
+}
+
+.text-electric-blue {
+  color: #3498DB;
+}
+
+input[type=text], td {
+  text-transform: uppercase;
+}
+
+::-webkit-input-placeholder {
+  text-transform: none;
+}
+
+#mouse-position {
+  padding-right: 10px;
+  border-top: 1px solid #bbb;
+}

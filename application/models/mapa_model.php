@@ -6,7 +6,7 @@ class Mapa_model extends CI_Model {
 		/*$query =
 		"SELECT carpeta, capa FROM
 		ctrl_select_capas ORDER BY 1, 2";
-s
+
 		$query = $this->db->query($query);*/
 
 		$this->db->select('carpeta, capa');

@@ -12,5 +12,5 @@
 	<link rel="stylesheet" type="text/css" href="css/icomoon.css">
 	<link rel="stylesheet" type="text/css" href="css/animate-custom.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/new.css">
+	<link rel="stylesheet" type="text/css" href="css/my-styles.css">
 <!--===============================================================================================-->

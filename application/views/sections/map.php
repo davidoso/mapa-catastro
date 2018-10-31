@@ -1,12 +1,17 @@
-<!-- Librería para conversión de coordenadas UTM a decimal y viceversa -->
+<!-- JavaScript library to convert from decimal coordinates to utm and viceversa -->
+<!-- NOTE: proj4.js did not work so map_dec2utm y map_utm2dc scripts were used instead -->
 <!-- <script type="text/javascript" src="js/map/proj4.js"></script> -->
-<!-- Hoja de estilo para colocar niveles de zoom y barra de herramientas en mapa -->
+
+<!-- OpenLayers stylesheet (contains zoom levels and default controls) downloaded from: -->
 <!-- <link rel="stylesheet" type="text/css" href="https://openlayers.org/en/v4.6.4/css/ol.css" media="screen"> -->
 <link rel="stylesheet" type="text/css" href="css/ol.css">
+
+<!-- jQuery version downloaded from: -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<!-- Librería para desplegar mapa -->
+
+<!-- OpenLayers JavaScript library v4.6.5 downloaded from: -->
 <!-- <script type="text/javascript" src="https://openlayers.org/en/v4.6.4/build/ol.js"></script> -->
 <script type="text/javascript" src="js/map/ol.js"></script>
 
@@ -238,7 +243,7 @@
             // Create a new feature with the item as the properties
             var feature = new ol.Feature(item);
             // Create an appropriate geometry and add it to the feature
-            // Proj4.js library did not work, so utm2dec(x, y, utmz, north) is used insted
+            // proj4.js library did not work, so utm2dec(x, y, utmz, north) is used insted
             /*var lon = UTMtoDecimal([parseFloat(item.longitude), parseFloat(item.latitude)], "lon");
             var lat = UTMtoDecimal([parseFloat(item.longitude), parseFloat(item.latitude)], "lat");
             var coordinate = transform([lon, lat]);*/
