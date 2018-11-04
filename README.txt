@@ -4,17 +4,6 @@ CONFIG. DE XAMPP REQUERIDA
 php.ini en carpeta xampp/php:
 max_execution_time=90
 
-http.conf en carpeta xampp/apache/conf (para llamadas ajax de archivos php en application/views/sqlqueries):
-#
-# Deny access to the entirety of your server's filesystem. You must
-# explicitly permit access to web content directories in other
-# <Directory> blocks below.
-#
-<Directory "C:/xampp/htdocs/mapa-catastro/">
-    AllowOverride none
-    Require all granted
-</Directory>
-
 
 --------------------------------
 ¿CÓMO CAMBIAR/AGREGAR FILTROS?
