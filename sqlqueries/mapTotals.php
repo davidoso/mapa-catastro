@@ -24,7 +24,7 @@
         foreach (array_chunk($tableData, 3) as $filter) {
             $cond = switchColumn($filter[1], $filter[2]);
             //echo "COND: " . $cond . "\n";
-            $arrQueries[$i] = str_replace("layerTable", switchTable($filter[0]), $arrQueries[$i]); // DB table
+            $arrQueries[$i] = str_replace("layerTable", switchTable("capa", $filter[0]), $arrQueries[$i]); // DB table
             $arrQueries[$i] = substr($arrQueries[$i], 0, -1);   // Remove ? symbol for each query
             $arrQueries[$i] = $arrQueries[$i] . $cond . ")";    // Concatenate first (and only) condition
             $i++; // Before the loop ends, the counter i must be equal to the amount of chunks
@@ -82,7 +82,7 @@
             ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') ))
             AND (?";
 
-            $query = str_replace("layerTable", switchTable($arrLayers[$i]), $query); // DB table
+            $query = str_replace("layerTable", switchTable("capa", $arrLayers[$i]), $query); // DB table
             $query = str_replace("polygonCoordinates", pointsArrayToString($pointsArray), $query);
             array_push($arrQueries, $query);
         }

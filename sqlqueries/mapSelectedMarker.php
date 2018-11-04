@@ -5,7 +5,7 @@
     // This code must not be edited. All the map filters must be added/changed in mapSelectedMarkerSwitchs.php
 
     // Unescape the string values in the JSON array
-    $markerData = stripcslashes($_POST['pMarkerData']); // 3-column map marker (coord_x, coord_y and tableName)
+    $markerData = stripcslashes($_POST['pMarkerData']); // 3-column map marker (coord_x, coord_y and marcador)
 
     // Decode the JSON array
     $markerData = json_decode($markerData, TRUE);
@@ -27,10 +27,10 @@
         FROM tableName
         WHERE coord_x = coord_x_ajax AND coord_y = coord_y_ajax LIMIT 1";
 
-        $query = str_replace("tableName", switchTableMarker($markerData["tableName"]), $query); // DB table name
+        $query = str_replace("tableName", switchTableMarker($markerData["marcador"]), $query);  // DB table name
         $query = str_replace("coord_x_ajax", $markerData["coord_x"], $query);                       // Longitude
         $query = str_replace("coord_y_ajax", $markerData["coord_y"], $query);                       // Latitude
-        $query = str_replace("tableColumns", switchColumnMarker($markerData["tableName"]), $query); // DB columns
+        $query = str_replace("tableColumns", switchColumnMarker($markerData["marcador"]), $query);  // DB columns
 
         //echo "QUERY: " . $query;
 

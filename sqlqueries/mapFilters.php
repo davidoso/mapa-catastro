@@ -18,14 +18,14 @@
     $arrQueries = array();
     for ($i = 0; $i < count($arrLayers); $i++) {
         $query =
-        "SELECT coord_x, coord_y, 'layerColumn' AS layer
+        "SELECT coord_x, coord_y, lower(tr('layerColumn', 'ÁÉÍÓÚ ', 'AEIOU_')) AS layer
         FROM layerTable
         WHERE ST_INTERSECTS(ST_GeomFromText('Polygon((polygonCoordinates))'),
         ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') ))
         AND (?";
 
         $query = str_replace("layerColumn", $arrLayers[$i], $query);                // Map marker id
-        $query = str_replace("layerTable", switchTable($arrLayers[$i]), $query);    // DB table name
+        $query = str_replace("layerTable", switchTable("capa", $arrLayers[$i]), $query);    // DB table name
         $query = str_replace("polygonCoordinates", pointsArrayToString($pointsArray), $query);
         array_push($arrQueries, $query);
     }

@@ -1,5 +1,5 @@
 <?php
-class Mapa_model extends CI_Model {
+class Map_m extends CI_Model {
 
 	public function getCapas()
 	{

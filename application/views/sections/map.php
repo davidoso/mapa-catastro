@@ -215,14 +215,14 @@
 
                 var coord_x = feature["values_"]["longitude"];
                 var coord_y = feature["values_"]["latitude"];
-                var tableName = feature["values_"]["layer"];
+                var marcador = feature["values_"]["layer"];
 
-                var markerData = {"coord_x": coord_x, "coord_y": coord_y, "tableName": tableName};
+                var markerData = {"coord_x": coord_x, "coord_y": coord_y, "marcador": marcador};
                 markerData = JSON.stringify(markerData);
 
                 $.ajax({
                     type: "POST",
-                    url: "application/views/sqlqueries/mapSelectedMarker.php",
+                    url: "sqlqueries/mapSelectedMarker.php",
                     data: "pMarkerData=" + markerData,
                     success: function(result) {
                         //console.log(result);
@@ -372,7 +372,7 @@
 
         $.ajax({
             type: "POST",
-            url: "application/views/sqlqueries/mapFilters.php",
+            url: "sqlqueries/mapFilters.php",
             //data: "pTableData=" + tableData,
             data: { pTableData:tableData, pBooleanOp:booleanOp, pPointsArray:pointsArray },
             success: function(result) {
@@ -390,7 +390,7 @@
 
         $.ajax({
             type: "POST",
-            url: "application/views/sqlqueries/mapTotals.php",
+            url: "sqlqueries/mapTotals.php",
             data: { pTableData:tableData, pBooleanOp:booleanOp, pPointsArray:pointsArray },
             success: function(result) {
                 //console.log(result);
@@ -413,7 +413,7 @@
                 // Update2: Not needed after MSSQL-to-MySQL migration. MariaDB does not support ST_ISVALID()
                 /*$.ajax({
                     type: "POST",
-                    url: "application/views/sqlqueries/mapPolygonIsValid.php",
+                    url: "sqlqueries/mapPolygonIsValid.php",
                     data: "pPointsArray=" + pointsArray,
                     success: function(result) {
                         if(result == "1") {

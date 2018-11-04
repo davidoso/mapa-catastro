@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Mapa_controller extends CI_Controller {
+class Map_c extends CI_Controller {
 
 	// Mostrar página inicial/home de los filtros y el mapa
 	public function index()
 	{
-		$this->load->model('mapa_model', 'm');
+		$this->load->model('map_m', 'm');
 
 		// Llenar select cbCapas
 		// https://stackoverflow.com/questions/23691396/building-a-select-with-optgroup-from-a-sql-query

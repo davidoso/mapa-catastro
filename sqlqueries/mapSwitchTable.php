@@ -1,5 +1,5 @@
 <?php
-    function switchTable($layer) {
+    function switchTable($field, $value) {
         try {
             $servername = "localhost";
             $database = "catastro_full";
@@ -13,10 +13,10 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $query =
-            "SELECT nombre_tabla FROM ctrl_select_capas WHERE capa = :layer";
+            "SELECT nombre_tabla FROM ctrl_select_capas WHERE $field = :value";
 
             $stmt = $conn->prepare($query);
-            $stmt->bindParam(':layer', $layer, PDO::PARAM_STR);
+            $stmt->bindParam(':value', $value, PDO::PARAM_STR);
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
