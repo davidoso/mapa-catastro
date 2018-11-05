@@ -2,7 +2,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 
-			<div class="modal-header" style="background-color: #eee;" align="center">
+			<div class="modal-header" style="background-color: #e1e1e1;" align="center">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">
 					<img src="images/warning1.png" id="logo-alertaModal" style="height: 60px; width: 60px;">
