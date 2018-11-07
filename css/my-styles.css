@@ -61,6 +61,10 @@ td input[type="checkbox"] {
   margin-right: 3px;
 }
 
+#lbl_rbtnOR {
+  margin-right: 10px;
+}
+
 tr:nth-child(even) {
   background-color: #E5E5E5;
 }

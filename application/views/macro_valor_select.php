@@ -10,4 +10,5 @@
 
     $select = $select . '</select>\';';
     echo $select;
+    echo 'document.getElementById("cbFiltros").focus();' // Poner foco en 3er combobox para ingresar valor
 ?>

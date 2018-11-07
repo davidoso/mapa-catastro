@@ -65,9 +65,10 @@
                     <label for="valor"><span style="color: red;"><b>*</b></span> Opción para unir condiciones:</label>
                     <br>
                     <center>
-                        <input type="radio" name="booleanOps" id="rbtnOR" value="OR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" checked><b> O (OR)</b>
-                        <span style="display: inline-block; width: 6px;"></span>
-                        <input type="radio" name="booleanOps" id="rbtnAND" value="AND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND"><b> Y (AND)</b>
+                        <input type="radio" name="booleanOps" id="rbtnOR" value="OR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" checked>
+                        <b><label for="rbtnOR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" id="lbl_rbtnOR"> O (OR)</label></b>
+                        <input type="radio" name="booleanOps" id="rbtnAND" value="AND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND">
+                        <b><label for="rbtnAND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND"> Y (AND)</label></b>
                     </center>
                     <br>
                 </div>

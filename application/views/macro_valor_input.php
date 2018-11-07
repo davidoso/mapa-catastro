@@ -6,4 +6,5 @@
     $input = str_replace("rmaxlength", $rmaxlength, $input);
 
     echo $input;
+    echo 'document.getElementById("inputFiltro").focus();' // Poner foco en 3er input para ingresar valor
 ?>
