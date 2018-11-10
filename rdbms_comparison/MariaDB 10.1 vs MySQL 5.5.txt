@@ -1,0 +1,58 @@
+-------------
+DIAGNÓSTICO
+-------------
+Webhost 1and1   utiliza MySQL v. 5.5.6
+XAMPP           utiliza MariaDB v. 10.1.31
+
+MySQL 5.5 soporta las funciones espaciales (Contains, Intersects, Within) que pueden reconocer si una figura geométrica está dentro de otra, en el caso del mapa de Catastro Colima, un punto dentro de un polígono con forma de rectángulo, cuadrado o figura libre.
+
+El gran problema es que cualquier función espacial NO ESTÁ IMPLEMENTADA de acuerdo a la especificación de lo que debiera hacer, sino en cuanto a sus funciones homónimas BASADAS EN MBR (MBRContains, MBRIntersects, MBRWithin).
+
+En otras palabras, todas las funciones espaciales de MySQL 5.5. funcionan con MBR, que es el término para Minimal Bounding Rectangles y significa que circunscribe o encierra en un rectángulo la geometría. Por este motivo, las consultas del mapa con un área de influencia en forma de cuadrado o polígono trabajan como si se hubiera dibujado un rectángulo e imprimen marcadores fuera del área.
+
+La función utilizada para el desarrollo del proyecto con MariaDB fue ST_Intersects, la cual exhibe el comportamiento esperado (ver imágenes de consultas de ejemplo).
+
+Las funciones con el prefijo ST_ (Spatial Type) son versiones que cumplen con la especificación, es decir, NO SE BASAN EN MBR. Las funciones ST_ están disponibles a partir de MySQL 5.6
+
+
+
+-------------------
+AÑOS DE VERSIONES
+-------------------
+MySQL 5.5:      2010
+MySQL 5.6:      2013 (El webhost debe soportar de esta versión en adelante)
+MariaDB 10.1:   2014
+MySQL 5.7:      2015
+
+
+
+----------------------
+CONSULTAS DE EJEMPLO
+----------------------
+En MariaDB (resultado correcto): imprime 11 marcadores
+SELECT coord_x, coord_y, lower(tr('BANCOS', 'ÁÉÍÓÚ ', 'AEIOU_')) AS layer
+        FROM generales_tbl_bancos
+        WHERE ST_Intersects(ST_GeomFromText('Polygon((633114.33030691 2129502.3106848, 633119.0374609 2128856.6246462, 634706.76136586 2128886.2038364, 634880.47774749 2127353.8012915, 636230.74072388 2127785.3698631, 635592.54007851 2129888.2432816, 633114.33030691 2129502.3106848))'),
+        ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') ))
+        AND (1 = 1)
+
+En MySQL (resultado incorrecto): imprime 20 marcadores
+SELECT coord_x, coord_y, lower(tr('BANCOS', 'ÁÉÍÓÚ ', 'AEIOU_')) AS layer
+        FROM generales_tbl_bancos
+        WHERE Intersects(GeomFromText('Polygon((633114.33030691 2129502.3106848, 633119.0374609 2128856.6246462, 634706.76136586 2128886.2038364, 634880.47774749 2127353.8012915, 636230.74072388 2127785.3698631, 635592.54007851 2129888.2432816, 633114.33030691 2129502.3106848))'), GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') ))
+        AND (1 = 1)
+
+Nota: En MySQL se eliminó el prefijo ST_ de ST_Intersects y ST_GeomFromText
+phpmyadmin de 1and1: https://my.ionos.mx/phpmyadmin/db760230377
+
+
+
+-------------
+REFERENCIAS
+-------------
+Comparar 2da columna (MySQL 5.5) con penúltima columna (MariaDB 10.1.2)
+https://mariadb.com/kb/en/library/mysqlmariadb-spatial-support-matrix
+
+http://ftp.nchu.edu.tw/MySQL/doc/refman/5.5/en/relations-on-geometry-mbr.html
+
+http://ftp.nchu.edu.tw/MySQL/doc/refman/5.5/en/functions-that-test-spatial-relationships-between-geometries.html
