@@ -15,7 +15,7 @@ class Map_m extends CI_Model {
         return $query->result_array();
 	}
 
-	public function getCampos()
+	/*public function getCampos()
 	{
 		$query =
 		"SELECT SC.capa, CF.campo_frontend AS 'campo' FROM
@@ -24,6 +24,19 @@ class Map_m extends CI_Model {
 
 		$query = $this->db->query($query);
 		return $query->result_array();
+	}*/
+
+	public function getCampos()
+	{
+		$capa = $this->input->get('capa');
+		$this->db->select("CF.campo_frontend AS 'campo'");
+		$this->db->from('ctrl_select_capas as SC');
+		$this->db->join('ctrl_campos_a_filtrar as CF','SC.id_capa = CF.id_capa');
+		$this->db->where('SC.capa', $capa);
+		$this->db->order_by('SC.carpeta, SC.capa');
+
+		$query = $this->db->get();
+		return $query->result();
 	}
 
 	public function getMaterial($dbTable)

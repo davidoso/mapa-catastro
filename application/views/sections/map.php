@@ -1,21 +1,3 @@
-<!-- JavaScript library to convert from decimal coordinates to utm and viceversa -->
-<!-- NOTE: proj4.js did not work so map_dec2utm y map_utm2dc scripts were used instead -->
-<!-- <script type="text/javascript" src="js/map/proj4.js"></script> -->
-
-<!-- OpenLayers stylesheet (contains zoom levels and default controls) downloaded from: -->
-<!-- <link rel="stylesheet" type="text/css" href="https://openlayers.org/en/v4.6.4/css/ol.css" media="screen"> -->
-<link rel="stylesheet" type="text/css" href="css/ol.css">
-
-<!-- jQuery version downloaded from: -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-<!-- OpenLayers JavaScript library v4.6.5 downloaded from: -->
-<!-- <script type="text/javascript" src="https://openlayers.org/en/v4.6.4/build/ol.js"></script> -->
-<script type="text/javascript" src="js/map/ol.js"></script>
-
-
 <script>
     var flickrSource = new ol.source.Vector();
     var boxSource = new ol.source.Vector();
@@ -373,7 +355,6 @@
         $.ajax({
             type: "POST",
             url: "sqlqueries/mapFilters.php",
-            //data: "pTableData=" + tableData,
             data: { pTableData:tableData, pBooleanOp:booleanOp, pPointsArray:pointsArray },
             success: function(result) {
                 //console.log(result);
@@ -459,6 +440,33 @@
         // Close all FAQ accordion tabs when the modal is close
         $("#myModalHelp").on("hidden.bs.modal", function () {
             $('.panel-collapse.in').collapse('hide');
+        });
+
+        $(".bootstrap-select").on("mouseover", function () { // Set combobox text color to white on hover
+            $(this).find(".filter-option-inner-inner").css("color", "white");
+        });
+        $(".bootstrap-select").on("mouseleave", function () { // Set combobox default text color on hover exit
+            $(this).find(".filter-option-inner-inner").css("color", "#2e2e2e");
+        });
+
+        // Same as above functions needed to event binding on dynamically created elements
+        $(document).on("mouseover", ".bootstrap-select", function() {
+            $(this).find(".filter-option-inner-inner").css("color", "white");
+        });
+        $(document).on("mouseleave", ".bootstrap-select", function() {
+            $(this).find(".filter-option-inner-inner").css("color", "#2e2e2e");
+        });
+
+        // Fill 2nd combobox (search columns) depending on the layer selected on the 1st combobox
+        $("#cbCapas").on("change", function () {
+            switchSelectCapa();
+            $(".dropdown-toggle").dropdown('toggle');
+        });
+
+        // Fill 3rd combobox (values) depending on the column-to-search selected on the 2nd combobox
+        $(document).on("change", "#cbCampos", function() {
+            switchSelectCampo();
+            // $(".dropdown-toggle").dropdown('toggle'); ¿?
         });
     }); // $(document).ready()
 </script>

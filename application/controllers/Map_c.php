@@ -3,10 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Map_c extends CI_Controller {
 
+	// Constructor para cargar el modelo
+	public function __construct(){
+		parent::__construct();
+		$this->load->model('map_m', 'm');
+	}
+
 	// Mostrar página inicial/home de los filtros y el mapa
 	public function index()
 	{
-		$this->load->model('map_m', 'm');
+		//$this->load->model('map_m', 'm');
 
 		// Llenar select cbCapas
 		// https://stackoverflow.com/questions/23691396/building-a-select-with-optgroup-from-a-sql-query
@@ -18,16 +24,6 @@ class Map_c extends CI_Controller {
     		);
 		}
 		$data['cbCapas'] = $cbCapas;
-
-		// Llenar select cbCampos (campos a filtrar según capa)
-		$db_campos = $this->m->getCampos();
-		$cbCampos = array();
-		foreach($db_campos as $key => $value) {
-    		$cbCampos[$value['capa']][] = array(
-        		'campo' => $value['campo']
-    		);
-		}
-		$data['cbCampos'] = $cbCampos;
 
 		// Llenar selects de la capa Bancos
 		$data['bancos_servicio'] = $this->m->getBancoServicio();
@@ -59,6 +55,13 @@ class Map_c extends CI_Controller {
 
 		// Cargar página inicial/home de los filtros y el mapa
 		$this->load->view('filter', $data);
+	}
+
+	public function getCampos()
+	{
+		// Llenar select cbCampos (campos a filtrar según capa)
+		$campos = $this->m->getCampos();
+		echo json_encode($campos);
 	}
 }
 ?>

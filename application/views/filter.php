@@ -14,43 +14,43 @@
     <form action="#" id="formFilter" onsubmit="addFilter(); return false">
         <div class="row">
             <div class="col-sm-4">
-                <div class="col-sm-offset-1 col-sm-11" style="text-align: right; border-bottom: 1px solid #F3A530;">
+                <div class="col-sm-12">
+                    <div class="col-sm-offset-1 col-sm-11" style="text-align: right; border-bottom: 1px solid #F3A530;">
                     <label>Preguntas frecuentes</label>
 	                <a data-toggle="modal" data-target="#myModalHelp" style="cursor: pointer;">
 	                    <img src="images/help.png" class="img-circle" title="Preguntas frecuentes" style="height: 32px; width: 32px; margin-bottom: 15px;">
 	                </a>
+                    </div>
                 </div>
-                <div class="col-sm-12" style="margin-top: -20px;">
-                    <br>
-                    <h3 align="left" class="text-info"><strong>Seleccione la capa en donde buscar:</strong></h3>
+                <div class="col-sm-12" style="padding: 0px; margin-top: 20px;">
+                    <div class="col-sm-offset-1 col-sm-2">
+                        <h4 class="text-pink">Capa: </h4>
+                    </div>
+                    <div class="col-sm-9">
+                        <select class="form-control selectpicker show-tick" id="cbCapas" name="cbCapas" title="Seleccione la capa en donde buscar.." data-live-search="true" data-live-search-placeholder="Buscar capa..">
+                            <?php foreach($cbCapas as $key => $value): ?>
+                                <optgroup label="<?php echo $key; ?>">
+                                    <?php foreach($value as $index => $capa): ?>
+                                        <option data-tokens="<?php echo $key; ?>" value="<?php echo $capa['capa']; ?>"><?php echo $capa['capa']; ?></option>
+                                    <?php endforeach; ?>
+                                </optgroup>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <br><br>
                 </div>
-                <div class="col-sm-12">
-                    <label for="capa"><span style="color: red;"><b>*</b></span> Capa:</label>
-                    <select class="form-control" id="cbCapas" name="cbCapas" onchange="switchSelect1()" required>
-                        <option value="">< Seleccionar ></option>
-                        <?php foreach($cbCapas as $key => $value): ?>
-                            <optgroup label="<?php echo $key; ?>">
-                                <?php foreach($value as $index => $capa): ?>
-                                    <option value="<?php echo $capa['capa']; ?>"><?php echo $capa['capa']; ?></option>
-                                <?php endforeach; ?>
-                            </optgroup>
-                        <?php endforeach; ?>
-                    </select>
-                    <br>
-                </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-sm-offset-3 col-sm-7">
                         <button type="button" title="AGREGAR CAPA SIN FILTROS A LA TABLA DE BÚSQUEDA" class="btn btn-success btn-block" onclick="addLayer()" id="btnAddLayer">AGREGAR CAPA&nbsp;
                         <i class="fa fa-plus" aria-hidden="true"></i></button>
                     </div>
-                </div>
-                <div class="col-sm-12">
-                    <h3 align="left" class="text-info"><strong>Seleccione el campo a filtrar:</strong></h3>
-                </div>
-                <div class="col-sm-12">
-                    <label for="campo"><span style="color: red;"><b>*</b></span> Campo:</label>
-                    <select class="form-control" id="cbCampos" name="cbCampos" onchange="switchSelect2()" required>
-                    </select>
+                </div> -->
+                <div class="col-sm-12" style="padding: 0px; margin-top: 20px;">
+                    <div class="col-sm-offset-1 col-sm-2">
+                        <h4 class="text-pink">Campo: </h4>
+                    </div>
+                    <div class="col-sm-9" id="divCampos">
+                    </div>
                 </div>
                 <div class="col-sm-12">
                     <h3 align="left" class="text-info"><strong>Seleccione el valor a filtrar:</strong></h3>
@@ -256,12 +256,12 @@
         for(var i = 0; i < cbCapasOps.length; i++) {
             if(cbCapasOps[i].innerText == capa) {
                 cbCapasOps[i].selected = true;
-                switchSelect1();
+                switchSelectCapa();
                 var cbCamposOps = document.getElementById("cbCampos").options;
                 for(var j = 0; j < cbCamposOps.length; j++) {
                     if(cbCamposOps[j].innerText == campo) {
                         cbCamposOps[j].selected = true;
-                        switchSelect2();
+                        switchSelectCampo();
                         break; // cbCamposOps loop
                     }
                 }
@@ -529,27 +529,64 @@
     }
 
     /* Adaptar opciones del 2do combobox según la capa seleccionada (1er combobox)
-    El array con los campos a filtrar es obtenido de la tabla "ctrl_campos_a_filtrar" */
-    function switchSelect1() {
+    El array con los campos a filtrar es obtenido de la tabla "ctrl_campos_a_filtrar"
+    Update3: Not needed after the AJAX call that fills 2nd combobox (fields) */
+    /*function switchSelectCapa() {
         var cbCapas = document.getElementById("cbCapas");
         var capa = cbCapas.options[cbCapas.selectedIndex].value;
 
         switch(capa) {
-            <?php foreach($cbCampos as $key => $value): ?>
-                case "<?php echo $key; ?>":
+            <X?php foreach($cbCampos as $key => $value): ?>
+                case "<X?php echo $key; ?>":
                     clear(false);
-                    <?php
+                    <X?php
                         echo "cbCampos.options[cbCampos.options.length] = new Option('< Seleccionar >', '');";
                         foreach($value as $index => $campo) {
                         echo "cbCampos.options[cbCampos.options.length] = new Option('" . $campo['campo'] . "', '" . $campo['campo'] . "');";
                         }
                     ?>
                     break;
-            <?php endforeach; ?>
+            <X?php endforeach; ?>
             default:
                 clear(false);
         } // switch(capa)
-    } // function switchSelect1()
+    } // function switchSelectCapa()
+    */
+
+    function switchSelectCapa() {
+        var cbCapas = document.getElementById("cbCapas");
+        var capa = cbCapas.options[cbCapas.selectedIndex].value;
+        var divCampos = document.getElementById("divCampos");
+        //clear(false);
+
+        $("body").css('cursor', 'wait');
+        $.ajax({
+            type: "get",
+            url: "index.php/Map_c/getCampos",
+            data: { capa:capa },
+            dataType: 'json',
+            success: function(data) {
+                // e.g. BANCOS turns to Bancos in the dropdown-header
+                var header = capa.charAt(0) + capa.substring(1).toLowerCase();
+                var campos = "";
+                $(data).each(function(k, v) {
+                    campos += '<option value="' + v.campo + '">' + v.campo + '</option>';
+                });
+                divCampos.innerHTML = null;
+                divCampos.innerHTML = '<select class="form-control selectpicker show-tick" id="cbCampos" name="cbCampos" title="Seleccione el campo a filtrar.."><optgroup label="' + header + '">'+ campos + '</select>';
+                $('#cbCampos').selectpicker({
+				    style: 'btn-info',
+				    size: 10
+                });
+                $('#cbCampos').selectpicker('refresh');
+                $("body").css('cursor', 'auto');
+            },
+            error: function() {
+                console.log("Error! switchSelectCapa() failed. Search columns could not be retrieved");
+                $("body").css('cursor', 'auto');
+            }
+        }); // AJAX
+    }
 
     //  Adaptar opciones del 3er combobox según el campo seleccionado (2do combobox)
     //  Hay 2 opciones para ingresar valores de búsqueda:
@@ -557,7 +594,7 @@
     //  la clase a validar (vLetras, vNumeros, o vAlfanumerico), el placeholder y el maxlength del input; y
     //  2. Mediante SELECTS: esta vista recibe del controlador arrays con los valores disponibles para el campo
     //  en cuestión y los envía a "macro_valor_select". Sólo se debe especificar el nombre del array
-    function switchSelect2() {
+    function switchSelectCampo() {
         var cbCapas = document.getElementById("cbCapas");
         var capa = cbCapas.options[cbCapas.selectedIndex].value;
 
@@ -576,7 +613,7 @@
                             <?php
                                 $data = array(
                                     'rclass' => "vAlfanumerico",
-                                    'rplaceholder' => "Ingresa el banco a buscar",
+                                    'rplaceholder' => "Ingrese el banco a buscar",
                                     'rmaxlength' => 30
                                 );
                                 $this->load->view('macro_valor_input', $data);
@@ -601,7 +638,7 @@
                             <?php
                                 $data = array(
                                     'rclass' => "vAlfanumerico",
-                                    'rplaceholder' => "Ingresa el hotel a buscar",
+                                    'rplaceholder' => "Ingrese el hotel a buscar",
                                     'rmaxlength' => 30
                                 );
                                 $this->load->view('macro_valor_input', $data);
@@ -748,7 +785,7 @@
 
         //
         // Nota: estas validaciones no pueden estar afuera en $document.ready como normalmente debiera ser
-        // porque jQuery NO detecta cambios en DOM (inputs incrustados con innerHTML en switchSelect2)
+        // porque jQuery NO detecta cambios en DOM (inputs incrustados con innerHTML en switchSelectCampo)
         //
 
         // Hacer todos los textbox mayúsculas cuando pierden el foco
@@ -783,7 +820,7 @@
 	    function validarAlfanumerico(charCode){
 			return (validarLetras(charCode) || validarNumeros(charCode) || charCode == 45); // 45 es '-'
         }
-    } // function switchSelect2()
+    } // function switchSelectCampo()
 </script>
 
 <?php $this->load->view('sections/map'); ?>

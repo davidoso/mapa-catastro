@@ -29,8 +29,13 @@
   height: 195px;
 }
 
-h3, h4, h5, h6 {
+.selectpicker, h3, h4, h5, h6 {
   font-family: 'ColabReg' !important;
+}
+
+.filter-option-inner-inner, .bs-caret {
+  font-size: 1.1em !important;
+  color: #2e2e2e;
 }
 
 @font-face {
