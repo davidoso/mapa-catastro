@@ -35,29 +35,42 @@ class Map_m extends CI_Model {
 		$capa = $this->input->get('capa');
 		$campo = $this->input->get('campo');
 
-		//switch($campo) {
-			//default:
-			$this->db->select("SC.nombre_tabla AS 'nombre_tabla', NC.columna_bd AS 'columna_bd'");
-			$this->db->from('ctrl_select_capas AS SC');
-			$this->db->join('ctrl_campos_a_filtrar AS CF','SC.id_capa = CF.id_capa');
-			$this->db->join('ctrl_nombre_columnas AS NC','CF.campo_frontend = NC.columna_frontend');
-			$this->db->where('SC.capa', $capa);
-			$this->db->where('CF.campo_frontend', $campo);
-		//}
+		$this->db->select("SC.nombre_tabla AS 'nombre_tabla', NC.columna_bd AS 'columna_bd'");
+		$this->db->from('ctrl_select_capas AS SC');
+		$this->db->join('ctrl_campos_a_filtrar AS CF','SC.id_capa = CF.id_capa');
+		$this->db->join('ctrl_nombre_columnas AS NC','CF.campo_frontend = NC.columna_frontend');
+		$this->db->where('SC.capa', $capa);
+		$this->db->where('CF.campo_frontend', $campo);
+
 		$query = $this->db->get()->row_array();
 		$nombre_tabla = $query['nombre_tabla'];
 		$columna_bd = $query['columna_bd'];
 
-		$queryException = $this->valueExceptions($capa, $campo, $nombre_tabla);
-		if(!$queryException) {
-			$this->db->select('DISTINCT(UPPER(' . $columna_bd . ')) AS valor');
-			$this->db->order_by(1);
-			$query = $this->db->get($nombre_tabla);
-
-			return $query->result();
-		}
-		else {
-			return $queryException;
+		switch($campo) {
+			case "MATERIAL":
+				$this->db->select("DISTINCT(UPPER(C.material)) AS 'valor'");
+				$this->db->from($nombre_tabla . ' AS T');
+				$this->db->join('ct_material AS C','T.id_material = C.id_material');
+				$this->db->order_by(1);
+				$query = $this->db->get();
+				return $query->result();
+			case "CONDICIÓN FÍSICA":
+				$this->db->select("DISTINCT(UPPER(C.cond_fisica)) AS 'valor'");
+				$this->db->from($nombre_tabla . ' AS T');
+				$this->db->join('ct_cond_fisica AS C','T.id_cond_fisica = C.id_cond_fisica');
+				$query = $this->db->get();
+				return $query->result();
+			default:
+				$queryException = $this->valueExceptions($capa, $campo, $nombre_tabla);
+				if(!$queryException) {
+					$this->db->select('DISTINCT(UPPER(' . $columna_bd . ')) AS valor');
+					$this->db->order_by(1);
+					$query = $this->db->get($nombre_tabla);
+					return $query->result();
+				}
+				else {
+					return $queryException;
+				}
 		}
 	}
 
@@ -68,13 +81,13 @@ class Map_m extends CI_Model {
 			case "LUMINARIAS":
 				if($campo == "FUENTE") {
 					$this->db->select("DISTINCT(UPPER(IFNULL(f_secundaria, 'SIN FUENTE'))) AS valor");
+					$this->db->order_by(1);
 					$exception = true;
 				}
 				break;
 			case "TELÉFONOS PÚBLICOS":
 				if($campo == "FUNCIONA") {
 					$this->db->select('DISTINCT(UPPER(funciona)) AS valor');
-					$this->db->order_by(1);
 					$exception = true;
 				}
 				break;
@@ -114,6 +127,11 @@ class Map_m extends CI_Model {
 
 	public function getCondFisica($dbTable)
 	{
+		$query =
+		"SELECT DISTINCT(C.cond_fisica) FROM
+		dbTable T
+		JOIN ct_cond_fisica C ON T.id_cond_fisica = C.id_cond_fisica";
+
 		$query = str_replace("dbTable", $dbTable, $query);
 		$query = $this->db->query($query);
         return $query->result_array();

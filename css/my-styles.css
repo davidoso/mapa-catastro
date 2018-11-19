@@ -57,8 +57,16 @@ td input[type="checkbox"] {
   cursor: not-allowed;
 }
 
+.divOption {
+  padding: 0px;
+  margin-top: 20px;
+}
+
+#divRbtns {
+  margin-top: -4px;
+}
+
 #rbtnOR {
-  margin-left: -6px;
   margin-right: 3px;
 }
 
@@ -67,7 +75,7 @@ td input[type="checkbox"] {
 }
 
 #lbl_rbtnOR {
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 tr:nth-child(even) {

@@ -1,12 +1,11 @@
 Cosas por hacer:
-    * Alinear rbtns y selectbox área de influencia (bootstrap-selectipicker) a la izq
+    * Acomodar divFiltros (no está bien cerrado con col-sm-4 y row)
     * Acomodar sección Help
     * Dropdown con 5 opciones (en vez de botones, abajito de la línea dorada). Se abre con hover
     * Spans con mensajes de error si se agrega capa sin seleccionar o filtro sin campo/valor
     * Mensajes de error con valor nulo o regex que no sea alfanumérico (si se copia texto)
     * Eliminar todos los comentarios y archivos inútiles como macros al subir en webhost
     * Borrar switchselecc1() y 2
-    * Campos cond_fisica y material en getValores() en Map_c
     * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
     * Nueva versión de readme.md
 

@@ -465,13 +465,21 @@
 
         // Fill 2nd combobox (search columns) depending on the layer selected on the 1st combobox
         $("#cbCapas").on("change", function () {
+            document.getElementById("divValores").innerHTML = null;
             switchSelectCapa();
         });
 
         // Fill 3rd combobox (values) depending on the column-to-search selected on the 2nd combobox
         $(document).on("change", "#cbCampos", function() {
-            //switchSelectCampo();
-            switchSelectCampoTest();
+            switchSelectCampo();
+        });
+
+        $(document).on("change", "#cbValues", function() { // Set combobox default text color on hover exit
+            $(this).trigger('mouseleave'); // NOTA: PONER FOCUS EN OPCIÓN AGREGAR FILTRO DE DROPDOWN
+        });
+
+        $("#cbShapes").on("change", function () { // Set combobox default text color on hover exit
+            $(this).trigger('mouseleave');
         });
 
         // Trim and convert to uppercase inputs on focus out
@@ -492,16 +500,16 @@
         });
 
         // Allow/block keys depending on the input class
-	    function validarLetras(charCode){
+	    function validarLetras(charCode) {
 		    return !(charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)
 				&& charCode != 32 && (charCode <= 192 || charCode >= 255));
         }
 
-        function validarNumeros(charCode){
+        function validarNumeros(charCode) {
 		    return !(charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 32 && (charCode <= 192 || charCode >= 255));
         }
 
-	    function validarAlfanumerico(charCode){
+	    function validarAlfanumerico(charCode) {
 			return (validarLetras(charCode) || validarNumeros(charCode));
         }
     }); // $(document).ready()

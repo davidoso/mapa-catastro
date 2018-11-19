@@ -22,7 +22,7 @@
 	                </a>
                     </div>
                 </div>
-                <div class="col-sm-12" style="padding: 0px; margin-top: 20px;">
+                <div class="col-sm-12 divOption">
                     <div class="col-sm-offset-1 col-sm-2">
                         <h4 class="text-pink">Capa: </h4>
                     </div>
@@ -37,60 +37,58 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <br><br>
                 </div>
-                <!-- <div class="row">
-                    <div class="col-sm-offset-3 col-sm-7">
-                        <button type="button" title="AGREGAR CAPA SIN FILTROS A LA TABLA DE BÚSQUEDA" class="btn btn-success btn-block" onclick="addLayer()" id="btnAddLayer">AGREGAR CAPA&nbsp;
-                        <i class="fa fa-plus" aria-hidden="true"></i></button>
-                    </div>
-                </div> -->
-                <div class="col-sm-12" style="padding: 0px; margin-top: 20px;">
+                <div class="col-sm-12 divOption">
                     <div class="col-sm-offset-1 col-sm-2">
                         <h4 class="text-pink">Campo: </h4>
                     </div>
                     <div class="col-sm-9" id="divCampos">
                     </div>
                 </div>
-                <div class="col-sm-12" style="padding: 0px; margin-top: 20px;">
+                <div class="col-sm-12 divOption">
                     <div class="col-sm-offset-1 col-sm-2">
                         <h4 class="text-pink">Valor: </h4>
                     </div>
                     <div class="col-sm-9" id="divValores">
                     </div>
                 </div>
-                <div class="col-sm-12">
-                    <h3 align="left" class="text-info"><strong>Seleccione el valor a filtrar:</strong></h3>
+                <div class="col-sm-12 divOption">
+                    <div class="col-sm-offset-1 col-sm-5">
+                        <h4 class="text-pink">Opción para unir condiciones: </h4>
+                    </div>
+                    <div class="col-sm-6" id="divRbtns">
+                        <br>
+                        <center>
+                            <input type="radio" name="booleanOps" id="rbtnOR" value="OR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" checked>
+                            <b><label for="rbtnOR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" id="lbl_rbtnOR"> O (OR)</label></b>
+                            <input type="radio" name="booleanOps" id="rbtnAND" value="AND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND">
+                            <b><label for="rbtnAND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND"> Y (AND)</label></b>
+                        </center>
+                    </div>
                 </div>
-                <div class="col-sm-12">
-                    <label for="valor"><span style="color: red;"><b>*</b></span> Valor:</label>
-                    <div id="divFiltros" style="margin-bottom: 50px;"> <!-- Mantener botones en misma posición -->
+                <div class="col-sm-12 divOption">
+                    <div class="col-sm-offset-1 col-sm-5">
+                        <h4 class="text-pink">Área de influencia: </h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="form-control selectpicker show-tick" id="cbShapes" name="cbShapes">
+                            <option value="Box">RECTÁNGULO</option>
+                            <option value="Square">CUADRADO</option>
+                            <option value="Polygon">POLÍGONO</option>
+                            <option value="None">NINGUNA</option>
+                        </select>
+                    </div>
                 </div>
+
+                <div id="divFiltros" style="margin-bottom: 50px;"> <!-- Mantener botones en misma posición -->
             </div> <!-- col-sm-4 -->
-            <div class="col-sm-12" style="margin-bottom: 20px;">
-                <div class="col-sm-7" style="padding: 0px;">
-                    <label for="valor"><span style="color: red;"><b>*</b></span> Opción para unir condiciones:</label>
-                    <br>
-                    <center>
-                        <input type="radio" name="booleanOps" id="rbtnOR" value="OR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" checked>
-                        <b><label for="rbtnOR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" id="lbl_rbtnOR"> O (OR)</label></b>
-                        <input type="radio" name="booleanOps" id="rbtnAND" value="AND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND">
-                        <b><label for="rbtnAND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND"> Y (AND)</label></b>
-                    </center>
-                    <br>
+            <!-- <div class="row">
+                <div class="col-sm-offset-3 col-sm-7">
+                    <button type="button" title="AGREGAR CAPA SIN FILTROS A LA TABLA DE BÚSQUEDA" class="btn btn-success btn-block" onclick="addLayer()" id="btnAddLayer">AGREGAR CAPA&nbsp;
+                    <i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
-                <div class="col-sm-5" style="padding: 0px;">
-                    <label for="valor"><span style="color: red;"><b>*</b></span> Área de influencia:</label>
-                    <select class="form-control" id="cbShapes" name="cbShapes">
-                        <option value="Box">RECTÁNGULO</option>
-                        <option value="Square">CUADRADO</option>
-                        <option value="Polygon">POLÍGONO</option>
-                        <option value="None">NINGUNA</option>
-                    </select>
-                    <br>
-                </div>
-            </div>
-            <div class="col-sm-12" style="margin-left: 15px; margin-bottom: 20px;">
+            </div> -->
+            <!-- <div class="col-sm-12" style="margin-left: 15px; margin-bottom: 20px;">
                 <div class="col-sm-6">
                     <button type="submit" title="AGREGAR FILTRO A LA TABLA DE BÚSQUEDA" class="btn btn-success btn-block" id="btnAddFilter">AGREGAR FILTRO&nbsp;
                     <i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -109,7 +107,7 @@
                     <button type="button" title="LIMPIAR TODOS LOS FILTROS" class="btn btn-danger btn-block" onclick="deleteFilters()" id="btnClearAll">LIMPIAR TODO&nbsp;
                     <i class="fa fa-undo" aria-hidden="true"></i></button>
                 </div>
-            </div>
+            </div> -->
         </div> <!-- row -->
 
         <div class="col-sm-8" style="margin-top: -50px;">
@@ -832,7 +830,7 @@
         }
     } // function switchSelectCampo()*/
 
-    function switchSelectCampoTest() {
+    function switchSelectCampo() {
         var cbCapas = document.getElementById("cbCapas");
         var capa = cbCapas.options[cbCapas.selectedIndex].value;
         var cbCampos = document.getElementById("cbCampos");
