@@ -27,7 +27,7 @@
                         <h4 class="text-pink">Capa: </h4>
                     </div>
                     <div class="col-sm-9">
-                        <select class="form-control selectpicker show-tick" id="cbCapas" name="cbCapas" title="Seleccione la capa en donde buscar.." data-live-search="true" data-live-search-placeholder="Buscar capa..">
+                        <select class="form-control selectpicker show-tick" id="cbCapas" name="cbCapas" title="Seleccione la capa en donde buscar.." data-live-search="true" data-live-search-placeholder="Buscar capa.." data-live-search-style="contains">
                             <?php foreach($cbCapas as $key => $value): ?>
                                 <optgroup label="<?php echo $key; ?>">
                                     <?php foreach($value as $index => $capa): ?>
@@ -50,6 +50,13 @@
                         <h4 class="text-pink">Campo: </h4>
                     </div>
                     <div class="col-sm-9" id="divCampos">
+                    </div>
+                </div>
+                <div class="col-sm-12" style="padding: 0px; margin-top: 20px;">
+                    <div class="col-sm-offset-1 col-sm-2">
+                        <h4 class="text-pink">Valor: </h4>
+                    </div>
+                    <div class="col-sm-9" id="divValores">
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -313,10 +320,10 @@
 
             cell0.innerHTML = capa;
             cell1.innerHTML = campo;
-            if(document.getElementById("cbFiltros"))
-                cell2.innerHTML = document.getElementById("cbFiltros").options[document.getElementById("cbFiltros").selectedIndex].text;
-            if(document.getElementById("inputFiltro"))
-                cell2.innerHTML = document.getElementById("inputFiltro").value;
+            if(document.getElementById("cbValores"))
+                cell2.innerHTML = document.getElementById("cbValores").options[document.getElementById("cbValores").selectedIndex].text;
+            if(document.getElementById("inputValor"))
+                cell2.innerHTML = document.getElementById("inputValor").value;
 
             cell3.innerHTML = '<button class="btnDeleteRow" type="button" onclick="deleteRow(this)" title="Eliminar"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button><button type="button" onclick="updateRow(this)" title="Editar"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></button>';
             row.cells[3].setAttribute("style", "text-align: center;"); // Centrar botones Eliminar/Actualizar
@@ -449,10 +456,10 @@
         var rowToReplace = checkLayerWithoutFilters(capa, false);
 
         table.rows[rowToReplace].cells[1].innerHTML = campo;
-        if(document.getElementById("cbFiltros"))
-            table.rows[rowToReplace].cells[2].innerHTML = document.getElementById("cbFiltros").options[document.getElementById("cbFiltros").selectedIndex].text;
-        if(document.getElementById("inputFiltro"))
-            table.rows[rowToReplace].cells[2].innerHTML = document.getElementById("inputFiltro").value;
+        if(document.getElementById("cbValores"))
+            table.rows[rowToReplace].cells[2].innerHTML = document.getElementById("cbValores").options[document.getElementById("cbValores").selectedIndex].text;
+        if(document.getElementById("inputValor"))
+            table.rows[rowToReplace].cells[2].innerHTML = document.getElementById("inputValor").value;
 
         /* Si el botón Agregar Filtro se encuentra en modo edición y se edita un filtro con una capa que ya
         estaba en la tabla sin filtros previos, se reemplaza el texto "(SIN FILTROS)" en las columnas
@@ -550,24 +557,23 @@
             default:
                 clear(false);
         } // switch(capa)
-    } // function switchSelectCapa()
-    */
+    } // function switchSelectCapa()*/
 
     function switchSelectCapa() {
         var cbCapas = document.getElementById("cbCapas");
         var capa = cbCapas.options[cbCapas.selectedIndex].value;
         var divCampos = document.getElementById("divCampos");
         //clear(false);
-
         $("body").css('cursor', 'wait');
+
         $.ajax({
             type: "get",
             url: "index.php/Map_c/getCampos",
             data: { capa:capa },
             dataType: 'json',
             success: function(data) {
-                // e.g. BANCOS turns to Bancos in the dropdown-header
-                var header = capa.charAt(0) + capa.substring(1).toLowerCase();
+                // e.g. 'BANCOS' turns to 'Capa: Bancos' in the dropdown-header
+                var header = "Capa: " + capa.charAt(0) + capa.substring(1).toLowerCase();
                 var campos = "";
                 $(data).each(function(k, v) {
                     campos += '<option value="' + v.campo + '">' + v.campo + '</option>';
@@ -578,7 +584,11 @@
 				    style: 'btn-info',
 				    size: 10
                 });
-                $('#cbCampos').selectpicker('refresh');
+                $('#cbCapas').trigger('mouseleave');
+                $('#cbCampos').focus();
+                $('#cbCampos').selectpicker('toggle');
+                /*$('#cbCampos').parent().addClass('open'); // This way the searchbox isn't focused
+                $('#cbCampos').selectpicker('refresh');*/
                 $("body").css('cursor', 'auto');
             },
             error: function() {
@@ -594,7 +604,7 @@
     //  la clase a validar (vLetras, vNumeros, o vAlfanumerico), el placeholder y el maxlength del input; y
     //  2. Mediante SELECTS: esta vista recibe del controlador arrays con los valores disponibles para el campo
     //  en cuestión y los envía a "macro_valor_select". Sólo se debe especificar el nombre del array
-    function switchSelectCampo() {
+    /*function switchSelectCampo() {
         var cbCapas = document.getElementById("cbCapas");
         var capa = cbCapas.options[cbCapas.selectedIndex].value;
 
@@ -610,7 +620,7 @@
                 switch(campo) {
                     case "NOMBRE":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data = array(
                                     'rclass' => "vAlfanumerico",
                                     'rplaceholder' => "Ingrese el banco a buscar",
@@ -621,7 +631,7 @@
                         break;
                     case "SERVICIO":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $bancos_servicio;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -635,7 +645,7 @@
                 switch(campo) {
                     case "NOMBRE":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data = array(
                                     'rclass' => "vAlfanumerico",
                                     'rplaceholder' => "Ingrese el hotel a buscar",
@@ -653,21 +663,21 @@
                 switch(campo) {
                     case "EMPRESA":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $postes_empresa;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "MATERIAL":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $postes_material;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "CONDICIÓN FÍSICA":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $postes_cond_fisica;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -681,28 +691,28 @@
                 switch(campo) {
                     case "EMPRESA":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $telefonos_empresa;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "TIPO":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $telefonos_tipo;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "FUNCIONA":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $telefonos_funciona;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "CONDICIÓN FÍSICA":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $telefonos_cond_fisica;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -716,21 +726,21 @@
                 switch(campo) {
                     case "FUENTE":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $luminarias_fuente;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "MATERIAL":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $luminarias_material;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "CONDICIÓN FÍSICA":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $luminarias_cond_fisica;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -744,14 +754,14 @@
                 switch(campo) {
                     case "ÉPOCA":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $monumentos_epoca;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "GÉNERO ARQUITECTÓNICO":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $monumentos_genero_arquitectonico;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -765,14 +775,14 @@
                 switch(campo) {
                     case "MATERIAL":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $panteon_material;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "CONDICIÓN FÍSICA":
                         div.innerHTML =
-                            <?php
+                            <X?php
                                 $data['dbarray'] = $panteon_cond_fisica;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -818,9 +828,69 @@
         }
 
 	    function validarAlfanumerico(charCode){
-			return (validarLetras(charCode) || validarNumeros(charCode) || charCode == 45); // 45 es '-'
+			return (validarLetras(charCode) || validarNumeros(charCode));
         }
-    } // function switchSelectCampo()
+    } // function switchSelectCampo()*/
+
+    function switchSelectCampoTest() {
+        var cbCapas = document.getElementById("cbCapas");
+        var capa = cbCapas.options[cbCapas.selectedIndex].value;
+        var cbCampos = document.getElementById("cbCampos");
+        var campo = cbCampos.options[cbCampos.selectedIndex].value;
+        var divValores = document.getElementById("divValores");
+        $("body").css('cursor', 'wait');
+
+        if(campo == "NOMBRE") {
+            var my_class, my_placeholder, my_maxlength;
+            switch(capa) {
+                case "BANCOS":
+                    my_class = "vAlfanumerico";
+                    my_placeholder = "Ingrese el banco a buscar";
+                    my_maxlength = 30;
+                    break;
+                case "HOTELES":
+                    my_class = "vAlfanumerico";
+                    my_placeholder = "Ingrese el hotel a buscar";
+                    my_maxlength = 30;
+                    break;
+            }
+            divValores.innerHTML = null;
+            divValores.innerHTML = '<input type="text" class="form-control ' + my_class + '" id="inputValor" name="inputValor" placeholder="' + my_placeholder + '" maxlength="' + my_maxlength + '">';
+            $('#cbCampos').trigger('mouseleave');
+            $('#inputValor').focus();
+            $("body").css('cursor', 'auto');
+        } // if (campo == "NOMBRE")
+        else {
+            $.ajax({
+                type: "get",
+                url: "index.php/Map_c/getValores",
+                data: { capa:capa, campo:campo },
+                dataType: 'json',
+                success: function(data) {
+                    // e.g. 'CONDICIÓN FÍSICA' turns to 'Campo: Condición física' in the dropdown-header
+                    var header = "Campo: " + campo.charAt(0) + campo.substring(1).toLowerCase();
+                    var valores = "";
+                    $(data).each(function(k, v) {
+                        valores += '<option value="' + v.valor + '">' + v.valor + '</option>';
+                    });
+                    divValores.innerHTML = null;
+                    divValores.innerHTML = '<select class="form-control selectpicker show-tick" id="cbValores" name="cbValores" title="Seleccione el valor a filtrar.." data-live-search="true" data-live-search-placeholder="Buscar valor.." data-live-search-style="contains"><optgroup label="' + header + '">'+ valores + '</select>';
+                    $('#cbValores').selectpicker({
+                        style: 'btn-info',
+                        size: 10
+                    });
+                    $('#cbCampos').trigger('mouseleave');
+                    $('#cbValores').focus();
+                    $('#cbValores').selectpicker('toggle');
+                    $("body").css('cursor', 'auto');
+                },
+                error: function() {
+                    console.log("Error! switchSelectCampo() failed. Values could not be retrieved");
+                    $("body").css('cursor', 'auto');
+                }
+            }); // AJAX
+        } // else (campo == "NOMBRE")
+    }
 </script>
 
 <?php $this->load->view('sections/map'); ?>

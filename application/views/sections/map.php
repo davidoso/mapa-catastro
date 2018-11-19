@@ -445,12 +445,18 @@
         $(".bootstrap-select").on("mouseover", function () { // Set combobox text color to white on hover
             $(this).find(".filter-option-inner-inner").css("color", "white");
         });
+        $(".bootstrap-select").on("focus", function () { // Set combobox text color to white on focus
+            $(this).find(".filter-option-inner-inner").css("color", "white");
+        });
         $(".bootstrap-select").on("mouseleave", function () { // Set combobox default text color on hover exit
             $(this).find(".filter-option-inner-inner").css("color", "#2e2e2e");
         });
 
         // Same as above functions needed to event binding on dynamically created elements
         $(document).on("mouseover", ".bootstrap-select", function() {
+            $(this).find(".filter-option-inner-inner").css("color", "white");
+        });
+        $(document).on("focusin", ".bootstrap-select", function() {
             $(this).find(".filter-option-inner-inner").css("color", "white");
         });
         $(document).on("mouseleave", ".bootstrap-select", function() {
@@ -460,13 +466,43 @@
         // Fill 2nd combobox (search columns) depending on the layer selected on the 1st combobox
         $("#cbCapas").on("change", function () {
             switchSelectCapa();
-            $(".dropdown-toggle").dropdown('toggle');
         });
 
         // Fill 3rd combobox (values) depending on the column-to-search selected on the 2nd combobox
         $(document).on("change", "#cbCampos", function() {
-            switchSelectCampo();
-            // $(".dropdown-toggle").dropdown('toggle'); ¿?
+            //switchSelectCampo();
+            switchSelectCampoTest();
         });
+
+        // Trim and convert to uppercase inputs on focus out
+        $(document).on("focusout", "input[type=text]", function() { // NOTA: VALIDAR TEXTO COPIADO AQUÍ
+            this.value = this.value.toUpperCase().trim();
+        });
+        $(document).on("keypress", ".vLetras", function(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            return validarLetras(charCode);
+        });
+        $(document).on("keypress", ".vNumeros", function(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            return validarNumeros(charCode);
+        });
+        $(document).on("keypress", ".vAlfanumerico", function(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            return validarAlfanumerico(charCode);
+        });
+
+        // Allow/block keys depending on the input class
+	    function validarLetras(charCode){
+		    return !(charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)
+				&& charCode != 32 && (charCode <= 192 || charCode >= 255));
+        }
+
+        function validarNumeros(charCode){
+		    return !(charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 32 && (charCode <= 192 || charCode >= 255));
+        }
+
+	    function validarAlfanumerico(charCode){
+			return (validarLetras(charCode) || validarNumeros(charCode));
+        }
     }); // $(document).ready()
 </script>

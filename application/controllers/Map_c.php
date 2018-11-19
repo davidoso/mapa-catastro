@@ -12,8 +12,6 @@ class Map_c extends CI_Controller {
 	// Mostrar página inicial/home de los filtros y el mapa
 	public function index()
 	{
-		//$this->load->model('map_m', 'm');
-
 		// Llenar select cbCapas
 		// https://stackoverflow.com/questions/23691396/building-a-select-with-optgroup-from-a-sql-query
 		$db_capas = $this->m->getCapas();
@@ -26,7 +24,7 @@ class Map_c extends CI_Controller {
 		$data['cbCapas'] = $cbCapas;
 
 		// Llenar selects de la capa Bancos
-		$data['bancos_servicio'] = $this->m->getBancoServicio();
+		/*$data['bancos_servicio'] = $this->m->getBancoServicio();
 
 		// Llenar selects de la capa Postes
 		$data['postes_empresa'] = $this->m->getEmpresa("generales_tbl_postes");
@@ -50,7 +48,7 @@ class Map_c extends CI_Controller {
 
 		// Llenar selects de la capa Panteón
 		$data['panteon_material'] = $this->m->getMaterial("registro_civil_tbl_panteon_municipal");
-		$data['panteon_cond_fisica'] = $this->m->getCondFisica("registro_civil_tbl_panteon_municipal");
+		$data['panteon_cond_fisica'] = $this->m->getCondFisica("registro_civil_tbl_panteon_municipal");*/
 
 
 		// Cargar página inicial/home de los filtros y el mapa
@@ -62,6 +60,14 @@ class Map_c extends CI_Controller {
 		// Llenar select cbCampos (campos a filtrar según capa)
 		$campos = $this->m->getCampos();
 		echo json_encode($campos);
+	}
+
+	public function getValores()
+	{
+		/* Llenar select cbValores (valores a filtrar según campo de la capa). Sólo aplica para campos con un
+		rango de valores preestablecidos, como Material, Cond_Física o Empresa */
+		$valores = $this->m->getValores();
+		echo json_encode($valores);
 	}
 }
 ?>

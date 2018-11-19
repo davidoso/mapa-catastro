@@ -1,0 +1,15 @@
+Cosas por hacer:
+    * Alinear rbtns y selectbox área de influencia (bootstrap-selectipicker) a la izq
+    * Acomodar sección Help
+    * Dropdown con 5 opciones (en vez de botones, abajito de la línea dorada). Se abre con hover
+    * Spans con mensajes de error si se agrega capa sin seleccionar o filtro sin campo/valor
+    * Mensajes de error con valor nulo o regex que no sea alfanumérico (si se copia texto)
+    * Eliminar todos los comentarios y archivos inútiles como macros al subir en webhost
+    * Borrar switchselecc1() y 2
+    * Campos cond_fisica y material en getValores() en Map_c
+    * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
+    * Nueva versión de readme.md
+
+Ideas:
+    * Si queda mucho espacio en blanco en la columna izquierda, hacer el div de Filtros agregados a su altura y el mapa todo a lo largo
+    * Datatable en di Filtros agregados (1 sola tabla con totales y ops de editar/eliminar). Reestructurar todas las funciones de filter sin HTML DOM Table cells
