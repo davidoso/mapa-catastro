@@ -442,10 +442,15 @@
             $('.panel-collapse.in').collapse('hide');
         });
 
+        /*$(".bootstrap-select").hover(function() {
+                $(this).find(".filter-option-inner-inner").css("color", "white"); },
+            function() {
+                $(this).find(".filter-option-inner-inner").css("color", "#2e2e2e");
+        });*/
         $(".bootstrap-select").on("mouseover", function () { // Set combobox text color to white on hover
             $(this).find(".filter-option-inner-inner").css("color", "white");
         });
-        $(".bootstrap-select").on("focus", function () { // Set combobox text color to white on focus
+        $(".bootstrap-select").on("focusin", function () { // Set combobox text color to white on focus
             $(this).find(".filter-option-inner-inner").css("color", "white");
         });
         $(".bootstrap-select").on("mouseleave", function () { // Set combobox default text color on hover exit

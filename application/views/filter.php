@@ -11,22 +11,87 @@
 -->
 	<?php $this->load->view('sections/header'); ?>
 
-    <form action="#" id="formFilter" onsubmit="addFilter(); return false">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="col-sm-12">
+    <!-- <form action="#" id="formFilter" onsubmit="addFilter(); return false"> -->
+        <div class="row" style="background: yellow; height: 84vh;">
+            <div class="col-sm-5" style="height: 100%;">
+                <!-- <div class="col-sm-12">
                     <div class="col-sm-offset-1 col-sm-11" style="text-align: right; border-bottom: 1px solid #F3A530;">
                     <label>Preguntas frecuentes</label>
 	                <a data-toggle="modal" data-target="#myModalHelp" style="cursor: pointer;">
 	                    <img src="images/help.png" class="img-circle" title="Preguntas frecuentes" style="height: 32px; width: 32px; margin-bottom: 15px;">
 	                </a>
                     </div>
-                </div>
+                </div> -->
+     
+ <!-- <table class="table table-striped table-bordered" id="myDataTable" width="100%" cellspacing="0">
+                <thead class="tbl-blue-th">
+                    <tr>
+                        <th width="25%">Capa</th>
+                        <th width="50%">Campo</th>
+                        <th width="20%">Valor</th>
+                        <th width="20%">Totales</th>
+                        <th width="5%"><i class="fa fa-download" title="Descargar"></i></th>
+                    </tr>
+                </thead>
+                <tfoot class="tbl-blue-th">
+                    <tr>
+                        <th width="25%">Capa</th>
+                        <th width="50%">Campo</th>
+                        <th width="20%">Valor</th>
+                        <th width="20%">Totales</th>
+                        <th width="5%"><i class="fa fa-download" title="Descargar"></i></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                <td> MONUMENTOS HSITORICOS</td>
+                <td> GENERO ARQUITECTONICO</td>
+                <td> JARDIN HISTORICO</td>
+                <td> -</td>
+                </tbody>
+            </table> -->
+            <div class="panel-group" id="accordion"> <!-- panel-group -->
+                    
+                    <div class="panel panel-success" style="border-top: #aaa;"> <!-- accordion -->
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a title="Mostrar/ocultar tabla de filtros de búsqueda agregados" data-toggle="collapse" data-parent="#accordion" href="#filtrosAgregados" onclick="return expandCollapseAccordion()">
+                                Filtros de búsqueda agregados <i id="faFiltros" class="fa fa-compress" aria-hidden="true"></i>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="filtrosAgregados" class="collapse in"> <!-- panel-collapse -->
+                            <div class="panel-body"> <!-- panel-body -->
+
+
+                    <div class="col-sm-6">
+                        <div class="btn-group btn-flex">
+                            <button type="button" class="btn btn-warning">
+                    <i class="fa fa-search fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;CONSULTAR</button>
+                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu" id="dropdown-options">
+                                <li style="width: 90%;"><a href="#"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;AGREGAR CAPA</a></li>
+                                <li style="font-family: helvetica; width: 10%;"><i id='iHelp' class='fa fa-info-circle' data-toggle='tooltip' data-placement='right' title='Agregar capa sin filtros a la tabla de búsqueda'></i></li>
+                                <li style="width: 90%;"><a href="#"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;LIMPIAR MAPA</a></li>
+                                <li style="font-family: helvetica; width: 10%;"><i id='iHelp' class='fa fa-info-circle' data-toggle='tooltip' data-placement='right' title='Limpiar los marcadores y polígonos trazados en el mapa'></i></li>
+                                <li style="width: 90%;"><a href="#"><i class="fa fa-undo fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;LIMPIAR TODO</a></li>
+                                <li style="font-family: helvetica; width: 10%"><i id='iHelp' class='fa fa-info-circle' data-toggle='tooltip' data-placement='right' title='Limpiar mapa y tabla de búsqueda'></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-5">
+                        <a data-toggle="modal" data-target="#myModalHelp" style="cursor: pointer;">
+                            <img src="images/help.png" class="img-circle" title="Preguntas frecuentes" style="height: 28px; width: 28px; margin-bottom: 15px;">
+                        </a>
+                    </div>
+
                 <div class="col-sm-12 divOption">
-                    <div class="col-sm-offset-1 col-sm-2">
+                    <div class="col-sm-3" style="text-align: right;">
                         <h4 class="text-pink">Capa: </h4>
                     </div>
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <select class="form-control selectpicker show-tick" id="cbCapas" name="cbCapas" title="Seleccione la capa en donde buscar.." data-live-search="true" data-live-search-placeholder="Buscar capa.." data-live-search-style="contains">
                             <?php foreach($cbCapas as $key => $value): ?>
                                 <optgroup label="<?php echo $key; ?>">
@@ -39,25 +104,24 @@
                     </div>
                 </div>
                 <div class="col-sm-12 divOption">
-                    <div class="col-sm-offset-1 col-sm-2">
+                    <div class="col-sm-3" style="text-align: right;">
                         <h4 class="text-pink">Campo: </h4>
                     </div>
-                    <div class="col-sm-9" id="divCampos">
+                    <div class="col-sm-8" id="divCampos">
                     </div>
                 </div>
                 <div class="col-sm-12 divOption">
-                    <div class="col-sm-offset-1 col-sm-2">
+                    <div class="col-sm-3" style="text-align: right;">
                         <h4 class="text-pink">Valor: </h4>
                     </div>
-                    <div class="col-sm-9" id="divValores">
+                    <div class="col-sm-8" id="divValores">
                     </div>
                 </div>
                 <div class="col-sm-12 divOption">
-                    <div class="col-sm-offset-1 col-sm-5">
+                    <div class="col-sm-6" style="text-align: right;">
                         <h4 class="text-pink">Opción para unir condiciones: </h4>
                     </div>
                     <div class="col-sm-6" id="divRbtns">
-                        <br>
                         <center>
                             <input type="radio" name="booleanOps" id="rbtnOR" value="OR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" checked>
                             <b><label for="rbtnOR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" id="lbl_rbtnOR"> O (OR)</label></b>
@@ -67,10 +131,10 @@
                     </div>
                 </div>
                 <div class="col-sm-12 divOption">
-                    <div class="col-sm-offset-1 col-sm-5">
+                    <div class="col-sm-6" style="text-align: right;">
                         <h4 class="text-pink">Área de influencia: </h4>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <select class="form-control selectpicker show-tick" id="cbShapes" name="cbShapes">
                             <option value="Box">RECTÁNGULO</option>
                             <option value="Square">CUADRADO</option>
@@ -79,9 +143,12 @@
                         </select>
                     </div>
                 </div>
+                </div> <!-- panel-body -->
+                        </div> <!-- panel-collapse -->
+                    </div> <!-- accordion -->
+                </div> <!-- panel-group -->
 
-                <div id="divFiltros" style="margin-bottom: 50px;"> <!-- Mantener botones en misma posición -->
-            </div> <!-- col-sm-4 -->
+            </div> <!-- col-sm-5 -->
             <!-- <div class="row">
                 <div class="col-sm-offset-3 col-sm-7">
                     <button type="button" title="AGREGAR CAPA SIN FILTROS A LA TABLA DE BÚSQUEDA" class="btn btn-success btn-block" onclick="addLayer()" id="btnAddLayer">AGREGAR CAPA&nbsp;
@@ -108,13 +175,12 @@
                     <i class="fa fa-undo" aria-hidden="true"></i></button>
                 </div>
             </div> -->
-        </div> <!-- row -->
 
-        <div class="col-sm-8" style="margin-top: -50px;">
-            <div id="navbar-main" style="margin-bottom: 20px;"> <!-- navbar-main -->
-                <br>
+        <div class="col-sm-7" style="height: 100%;">
+        <div id="navbar-main" style="margin-bottom: 20px;"> <!-- navbar-main -->
+                
                 <div class="panel-group" id="accordion"> <!-- panel-group -->
-                    <br>
+                    
                     <div class="panel panel-success" style="border-top: #aaa;"> <!-- accordion -->
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -153,7 +219,7 @@
                         </div> <!-- panel-collapse -->
                     </div> <!-- accordion -->
                 </div> <!-- panel-group -->
-	        </div> <!-- navbar-main -->
+            </div> <!-- navbar-main -->
             <div class="panel panel-default" style="border-color: #aaa;">
                 <div class="panel-heading" style="border-bottom: 1px solid #bbb;">Mapa</div>
                 <!-- Comentar este panel-body para mostrar el mapa sin bordes -->
@@ -163,8 +229,10 @@
                 <!-- </div> -->
             </div>
         </div> <!-- col-sm-8 -->
-        </div> <!-- ¿row? -->
-    </form>
+    <!-- </form> -->
+</div>
+
+
 
 <script>
     // Variables globales, se reinician cada vez que se pulsa Limpiar Todo con clear(clearAll)

@@ -9,10 +9,10 @@ class Map_c extends CI_Controller {
 		$this->load->model('map_m', 'm');
 	}
 
-	// Mostrar página inicial/home de los filtros y el mapa
+	// Mostrar página inicial/home de las consultas dinámicas y el mapa
 	public function index()
 	{
-		// Llenar select cbCapas
+		// Llenar select #cbCapas
 		// https://stackoverflow.com/questions/23691396/building-a-select-with-optgroup-from-a-sql-query
 		$db_capas = $this->m->getCapas();
 		$cbCapas = array();
@@ -23,8 +23,11 @@ class Map_c extends CI_Controller {
 		}
 		$data['cbCapas'] = $cbCapas;
 
+		/* VERSIÓN BETA: FUNCIONES INNECESARIAS DESPÚES DE MEJORAR EL CÓDIGO CON LLAMADAS AJAX
+		getCampos() y getValores() reemplazan las funciones JavaScript switchselect1() y switchSelect2()
+		encontradas en filter.php de la carpeta views/beta
 		// Llenar selects de la capa Bancos
-		/*$data['bancos_servicio'] = $this->m->getBancoServicio();
+		$data['bancos_servicio'] = $this->m->getBancoServicio();
 
 		// Llenar selects de la capa Postes
 		$data['postes_empresa'] = $this->m->getEmpresa("generales_tbl_postes");
@@ -52,20 +55,20 @@ class Map_c extends CI_Controller {
 
 
 		// Cargar página inicial/home de los filtros y el mapa
-		$this->load->view('filter', $data);
+		$this->load->view('filter2', $data);
 	}
 
 	public function getCampos()
 	{
-		// Llenar select cbCampos (campos a filtrar según capa)
+		// Llenar select #cbCampos (campos a filtrar según capa)
 		$campos = $this->m->getCampos();
 		echo json_encode($campos);
 	}
 
 	public function getValores()
 	{
-		/* Llenar select cbValores (valores a filtrar según campo de la capa). Sólo aplica para campos con un
-		rango de valores preestablecidos, como Material, Cond_Física o Empresa */
+		/* Llenar select #cbValores (valores a filtrar según campo de la capa). Sólo aplica para campos con un
+		rango de valores preestablecidos, como material, cond_fisica o empresa */
 		$valores = $this->m->getValores();
 		echo json_encode($valores);
 	}

@@ -1,8 +1,15 @@
 /* STYLES ADDED BY DAVID OSORIO */
 
 #map {
-  height: 371px;
+  /*height: 371px;*/
+  height: 24px;
   width: 100%;
+}
+
+#ro {
+  height: -o-calc(100% - 65px); /* opera */
+height: -webkit-calc(100% - 65px); /* google, safari */
+height: -moz-calc(100% - 65px); /* firefox */
 }
 
 #logo-alerta {
@@ -24,10 +31,10 @@
 	background-color: #38b449;
 }
 
-.panel-body {
+/*.panel-body { // Para la tabla de filtros agregados beta
   overflow-y: scroll;
   height: 195px;
-}
+}*/
 
 .selectpicker, h3, h4, h5, h6 {
   font-family: 'ColabReg' !important;
@@ -59,7 +66,7 @@ td input[type="checkbox"] {
 
 .divOption {
   padding: 0px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 #divRbtns {
@@ -166,4 +173,77 @@ input[type=text], td {
 #mouse-position {
   padding-right: 10px;
   border-top: 1px solid #bbb;
+}
+
+::selection {
+  background: #00b9fc;
+  color: #fff;
+  text-shadow: none;
+}
+
+body {
+  font-family: "ColabReg";
+  font-weight: 300;
+  font-size: 16px;
+  color: #555;
+
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "ColabReg";
+  font-weight: 300;
+  color: #333;
+}
+
+/* Links */
+a {
+  color: #3498db;
+  word-wrap: break-word;
+
+  -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+  transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus {
+  color: #ee5840;
+  text-decoration: none;
+  outline: 0;
+}
+
+a:before,
+a:after {
+  -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+  transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+#myheaderwrap {
+  background: #1a1a1a;
+  margin-bottom: 20px;
+padding-top: 20px;
+  text-align: center;
+}
+
+#myfooterwrap h4 {
+  color: white !important;
+}
+
+#myfooterwrap {
+background: #1a1a1a;
+  margin-top: 20px;
+padding-top: 20px;
+  text-align: center;
+}
+
+#myfooterwrap p {
+  color: white;
+  font-size: 13px;
 }
