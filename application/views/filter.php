@@ -4,158 +4,83 @@
 	<?php $this->load->view('sections/head'); ?>
 </head>
 <body>
-<!--
-    IMPORTANTE:
-        1. Este header se debe reemplazar con la barra de navegación azul del mapa cartográfico
-        2. El botón "Aplicar filtro" de la barra de herramientas del mapa puede abrir este proyecto (el frontend es sólo esta vista filter.php que carga otros vistas php al final con scripts JS y modales)
--->
 	<?php $this->load->view('sections/header'); ?>
 
-    <!-- <form action="#" id="formFilter" onsubmit="addFilter(); return false"> -->
-        <div class="row" style="background: yellow; height: 84vh;">
-            <div class="col-sm-5" style="height: 100%;">
-                <!-- <div class="col-sm-12">
-                    <div class="col-sm-offset-1 col-sm-11" style="text-align: right; border-bottom: 1px solid #F3A530;">
+    <form action="#" id="formFilter" onsubmit="addFilter(); return false">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="col-sm-offset-1 col-sm-11" style="text-align: right; border-bottom: 1px solid #F3A530;">
                     <label>Preguntas frecuentes</label>
 	                <a data-toggle="modal" data-target="#myModalHelp" style="cursor: pointer;">
 	                    <img src="images/help.png" class="img-circle" title="Preguntas frecuentes" style="height: 32px; width: 32px; margin-bottom: 15px;">
 	                </a>
-                    </div>
-                </div> -->
-     
- <!-- <table class="table table-striped table-bordered" id="myDataTable" width="100%" cellspacing="0">
-                <thead class="tbl-blue-th">
-                    <tr>
-                        <th width="25%">Capa</th>
-                        <th width="50%">Campo</th>
-                        <th width="20%">Valor</th>
-                        <th width="20%">Totales</th>
-                        <th width="5%"><i class="fa fa-download" title="Descargar"></i></th>
-                    </tr>
-                </thead>
-                <tfoot class="tbl-blue-th">
-                    <tr>
-                        <th width="25%">Capa</th>
-                        <th width="50%">Campo</th>
-                        <th width="20%">Valor</th>
-                        <th width="20%">Totales</th>
-                        <th width="5%"><i class="fa fa-download" title="Descargar"></i></th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                <td> MONUMENTOS HSITORICOS</td>
-                <td> GENERO ARQUITECTONICO</td>
-                <td> JARDIN HISTORICO</td>
-                <td> -</td>
-                </tbody>
-            </table> -->
-            <div class="panel-group" id="accordion"> <!-- panel-group -->
-                    
-                    <div class="panel panel-success" style="border-top: #aaa;"> <!-- accordion -->
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a title="Mostrar/ocultar tabla de filtros de búsqueda agregados" data-toggle="collapse" data-parent="#accordion" href="#filtrosAgregados" onclick="return expandCollapseAccordion()">
-                                Filtros de búsqueda agregados <i id="faFiltros" class="fa fa-compress" aria-hidden="true"></i>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="filtrosAgregados" class="collapse in"> <!-- panel-collapse -->
-                            <div class="panel-body"> <!-- panel-body -->
-
-
-                    <div class="col-sm-6">
-                        <div class="btn-group btn-flex">
-                            <button type="button" class="btn btn-warning">
-                    <i class="fa fa-search fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;CONSULTAR</button>
-                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu pull-right" role="menu" id="dropdown-options">
-                                <li style="width: 90%;"><a href="#"><i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;AGREGAR CAPA</a></li>
-                                <li style="font-family: helvetica; width: 10%;"><i id='iHelp' class='fa fa-info-circle' data-toggle='tooltip' data-placement='right' title='Agregar capa sin filtros a la tabla de búsqueda'></i></li>
-                                <li style="width: 90%;"><a href="#"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;LIMPIAR MAPA</a></li>
-                                <li style="font-family: helvetica; width: 10%;"><i id='iHelp' class='fa fa-info-circle' data-toggle='tooltip' data-placement='right' title='Limpiar los marcadores y polígonos trazados en el mapa'></i></li>
-                                <li style="width: 90%;"><a href="#"><i class="fa fa-undo fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;LIMPIAR TODO</a></li>
-                                <li style="font-family: helvetica; width: 10%"><i id='iHelp' class='fa fa-info-circle' data-toggle='tooltip' data-placement='right' title='Limpiar mapa y tabla de búsqueda'></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-offset-1 col-sm-5">
-                        <a data-toggle="modal" data-target="#myModalHelp" style="cursor: pointer;">
-                            <img src="images/help.png" class="img-circle" title="Preguntas frecuentes" style="height: 28px; width: 28px; margin-bottom: 15px;">
-                        </a>
-                    </div>
-
-                <div class="col-sm-12 divOption">
-                    <div class="col-sm-3" style="text-align: right;">
-                        <h4 class="text-pink">Capa: </h4>
-                    </div>
-                    <div class="col-sm-8">
-                        <select class="form-control selectpicker show-tick" id="cbCapas" name="cbCapas" title="Seleccione la capa en donde buscar.." data-live-search="true" data-live-search-placeholder="Buscar capa.." data-live-search-style="contains">
-                            <?php foreach($cbCapas as $key => $value): ?>
-                                <optgroup label="<?php echo $key; ?>">
-                                    <?php foreach($value as $index => $capa): ?>
-                                        <option data-tokens="<?php echo $key; ?>" value="<?php echo $capa['capa']; ?>"><?php echo $capa['capa']; ?></option>
-                                    <?php endforeach; ?>
-                                </optgroup>
-                            <?php endforeach; ?>
-                        </select>
+                </div>
+                <div class="col-sm-12" style="margin-top: -20px;">
+                    <br>
+                    <h3 align="left" class="text-info"><strong>Seleccione la capa en donde buscar:</strong></h3>
+                </div>
+                <div class="col-sm-12">
+                    <label for="capa"><span style="color: red;"><b>*</b></span> Capa:</label>
+                    <select class="form-control" id="cbCapas" name="cbCapas" onchange="switchSelect1()" required>
+                        <option value="">< Seleccionar ></option>
+                        <?php foreach($cbCapas as $key => $value): ?>
+                            <optgroup label="<?php echo $key; ?>">
+                                <?php foreach($value as $index => $capa): ?>
+                                    <option value="<?php echo $capa['capa']; ?>"><?php echo $capa['capa']; ?></option>
+                                <?php endforeach; ?>
+                            </optgroup>
+                        <?php endforeach; ?>
+                    </select>
+                    <br>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-7">
+                        <button type="button" title="AGREGAR CAPA SIN FILTROS A LA TABLA DE BÚSQUEDA" class="btn btn-success btn-block" onclick="addLayer()" id="btnAddLayer">AGREGAR CAPA&nbsp;
+                        <i class="fa fa-plus" aria-hidden="true"></i></button>
                     </div>
                 </div>
-                <div class="col-sm-12 divOption">
-                    <div class="col-sm-3" style="text-align: right;">
-                        <h4 class="text-pink">Campo: </h4>
-                    </div>
-                    <div class="col-sm-8" id="divCampos">
-                    </div>
+                <div class="col-sm-12">
+                    <h3 align="left" class="text-info"><strong>Seleccione el campo a filtrar:</strong></h3>
                 </div>
-                <div class="col-sm-12 divOption">
-                    <div class="col-sm-3" style="text-align: right;">
-                        <h4 class="text-pink">Valor: </h4>
-                    </div>
-                    <div class="col-sm-8" id="divValores">
-                    </div>
+                <div class="col-sm-12">
+                    <label for="campo"><span style="color: red;"><b>*</b></span> Campo:</label>
+                    <select class="form-control" id="cbCampos" name="cbCampos" onchange="switchSelect2()" required>
+                    </select>
                 </div>
-                <div class="col-sm-12 divOption">
-                    <div class="col-sm-6" style="text-align: right;">
-                        <h4 class="text-pink">Opción para unir condiciones: </h4>
-                    </div>
-                    <div class="col-sm-6" id="divRbtns">
-                        <center>
-                            <input type="radio" name="booleanOps" id="rbtnOR" value="OR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" checked>
-                            <b><label for="rbtnOR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" id="lbl_rbtnOR"> O (OR)</label></b>
-                            <input type="radio" name="booleanOps" id="rbtnAND" value="AND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND">
-                            <b><label for="rbtnAND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND"> Y (AND)</label></b>
-                        </center>
-                    </div>
+                <div class="col-sm-12">
+                    <h3 align="left" class="text-info"><strong>Seleccione el valor a filtrar:</strong></h3>
                 </div>
-                <div class="col-sm-12 divOption">
-                    <div class="col-sm-6" style="text-align: right;">
-                        <h4 class="text-pink">Área de influencia: </h4>
-                    </div>
-                    <div class="col-sm-5">
-                        <select class="form-control selectpicker show-tick" id="cbShapes" name="cbShapes">
-                            <option value="Box">RECTÁNGULO</option>
-                            <option value="Square">CUADRADO</option>
-                            <option value="Polygon">POLÍGONO</option>
-                            <option value="None">NINGUNA</option>
-                        </select>
-                    </div>
+                <div class="col-sm-12">
+                    <label for="valor"><span style="color: red;"><b>*</b></span> Valor:</label>
+                    <!-- Todos los div están bien cerrados pero, gracias a Dios, el frontend
+                    no resulta afectado aunque este esté mal alineado -->
+                    <div id="divFiltros" style="margin-bottom: 50px;"> <!-- Mantener botones en misma posición -->
                 </div>
-                </div> <!-- panel-body -->
-                        </div> <!-- panel-collapse -->
-                    </div> <!-- accordion -->
-                </div> <!-- panel-group -->
-
-            </div> <!-- col-sm-5 -->
-            <!-- <div class="row">
-                <div class="col-sm-offset-3 col-sm-7">
-                    <button type="button" title="AGREGAR CAPA SIN FILTROS A LA TABLA DE BÚSQUEDA" class="btn btn-success btn-block" onclick="addLayer()" id="btnAddLayer">AGREGAR CAPA&nbsp;
-                    <i class="fa fa-plus" aria-hidden="true"></i></button>
+            </div> <!-- before: col-sm-4 after: col-sm-12 -->
+            <div class="col-sm-12" style="margin-bottom: 20px;">
+                <div class="col-sm-7" style="padding: 0px;">
+                    <label for="valor"><span style="color: red;"><b>*</b></span> Opción para unir condiciones:</label>
+                    <br>
+                    <center>
+                        <input type="radio" name="booleanOps" id="rbtnOR" value="OR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" checked>
+                        <b><label for="rbtnOR" title="UNIR CONDICIONES MEDIANTE OPERADOR OR" id="lbl_rbtnOR"> O (OR)</label></b>
+                        <input type="radio" name="booleanOps" id="rbtnAND" value="AND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND">
+                        <b><label for="rbtnAND" title="UNIR CONDICIONES MEDIANTE OPERADOR AND"> Y (AND)</label></b>
+                    </center>
+                    <br>
                 </div>
-            </div> -->
-            <!-- <div class="col-sm-12" style="margin-left: 15px; margin-bottom: 20px;">
+                <div class="col-sm-5" style="padding: 0px;">
+                    <label for="valor"><span style="color: red;"><b>*</b></span> Área de influencia:</label>
+                    <select class="form-control" id="cbShapes" name="cbShapes">
+                        <option value="Box">RECTÁNGULO</option>
+                        <option value="Square">CUADRADO</option>
+                        <option value="Polygon">POLÍGONO</option>
+                        <option value="None">NINGUNA</option>
+                    </select>
+                    <br>
+                </div>
+            </div>
+            <div class="col-sm-12" style="margin-left: 15px; margin-bottom: 20px;">
                 <div class="col-sm-6">
                     <button type="submit" title="AGREGAR FILTRO A LA TABLA DE BÚSQUEDA" class="btn btn-success btn-block" id="btnAddFilter">AGREGAR FILTRO&nbsp;
                     <i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -174,13 +99,14 @@
                     <button type="button" title="LIMPIAR TODOS LOS FILTROS" class="btn btn-danger btn-block" onclick="deleteFilters()" id="btnClearAll">LIMPIAR TODO&nbsp;
                     <i class="fa fa-undo" aria-hidden="true"></i></button>
                 </div>
-            </div> -->
+            </div>
+        </div> <!-- before: row after: col-sm-4 -->
 
-        <div class="col-sm-7" style="height: 100%;">
-        <div id="navbar-main" style="margin-bottom: 20px;"> <!-- navbar-main -->
-                
+        <div class="col-sm-8" style="margin-top: -50px;">
+            <div id="navbar-main" style="margin-bottom: 20px;"> <!-- navbar-main -->
+                <br>
                 <div class="panel-group" id="accordion"> <!-- panel-group -->
-                    
+                    <br>
                     <div class="panel panel-success" style="border-top: #aaa;"> <!-- accordion -->
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -219,7 +145,7 @@
                         </div> <!-- panel-collapse -->
                     </div> <!-- accordion -->
                 </div> <!-- panel-group -->
-            </div> <!-- navbar-main -->
+	        </div> <!-- navbar-main -->
             <div class="panel panel-default" style="border-color: #aaa;">
                 <div class="panel-heading" style="border-bottom: 1px solid #bbb;">Mapa</div>
                 <!-- Comentar este panel-body para mostrar el mapa sin bordes -->
@@ -228,11 +154,9 @@
                     <div id="mouse-position" class="text-success" align="right"></div>
                 <!-- </div> -->
             </div>
-        </div> <!-- col-sm-8 -->
-    <!-- </form> -->
-</div>
-
-
+        </div> <!-- before: col-sm-8 after: col-sm-4 -->
+        </div> <!-- before: ¿row? after: col-sm-8 -->
+    </form>
 
 <script>
     // Variables globales, se reinician cada vez que se pulsa Limpiar Todo con clear(clearAll)
@@ -329,12 +253,12 @@
         for(var i = 0; i < cbCapasOps.length; i++) {
             if(cbCapasOps[i].innerText == capa) {
                 cbCapasOps[i].selected = true;
-                switchSelectCapa();
+                switchSelect1();
                 var cbCamposOps = document.getElementById("cbCampos").options;
                 for(var j = 0; j < cbCamposOps.length; j++) {
                     if(cbCamposOps[j].innerText == campo) {
                         cbCamposOps[j].selected = true;
-                        switchSelectCampo();
+                        switchSelect2();
                         break; // cbCamposOps loop
                     }
                 }
@@ -386,10 +310,10 @@
 
             cell0.innerHTML = capa;
             cell1.innerHTML = campo;
-            if(document.getElementById("cbValores"))
-                cell2.innerHTML = document.getElementById("cbValores").options[document.getElementById("cbValores").selectedIndex].text;
-            if(document.getElementById("inputValor"))
-                cell2.innerHTML = document.getElementById("inputValor").value;
+            if(document.getElementById("cbFiltros"))
+                cell2.innerHTML = document.getElementById("cbFiltros").options[document.getElementById("cbFiltros").selectedIndex].text;
+            if(document.getElementById("inputFiltro"))
+                cell2.innerHTML = document.getElementById("inputFiltro").value;
 
             cell3.innerHTML = '<button class="btnDeleteRow" type="button" onclick="deleteRow(this)" title="Eliminar"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button><button type="button" onclick="updateRow(this)" title="Editar"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></button>';
             row.cells[3].setAttribute("style", "text-align: center;"); // Centrar botones Eliminar/Actualizar
@@ -522,10 +446,10 @@
         var rowToReplace = checkLayerWithoutFilters(capa, false);
 
         table.rows[rowToReplace].cells[1].innerHTML = campo;
-        if(document.getElementById("cbValores"))
-            table.rows[rowToReplace].cells[2].innerHTML = document.getElementById("cbValores").options[document.getElementById("cbValores").selectedIndex].text;
-        if(document.getElementById("inputValor"))
-            table.rows[rowToReplace].cells[2].innerHTML = document.getElementById("inputValor").value;
+        if(document.getElementById("cbFiltros"))
+            table.rows[rowToReplace].cells[2].innerHTML = document.getElementById("cbFiltros").options[document.getElementById("cbFiltros").selectedIndex].text;
+        if(document.getElementById("inputFiltro"))
+            table.rows[rowToReplace].cells[2].innerHTML = document.getElementById("inputFiltro").value;
 
         /* Si el botón Agregar Filtro se encuentra en modo edición y se edita un filtro con una capa que ya
         estaba en la tabla sin filtros previos, se reemplaza el texto "(SIN FILTROS)" en las columnas
@@ -602,67 +526,27 @@
     }
 
     /* Adaptar opciones del 2do combobox según la capa seleccionada (1er combobox)
-    El array con los campos a filtrar es obtenido de la tabla "ctrl_campos_a_filtrar"
-    Update3: Not needed after the AJAX call that fills 2nd combobox (fields) */
-    /*function switchSelectCapa() {
+    El array con los campos a filtrar es obtenido de la tabla "ctrl_campos_a_filtrar" */
+    function switchSelect1() {
         var cbCapas = document.getElementById("cbCapas");
         var capa = cbCapas.options[cbCapas.selectedIndex].value;
 
         switch(capa) {
-            <X?php foreach($cbCampos as $key => $value): ?>
-                case "<X?php echo $key; ?>":
+            <?php foreach($cbCampos as $key => $value): ?>
+                case "<?php echo $key; ?>":
                     clear(false);
-                    <X?php
+                    <?php
                         echo "cbCampos.options[cbCampos.options.length] = new Option('< Seleccionar >', '');";
                         foreach($value as $index => $campo) {
                         echo "cbCampos.options[cbCampos.options.length] = new Option('" . $campo['campo'] . "', '" . $campo['campo'] . "');";
                         }
                     ?>
                     break;
-            <X?php endforeach; ?>
+            <?php endforeach; ?>
             default:
                 clear(false);
         } // switch(capa)
-    } // function switchSelectCapa()*/
-
-    function switchSelectCapa() {
-        var cbCapas = document.getElementById("cbCapas");
-        var capa = cbCapas.options[cbCapas.selectedIndex].value;
-        var divCampos = document.getElementById("divCampos");
-        //clear(false);
-        $("body").css('cursor', 'wait');
-
-        $.ajax({
-            type: "get",
-            url: "index.php/Map_c/getCampos",
-            data: { capa:capa },
-            dataType: 'json',
-            success: function(data) {
-                // e.g. 'BANCOS' turns to 'Capa: Bancos' in the dropdown-header
-                var header = "Capa: " + capa.charAt(0) + capa.substring(1).toLowerCase();
-                var campos = "";
-                $(data).each(function(k, v) {
-                    campos += '<option value="' + v.campo + '">' + v.campo + '</option>';
-                });
-                divCampos.innerHTML = null;
-                divCampos.innerHTML = '<select class="form-control selectpicker show-tick" id="cbCampos" name="cbCampos" title="Seleccione el campo a filtrar.."><optgroup label="' + header + '">'+ campos + '</select>';
-                $('#cbCampos').selectpicker({
-				    style: 'btn-info',
-				    size: 10
-                });
-                $('#cbCapas').trigger('mouseleave');
-                $('#cbCampos').focus();
-                $('#cbCampos').selectpicker('toggle');
-                /*$('#cbCampos').parent().addClass('open'); // This way the searchbox isn't focused
-                $('#cbCampos').selectpicker('refresh');*/
-                $("body").css('cursor', 'auto');
-            },
-            error: function() {
-                console.log("Error! switchSelectCapa() failed. Search columns could not be retrieved");
-                $("body").css('cursor', 'auto');
-            }
-        }); // AJAX
-    }
+    } // function switchSelect1()
 
     //  Adaptar opciones del 3er combobox según el campo seleccionado (2do combobox)
     //  Hay 2 opciones para ingresar valores de búsqueda:
@@ -670,7 +554,7 @@
     //  la clase a validar (vLetras, vNumeros, o vAlfanumerico), el placeholder y el maxlength del input; y
     //  2. Mediante SELECTS: esta vista recibe del controlador arrays con los valores disponibles para el campo
     //  en cuestión y los envía a "macro_valor_select". Sólo se debe especificar el nombre del array
-    /*function switchSelectCampo() {
+    function switchSelect2() {
         var cbCapas = document.getElementById("cbCapas");
         var capa = cbCapas.options[cbCapas.selectedIndex].value;
 
@@ -686,10 +570,10 @@
                 switch(campo) {
                     case "NOMBRE":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data = array(
                                     'rclass' => "vAlfanumerico",
-                                    'rplaceholder' => "Ingrese el banco a buscar",
+                                    'rplaceholder' => "Ingresa el banco a buscar",
                                     'rmaxlength' => 30
                                 );
                                 $this->load->view('macro_valor_input', $data);
@@ -697,7 +581,7 @@
                         break;
                     case "SERVICIO":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $bancos_servicio;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -711,10 +595,10 @@
                 switch(campo) {
                     case "NOMBRE":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data = array(
                                     'rclass' => "vAlfanumerico",
-                                    'rplaceholder' => "Ingrese el hotel a buscar",
+                                    'rplaceholder' => "Ingresa el hotel a buscar",
                                     'rmaxlength' => 30
                                 );
                                 $this->load->view('macro_valor_input', $data);
@@ -729,21 +613,21 @@
                 switch(campo) {
                     case "EMPRESA":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $postes_empresa;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "MATERIAL":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $postes_material;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "CONDICIÓN FÍSICA":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $postes_cond_fisica;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -757,28 +641,28 @@
                 switch(campo) {
                     case "EMPRESA":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $telefonos_empresa;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "TIPO":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $telefonos_tipo;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "FUNCIONA":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $telefonos_funciona;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "CONDICIÓN FÍSICA":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $telefonos_cond_fisica;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -792,21 +676,21 @@
                 switch(campo) {
                     case "FUENTE":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $luminarias_fuente;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "MATERIAL":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $luminarias_material;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "CONDICIÓN FÍSICA":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $luminarias_cond_fisica;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -820,14 +704,14 @@
                 switch(campo) {
                     case "ÉPOCA":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $monumentos_epoca;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "GÉNERO ARQUITECTÓNICO":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $monumentos_genero_arquitectonico;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -841,14 +725,14 @@
                 switch(campo) {
                     case "MATERIAL":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $panteon_material;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
                         break;
                     case "CONDICIÓN FÍSICA":
                         div.innerHTML =
-                            <X?php
+                            <?php
                                 $data['dbarray'] = $panteon_cond_fisica;
                                 $this->load->view('macro_valor_select', $data);
                             ?>
@@ -861,7 +745,7 @@
 
         //
         // Nota: estas validaciones no pueden estar afuera en $document.ready como normalmente debiera ser
-        // porque jQuery NO detecta cambios en DOM (inputs incrustados con innerHTML en switchSelectCampo)
+        // porque jQuery NO detecta cambios en DOM (inputs incrustados con innerHTML en switchSelect2)
         //
 
         // Hacer todos los textbox mayúsculas cuando pierden el foco
@@ -894,69 +778,9 @@
         }
 
 	    function validarAlfanumerico(charCode){
-			return (validarLetras(charCode) || validarNumeros(charCode));
+			return (validarLetras(charCode) || validarNumeros(charCode) || charCode == 45); // 45 es '-'
         }
-    } // function switchSelectCampo()*/
-
-    function switchSelectCampo() {
-        var cbCapas = document.getElementById("cbCapas");
-        var capa = cbCapas.options[cbCapas.selectedIndex].value;
-        var cbCampos = document.getElementById("cbCampos");
-        var campo = cbCampos.options[cbCampos.selectedIndex].value;
-        var divValores = document.getElementById("divValores");
-        $("body").css('cursor', 'wait');
-
-        if(campo == "NOMBRE") {
-            var my_class, my_placeholder, my_maxlength;
-            switch(capa) {
-                case "BANCOS":
-                    my_class = "vAlfanumerico";
-                    my_placeholder = "Ingrese el banco a buscar";
-                    my_maxlength = 30;
-                    break;
-                case "HOTELES":
-                    my_class = "vAlfanumerico";
-                    my_placeholder = "Ingrese el hotel a buscar";
-                    my_maxlength = 30;
-                    break;
-            }
-            divValores.innerHTML = null;
-            divValores.innerHTML = '<input type="text" class="form-control ' + my_class + '" id="inputValor" name="inputValor" placeholder="' + my_placeholder + '" maxlength="' + my_maxlength + '">';
-            $('#cbCampos').trigger('mouseleave');
-            $('#inputValor').focus();
-            $("body").css('cursor', 'auto');
-        } // if (campo == "NOMBRE")
-        else {
-            $.ajax({
-                type: "get",
-                url: "index.php/Map_c/getValores",
-                data: { capa:capa, campo:campo },
-                dataType: 'json',
-                success: function(data) {
-                    // e.g. 'CONDICIÓN FÍSICA' turns to 'Campo: Condición física' in the dropdown-header
-                    var header = "Campo: " + campo.charAt(0) + campo.substring(1).toLowerCase();
-                    var valores = "";
-                    $(data).each(function(k, v) {
-                        valores += '<option value="' + v.valor + '">' + v.valor + '</option>';
-                    });
-                    divValores.innerHTML = null;
-                    divValores.innerHTML = '<select class="form-control selectpicker show-tick" id="cbValores" name="cbValores" title="Seleccione el valor a filtrar.." data-live-search="true" data-live-search-placeholder="Buscar valor.." data-live-search-style="contains"><optgroup label="' + header + '">'+ valores + '</select>';
-                    $('#cbValores').selectpicker({
-                        style: 'btn-info',
-                        size: 10
-                    });
-                    $('#cbCampos').trigger('mouseleave');
-                    $('#cbValores').focus();
-                    $('#cbValores').selectpicker('toggle');
-                    $("body").css('cursor', 'auto');
-                },
-                error: function() {
-                    console.log("Error! switchSelectCampo() failed. Values could not be retrieved");
-                    $("body").css('cursor', 'auto');
-                }
-            }); // AJAX
-        } // else (campo == "NOMBRE")
-    }
+    } // function switchSelect2()
 </script>
 
 <?php $this->load->view('sections/map'); ?>
