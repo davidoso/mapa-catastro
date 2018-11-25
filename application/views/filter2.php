@@ -61,8 +61,10 @@
             </li>
             <li class="nav-item">
               <center id="divCampos">
-              <!-- <select class="selectpicker show-tick" id="cbCampos" name="cbCampos" title="Campo a filtrar..">
-              </select -->
+              <label class="nav-link">
+                <span class="menu-title">Seleccione una capa..</span>
+                <i class="fas fa-fw fa-layer-group"></i>
+              </label>
                   </center>
             </li>
             <li class="nav-item nav-category">
@@ -70,12 +72,16 @@
             </li>
             <li class="nav-item">
               <center id="divValores">
-<!--              <select class="selectpicker show-tick" id="cbValores" name="cbValores" title="Valor a filtrar..">
-</select -->
+              <label class="nav-link">
+                <span class="menu-title">Seleccione un campo..</span>
+                <i class="fas fa-fw fa-filter"></i>
+              </label>
                   </center>
             </li>
-
-            <!-- <li class="nav-item">
+            <li class="nav-item nav-category">
+              <span class="nav-link">ÁREA DE INFLUENCIA</span>
+            </li>
+            <li class="nav-item">
               <center>
               <select class="selectpicker show-tick" id="cbShapes" name="cbShapes">
                             <option value="Box">RECTÁNGULO</option>
@@ -84,9 +90,34 @@
                             <option value="None">NINGUNA</option>
                     </select>
       </center>
-            </li> -->
-
+            </li>
             <li class="nav-item nav-category">
+              <span class="nav-link">UNIR CONDICIONES MEDIANTE:</span>
+            </li>
+            <li class="nav-item">
+              <label class="nav-link">
+                <span class="menu-title">Rbtns..</span>
+                <i class="fas fa-fw fa-filter"></i>
+              </label>
+            </li>
+            <li class="nav-item nav-category">
+              <span class="nav-link">MÁS OPCIONES</span>
+            </li>
+            <li class="nav-item">
+              <label class="nav-link">
+                <span class="menu-title">Ver tabla de búsqueda</span>
+                <i class="fas fa-fw fa-table"></i>
+              </label>
+            </li>
+            <li class="nav-item">
+              <label class="nav-link">
+                <span class="menu-title">Ayuda</span>
+                <i class="fas fa-fw fa-question-circle"></i>
+              </label>
+            </li>
+            <!-- poner las mismas opciones que el dropdown -->
+
+            <!-- <li class="nav-item nav-category">
               <span class="nav-link">UI FEATURES</span>
             </li>
             <li class="nav-item">
@@ -100,7 +131,7 @@
                   <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
                 </ul>
               </div>
-            </li>
+            </li> -->
 
           </ul>
         </nav>
@@ -118,13 +149,8 @@
           <!-- row ends -->
         </div>
         <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-          <div class="container-fluid clearfix">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018. Plataforma Municipal de Información del <a href="http://www.catastrocolima.gob.mx/" target="_blank">H. Ayuntamiento de Colima</a>.</span>
-            <br>
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Desarrollado en el Instituto Tecnológico de Colima</span>
-          </div>
+    <?php $this->load->view('sections/footer'); ?>
+
         </footer>
         <!-- partial -->
       </div>
@@ -140,7 +166,7 @@
 
           // Fill 2nd combobox (search columns) depending on the layer selected on the 1st combobox
           $("#cbCapas").on("change", function () {
-            document.getElementById("divValores").innerHTML = null;
+            document.getElementById("divValores").innerHTML = '<label class="nav-link"><span class="menu-title">Seleccione un campo..</span><i class="fas fa-fw fa-filter"></i></label>';
             switchSelectCapa();
         });
 

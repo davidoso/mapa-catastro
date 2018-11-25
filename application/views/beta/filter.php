@@ -52,8 +52,7 @@
                 </div>
                 <div class="col-sm-12">
                     <label for="valor"><span style="color: red;"><b>*</b></span> Valor:</label>
-                    <!-- Todos los div están bien cerrados pero, gracias a Dios, el frontend
-                    no resulta afectado aunque este esté mal alineado -->
+                    <!-- Todos los div están bien cerrados pero, gracias a Dios, el frontend no resulta afectado aunque este esté mal alineado -->
                     <div id="divFiltros" style="margin-bottom: 50px;"> <!-- Mantener botones en misma posición -->
                 </div>
             </div> <!-- before: col-sm-4 after: col-sm-12 -->

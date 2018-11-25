@@ -1,0 +1,248 @@
+/* ESTILOS PARA LA VERSIÓN BETA DE FILTER.PHP (ANTES DE INCORPORAR DASHBOARD EN NOV 2018) */
+
+#map {
+  height: 371px;
+  width: 100%;
+}
+
+#ro {
+  height: -o-calc(100% - 65px); /* opera */
+  height: -webkit-calc(100% - 65px); /* google, safari */
+  height: -moz-calc(100% - 65px); /* firefox */
+}
+
+#logo-alerta {
+  width: 50px;
+  height: 30px;
+  max-height: 100%;
+  margin-left: 10px;
+}
+
+#logo-alertaModal {
+  width: 90px;
+  height: 70px;
+  max-height: 100%;
+  margin-left: 10px;
+}
+
+.active-item {
+	color: #565656 !important;
+	background-color: #38b449;
+}
+
+/* Para la tabla de filtros agregados*/
+.panel-body {
+  overflow-y: scroll;
+  height: 195px;
+}
+
+.selectpicker, h3, h4, h5, h6 {
+  font-family: 'ColabReg' !important;
+}
+
+.filter-option-inner-inner, .bs-caret {
+  font-size: 1.1em !important;
+  color: #2e2e2e;
+}
+
+@font-face {
+  font-family: "ColabReg";
+  src: url(../fonts/ColabReg.otf) format("truetype");
+}
+
+td input[type="checkbox"] {
+  float: left;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#btnContinue {
+  pointer-events: none;
+}
+
+#formbtnContinue {
+  cursor: not-allowed;
+}
+
+.divOption {
+  padding: 0px;
+  margin-top: 10px;
+}
+
+#divRbtns {
+  margin-top: -4px;
+}
+
+#rbtnOR {
+  margin-right: 3px;
+}
+
+#rbtnAND {
+  margin-right: 3px;
+}
+
+#lbl_rbtnOR {
+  margin-right: 20px;
+}
+
+tr:nth-child(even) {
+  background-color: #E5E5E5;
+}
+
+#tblFiltrosH {
+  background: #E4E4E4;
+  text-align: center;
+  font-size: 15px;
+  color: #3498DB;
+}
+
+#tblFiltrosH th {
+  border: 1px solid #EC4A94;
+  text-align: center;
+}
+
+#tblFiltros {
+  font-size: 15px;
+  color: #333;
+}
+
+#tblFiltros td {
+  vertical-align: middle;
+}
+
+#tblTotalesH {
+  background: #DFF0D8;
+  text-align: center;
+  font-size: 15px;
+  color: #EC4A94;
+}
+
+#tblTotalesH th {
+  border: 1px solid #88C542;
+  text-align: center;
+}
+
+#tblTotales {
+  font-size: 16px;
+  color: #EC4A94;
+  text-align: center;
+  font-weight: bold;
+}
+
+#tblTotales td {
+  border: 1px solid #88C542;
+  vertical-align: middle;
+}
+
+#tblMarkerInfo {
+  border: 1px solid #5B9BD5;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#tblMarkerInfo td {
+  font-size: 14px;
+  vertical-align: middle;
+  padding: 8px;
+}
+
+#tblMarkerInfo tr:nth-child(even) {
+  background-color: #DEEAF6 !important;
+}
+
+#tblMarkerInfo td:nth-child(odd) {
+  border-right: 1px solid #5B9BD5 !important;
+}
+
+.text-pink {
+  color: #EA2882;
+}
+
+.text-electric-blue {
+  color: #3498DB;
+}
+
+input[type=text], td {
+  text-transform: uppercase;
+}
+
+::-webkit-input-placeholder {
+  text-transform: none;
+}
+
+#mouse-position {
+  padding-right: 10px;
+  border-top: 1px solid #bbb;
+}
+
+::selection {
+  background: #00b9fc;
+  color: #fff;
+  text-shadow: none;
+}
+
+body {
+  font-family: "ColabReg";
+  font-weight: 300;
+  font-size: 16px;
+  color: #555;
+
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "ColabReg";
+  font-weight: 300;
+  color: #333;
+}
+
+/* Links */
+a {
+  color: #3498db;
+  word-wrap: break-word;
+  -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+  transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus {
+  color: #ee5840;
+  text-decoration: none;
+  outline: 0;
+}
+
+a:before,
+a:after {
+  -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+  -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+  transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+#myheaderwrap {
+  background: #1a1a1a;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+#myfooterwrap h4 {
+  color: white !important;
+}
+
+#myfooterwrap {
+  background: #1a1a1a;
+  margin-top: 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+#myfooterwrap p {
+  color: white;
+  font-size: 13px;
+}

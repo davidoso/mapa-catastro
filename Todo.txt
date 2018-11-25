@@ -1,13 +1,13 @@
 Cosas por hacer:
-    * Acomodar divFiltros (no está bien cerrado con col-sm-4 y row)
-    * Acomodar sección Help
-    * Dropdown con 5 opciones (en vez de botones, abajito de la línea dorada). Se abre con hover
-    * Spans con mensajes de error si se agrega capa sin seleccionar o filtro sin campo/valor
-    * Mensajes de error con valor nulo o regex que no sea alfanumérico (si se copia texto)
-    * Eliminar todos los comentarios y archivos inútiles como macros al subir en webhost
-    * Borrar switchselecc1() y 2
-    * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
     * Nueva versión de readme.md
+    * Acomodar sección Help
+    * Dropdown con 5 opciones (en vez de botones). Abrir con hover
+    * Alert con mensaje
+        error: si se agrega capa sin seleccionar o filtro sin campo/valor
+        error: con valor nulo o regex que no sea alfanumérico (si se copia/pega texto)
+        success: filtro agregado con éxito/capa sin filtros
+    * Eliminar todos los comentarios y archivos inútiles como macros al subir en webhost
+    * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
 
 Ideas:
     * Si queda mucho espacio en blanco en la columna izquierda, hacer el div de Filtros agregados a su altura y el mapa todo a lo largo

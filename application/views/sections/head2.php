@@ -1,75 +1,48 @@
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<base href="<?php echo base_url();?>">
-  <title>Stellar Admin</title>
-
-	<link rel="icon" type="image/png" href="images/favicons/map.ico"/>
-  <link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-
-  <!-- endinject -->
-  <link href="fonts/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <!-- plugins:js -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
-
-  <script src="js/off-canvas.js"></script>
-  <script src="js/misc.js"></script>
-
-  <script>
-  $.fn.selectpicker.Constructor.BootstrapVersion = '4';
-  $.fn.selectpicker.Constructor.DEFAULTS.dropupAuto = false;
-
-			$(document).ready(function() {
-			$('.selectpicker').selectpicker({
-				style: 'btn-info',
-				size: 10
-				/*iconBase: 'fa'
-				tickIcon: 'fa-check'*/
-			});
-			});
-			$('[data-toggle="tooltip"]').tooltip();
+<title>CATASTRO | MAPA</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<base href="<?php echo base_url();?>">
+<!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/favicons/map.ico">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/my-styles.css">
+    <!-- Bootstrap select stylesheet downloaded from: -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <!-- OpenLayers stylesheet (features zoom levels and default controls) downloaded from: -->
+	<!-- <link rel="stylesheet" type="text/css" href="https://openlayers.org/en/v4.6.4/css/ol.css" -->
+	<link rel="stylesheet" type="text/css" href="css/ol.css">
+<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/fontawesome-free/css/all.min.css">
+<!--===============================================================================================-->
+    <!-- jQuery version downloaded from: -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap select JavaScript library downloaded from: -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script> -->
+    <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="js/off-canvas.js"></script>
+    <script type="text/javascript" src="js/misc.js"></script>
+	<!-- JavaScript library to convert from decimal coordinates to utm and viceversa -->
+	<!-- NOTE: proj4.js did not work so map_dec2utm y map_utm2dc scripts were used instead -->
+	<!-- <script type="text/javascript" src="js/map/proj4.js"></script> -->
+    <!-- OpenLayers JavaScript library v4.6.5 downloaded from: -->
+	<!-- <script type="text/javascript" src="https://openlayers.org/en/v4.6.4/build/ol.js"></script> -->
+	<script type="text/javascript" src="js/map/ol.js"></script>
+<!--===============================================================================================-->
+    <script>
+        $.fn.selectpicker.Constructor.BootstrapVersion = '4';
+        $.fn.selectpicker.Constructor.DEFAULTS.dropupAuto = false;
+        $(document).ready(function() {
+            $('.selectpicker').selectpicker({
+            style: 'btn-info',
+            size: 10
+            /*iconBase: 'fa'
+            tickIcon: 'fa-check'*/
+            });
+        });
+        $('[data-toggle="tooltip"]').tooltip();
     </script>
-
-    <style>
-      .bootstrap-select {
-        width: 90% !important;
-      }
-
-      .filter-option-inner-inner, .bs-caret {
-        font-size: 1em !important;
-        }
-
-        .dropdown-menu {
-            font-size: 1em !important;
-        }
-        .dropdown-menu.show {
-    min-width: 250px !important;
-}
-
-        	.btn-flex {
-  display: flex;
-  align-items: stretch;
-  align-content: stretch;
-}
-
-  .btn-flex .btn:first-child {
-    flex-grow: 1;
-    text-align: left;
-  }
-
-  #dropdown-options {
-    transform: translate3d(0px, 34px, 0px) !important;
-    min-width: 0px !important;
-  }
-
-  #dropdown-options li {
-	display:inline-block;
-	vertical-align: top;
-	
-  float: Left;
-	}
-      </style>
