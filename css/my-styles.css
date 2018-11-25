@@ -1,7 +1,7 @@
 /* STYLES ADDED BY DAVID OSORIO */
 
 .navbar-brand-wrapper {
-  background: dimgrey;
+  background: dimgray;
   border-bottom: 1px solid darkorange;
 }
 
@@ -41,4 +41,38 @@
   display:inline-block;
   vertical-align: top;
   float: left;
+}
+
+#dropdown-options .opt-lbl {
+  width: 90%;
+  /* El texto 'Ver tabla de búsqueda' y 'FAQ' es largo así que no conviene alinearlo a la izq. */
+  /*padding-left: 18%;*/
+  text-align: center;
+}
+
+.opt-lbl-text {
+  color: indianred;
+}
+
+.opt-lbl-text:hover {
+  color: #fd0c39;
+}
+
+#dropdown-options .opt-tooltip {
+  width: 10%;
+  font-family: helvetica;
+  text-align: center;
+}
+
+#div-rbtns {
+  display: flex;
+  color: lightgray;
+}
+
+#div-rbtns-or {
+  padding-left: 25px;
+}
+
+#div-rbtns-and {
+  padding-left: 5px;
 }

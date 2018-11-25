@@ -44,5 +44,7 @@
             tickIcon: 'fa-check'*/
             });
         });
-        $('[data-toggle="tooltip"]').tooltip();
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
