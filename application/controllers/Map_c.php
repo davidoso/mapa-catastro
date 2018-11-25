@@ -55,7 +55,7 @@ class Map_c extends CI_Controller {
 
 
 		// Cargar página inicial/home de los filtros y el mapa
-		$this->load->view('filter2', $data);
+		$this->load->view('filter', $data);
 	}
 
 	public function getCampos()

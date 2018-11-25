@@ -1,4 +1,6 @@
-# Filtros de búsqueda dinámicos para el mapa digital de Catastro Colima
+# NUEVA VERSIÓN EN CONSTRUCCIÓN..
+# ESTE ES EL README DE LA VERSIÓN BETA (ES OBSOLETO)
+# Consultas dinámicas para el mapa digital de Catastro Colima
 
 - [Mapa digital actual]
 - [Propuesta de solución]

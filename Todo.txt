@@ -1,7 +1,9 @@
 Cosas por hacer:
     * Nueva versión de readme.md
-    * Acomodar sección Help
-    * Dropdown con 5 opciones (en vez de botones). Abrir con hover
+    * Acomodar sección Help y 'Más opciones' del sidebar
+    * Acomodar fuente en inputValor e inputSearch de selectboxes
+    * Acomodar div del MAPA y map/map.js
+    * Dropdown con 5 opciones (en vez de botones). Abrir con hover. Tooltips y alinear <li>
     * Alert con mensaje
         error: si se agrega capa sin seleccionar o filtro sin campo/valor
         error: con valor nulo o regex que no sea alfanumérico (si se copia/pega texto)
@@ -9,6 +11,6 @@ Cosas por hacer:
     * Eliminar todos los comentarios y archivos inútiles como macros al subir en webhost
     * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
 
-Ideas:
-    * Si queda mucho espacio en blanco en la columna izquierda, hacer el div de Filtros agregados a su altura y el mapa todo a lo largo
-    * Datatable en di Filtros agregados (1 sola tabla con totales y ops de editar/eliminar). Reestructurar todas las funciones de filter sin HTML DOM Table cells
+Importante:
+    * Datatable para Filtros agregados (1 sola tabla con totales y ops de editar/eliminar)
+    * Reestructurar todas las funciones de filter sin HTML DOM Table cells
