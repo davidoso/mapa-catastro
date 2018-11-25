@@ -45,7 +45,7 @@
 
 #dropdown-options .opt-lbl {
   width: 90%;
-  /* El texto 'Ver tabla de búsqueda' y 'FAQ' es largo así que no conviene alinearlo a la izq. */
+  /* Dado que el texto 'Ver tabla de búsqueda' es largo, no conviene alinear todos a la izq. */
   /*padding-left: 18%;*/
   text-align: center;
 }

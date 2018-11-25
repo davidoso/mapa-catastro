@@ -51,7 +51,7 @@
             <center id="divCampos">
                 <label class="nav-link">
                     <span class="menu-title">Seleccione una capa..</span>
-                    <i class="fas fa-fw fa-layer-group"></i>
+                    <i class="fas fa-fw fa-layer-group" data-toggle="tooltip" data-placement="top" title="Para agregar un filtro, primero seleccione una capa"></i>
                 </label>
             </center>
         </li>
@@ -62,7 +62,7 @@
             <center id="divValores">
                 <label class="nav-link">
                     <span class="menu-title">Seleccione un campo..</span>
-                    <i class="fas fa-fw fa-filter"></i>
+                    <i class="fas fa-fw fa-filter" data-toggle="tooltip" data-placement="top" title="Para agregar un filtro, primero seleccione un campo"></i>
                 </label>
             </center>
         </li>
