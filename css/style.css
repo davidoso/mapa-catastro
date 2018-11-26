@@ -13792,7 +13792,9 @@ input:focus {
       .navbar .navbar-brand-wrapper .navbar-brand:active, .navbar .navbar-brand-wrapper .navbar-brand:focus, .navbar .navbar-brand-wrapper .navbar-brand:hover {
         color: #1b2658; }
       .navbar .navbar-brand-wrapper .navbar-brand img {
-        width: 85px;
+        padding-bottom: 2px; /* ADDED */
+        /*width: 85px; CHANGED*/
+        width: 50%;
         max-width: 100%; }
     .navbar .navbar-brand-wrapper .brand-logo-mini {
       display: none; }

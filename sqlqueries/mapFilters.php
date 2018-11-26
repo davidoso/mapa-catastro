@@ -18,7 +18,7 @@
     $arrQueries = array();
     for ($i = 0; $i < count($arrLayers); $i++) {
         $query =
-        "SELECT coord_x, coord_y, lower(tr('layerColumn', 'ÁÉÍÓÚ ', 'AEIOU_')) AS layer
+        "SELECT coord_x, coord_y, lower(tr('layerColumn', 'ÁÉÍÓÚÑ ', 'AEIOUN_')) AS layer
         FROM layerTable
         WHERE ST_INTERSECTS(ST_GeomFromText('Polygon((polygonCoordinates))'),
         ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') ))
