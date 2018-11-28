@@ -50,7 +50,7 @@
         // Comment the following two lines to have the mouse position be placed within the map
         className: 'custom-mouse-position',
         target: document.getElementById('mouse-position'),
-        undefinedHTML: 'Para un click individual, pulse <code style="color: #333;">Alt+Click</code>, <code style="color: #333;">Ctrl+Click</code>, o <code style="color: #333;">Shift+Click</code>'
+        undefinedHTML: 'Para un click individual, pulse <code>Alt+Click</code> / <code>Ctrl+Click</code>'
     });
 
     // https://openlayersbook.github.io/ch08-interacting-with-your-map/example-01.html
@@ -248,7 +248,7 @@
             flickrSource.addFeature(feature);           // Add the feature to the source
         });
 
-        $("body").css('cursor', 'auto');                // Reset mouse cursor after finishing drawing markers
+        $('body').css('cursor', 'auto');                // Reset mouse cursor after finishing drawing markers
     }
 
     function printTotals(data) {
@@ -361,11 +361,11 @@
                 /* This AJAX call is slower than the other, so it resets the mouse cursor at the end
                 Update1: The function still needs more time to add the markers for each feature, so the
                 cursor is reset at the end of successHandler(result) */
-                //$("body").css('cursor', 'auto');
+                //$('body').css('cursor', 'auto');
                 if(result != "EMPTY QUERY")
                     successHandler(result);
                 else
-                    $("body").css('cursor', 'auto'); // Reset mouse cursor if there are no markers to draw
+                    $('body').css('cursor', 'auto'); // Reset mouse cursor if there are no markers to draw
             }
         }); // AJAX
 
@@ -381,141 +381,22 @@
     }
 
     $(document).ready(function() {
-        $("#btnQuery").click(function() {
+        /*$("#btnQuery").click(function() {
             if(validQuery()) {
                 var pointsArray = getLastFeatureCoord(); // Split all points into individual longitude or latitude
                 flickrSource.clear();   // Delete UTM2DEC points (map markers) added during the previous query
                 if(selectedMarker) {    // Delete last selected map marker in case it exists
                     selectedMarker.getFeatures().clear();
                 }
-                $("body").css('cursor', 'wait'); // Call mapFilters.php and mapTotals.php
+                $('body').css('cursor', 'wait'); // Call mapFilters.php and mapTotals.php
                 continueIfPolygonISValid();
 
-                // Update2: Not needed after MSSQL-to-MySQL migration. MariaDB does not support ST_ISVALID()
-                /*$.ajax({
-                    type: "POST",
-                    url: "sqlqueries/mapPolygonIsValid.php",
-                    data: "pPointsArray=" + pointsArray,
-                    success: function(result) {
-                        if(result == "1") {
-                            $("body").css('cursor', 'wait');
-                            continueIfPolygonISValid(); // Call mapFilters.php and mapTotals.php
-                        }
-                        else {
-                            // 3 líneas necesarias para adaptar el mensaje de alerta
-                            $("#myModalMapWarnings").modal("show");
-                            $("#h3ModalMapWarning").text("Área de influencia inválida");
-                            $("#messageModalMapWarning").text("Por favor, trace un polígono de modo que no se sobrepongan vértices ni crucen aristas y se forme una figura plana y sin intersecciones");
-                        }
-                    }
-                }); // AJAX*/
             } // if(validQuery())
-        }); // $("#btnQuery").click()
-
-        // Resize tblTotales rows when tblFiltros rows change after the accordion is expanded or collapsed
-        // https://stackoverflow.com/questions/6492683/how-to-detect-divs-dimension-changed
-        // https://alligator.io/js/resize-observer
-        const tblFiltrosObserver = new ResizeObserver(entries => {
-            entries.forEach(entry => {
-                //alert("Filter Table resized...");
-                var tableF = document.getElementById("tblFiltros");
-                var tableT = document.getElementById("tblTotales");
-                var totalFRows = tableF.rows.length;
-                var totalTRows = tableT.rows.length;
-                var height;
-
-                /* tblTotales must not be empty and the number of both tables' rows must be equal since
-                any kind of CRUD operation previously done (filter.php) deletes all rows in tblTotales */
-                if(totalTRows != 0 && totalTRows == totalFRows) {
-                    for(var i = 0; i < totalTRows; i++) {
-                        height = $(tableF.rows[i]).height();
-                        tableT.rows[i].setAttribute("height", height);
-                    }
-                }
-            });
-        });
-        const tableToObserve = document.getElementById("tblFiltros");
-        tblFiltrosObserver.observe(tableToObserve);
+        }); // $("#btnQuery").click()*/
 
         // Close all FAQ accordion tabs when the modal is close
         $("#myModalHelp").on("hidden.bs.modal", function () {
             $('.panel-collapse.in').collapse('hide');
         });
-
-        /*$(".bootstrap-select").hover(function() {
-                $(this).find(".filter-option-inner-inner").css("color", "white"); },
-            function() {
-                $(this).find(".filter-option-inner-inner").css("color", "#2e2e2e");
-        });*/
-        $(".bootstrap-select").on("mouseover", function () { // Set combobox text color to white on hover
-            $(this).find(".filter-option-inner-inner").css("color", "white");
-        });
-        $(".bootstrap-select").on("focusin", function () { // Set combobox text color to white on focus
-            $(this).find(".filter-option-inner-inner").css("color", "white");
-        });
-        $(".bootstrap-select").on("mouseleave", function () { // Set combobox default text color on hover exit
-            $(this).find(".filter-option-inner-inner").css("color", "#2e2e2e");
-        });
-
-        // Same as above functions needed to event binding on dynamically created elements
-        $(document).on("mouseover", ".bootstrap-select", function() {
-            $(this).find(".filter-option-inner-inner").css("color", "white");
-        });
-        $(document).on("focusin", ".bootstrap-select", function() {
-            $(this).find(".filter-option-inner-inner").css("color", "white");
-        });
-        $(document).on("mouseleave", ".bootstrap-select", function() {
-            $(this).find(".filter-option-inner-inner").css("color", "#2e2e2e");
-        });
-
-        // Fill 2nd combobox (search columns) depending on the layer selected on the 1st combobox
-        $("#cbCapas").on("change", function () {
-            document.getElementById("divValores").innerHTML = null;
-            switchSelectCapa();
-        });
-
-        // Fill 3rd combobox (values) depending on the column-to-search selected on the 2nd combobox
-        $(document).on("change", "#cbCampos", function() {
-            switchSelectCampo();
-        });
-
-        $(document).on("change", "#cbValues", function() { // Set combobox default text color on hover exit
-            $(this).trigger('mouseleave'); // NOTA: PONER FOCUS EN OPCIÓN AGREGAR FILTRO DE DROPDOWN
-        });
-
-        $("#cbShapes").on("change", function () { // Set combobox default text color on hover exit
-            $(this).trigger('mouseleave');
-        });
-
-        // Trim and convert to uppercase inputs on focus out
-        $(document).on("focusout", "input[type=text]", function() { // NOTA: VALIDAR TEXTO COPIADO AQUÍ
-            this.value = this.value.toUpperCase().trim();
-        });
-        $(document).on("keypress", ".vLetras", function(evt) {
-            var charCode = (evt.which) ? evt.which : event.keyCode;
-            return validarLetras(charCode);
-        });
-        $(document).on("keypress", ".vNumeros", function(evt) {
-            var charCode = (evt.which) ? evt.which : event.keyCode;
-            return validarNumeros(charCode);
-        });
-        $(document).on("keypress", ".vAlfanumerico", function(evt) {
-            var charCode = (evt.which) ? evt.which : event.keyCode;
-            return validarAlfanumerico(charCode);
-        });
-
-        // Allow/block keys depending on the input class
-	    function validarLetras(charCode) {
-		    return !(charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)
-				&& charCode != 32 && (charCode <= 192 || charCode >= 255));
-        }
-
-        function validarNumeros(charCode) {
-		    return !(charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 32 && (charCode <= 192 || charCode >= 255));
-        }
-
-	    function validarAlfanumerico(charCode) {
-			return (validarLetras(charCode) || validarNumeros(charCode));
-        }
     }); // $(document).ready()
 </script>

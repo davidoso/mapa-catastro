@@ -5,16 +5,16 @@
             <center>
             <div class="btn-group">
                 <div class="btn-group btn-flex">
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger" id="btnQuery">
                         <i class="fas fa-fw fa-search" aria-hidden="true"></i>&nbsp;&nbsp;CONSULTAR</button>
                     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span></button>
                     <ul class="dropdown-menu" role="menu" id="dropdown-options">
-                        <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-table" aria-hidden="true"></i>&nbsp;&nbsp;VER TABLA DE BÚSQUEDA</a></li>
-                        <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Ver las consultas agregadas por capa con y sin filtros (campo/valor)"></i></li>
+                        <!-- <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-table" aria-hidden="true"></i>&nbsp;&nbsp;VER TABLA DE BÚSQUEDA</a></li>
+                        <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Ver las consultas agregadas por capa con y sin filtros (campo/valor)"></i></li> -->
 
-                        <li class="opt-lbl"><a class="opt-lbl-text" href="#" style="padding-left: 5px;"><i class="fas fa-fw fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;AGREGAR CAPA</a></li>
+                        <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;AGREGAR CAPA</a></li>
                         <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Agregar la capa sin filtros (campo/valor) a la tabla de búsqueda"></i></li>
 
                         <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;LIMPIAR MAPA</a></li>
@@ -107,12 +107,12 @@
                 <i class="fas fa-fw fa-search" data-toggle="tooltip" data-placement="top" title="Consultar en el mapa"></i>
             </label>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <label class="nav-link">
                 <span class="menu-title">Ver tabla de búsqueda</span>
                 <i class="fas fa-fw fa-table" data-toggle="tooltip" data-placement="top" title="Ver las consultas agregadas por capa con y sin filtros (campo/valor)"></i>
             </label>
-        </li>
+        </li> -->
         <li class="nav-item">
             <label class="nav-link">
                 <span class="menu-title">Agregar capa</span>

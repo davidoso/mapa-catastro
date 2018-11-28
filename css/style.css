@@ -7822,7 +7822,8 @@ samp {
 
 code {
   font-size: 87.5%;
-  color: #e83e8c;
+  color: #ec407a;
+  background: whitesmoke; /* ADDED */
   word-break: break-word; }
   a > code {
     color: inherit; }
@@ -8440,19 +8441,22 @@ pre {
   padding: 0.3rem; }
 
 .table-bordered {
-  border: 1px solid #f2f2f2; }
+  border-radius: 2px; /* ADDED */
+  /*border: 1px solid #f2f2f2; CHANGED*/
+  border: 1px solid dimgray; }
   .table-bordered th,
   .table-bordered td {
-    border: 1px solid #f2f2f2; }
+    /*border: 1px solid #f2f2f2; CHANGED*/
+    border: 1px solid lightgray; }
   .table-bordered thead th,
   .table-bordered thead td {
     border-bottom-width: 2px; }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f3f5f7; }
+  background-color: #edf5f9; }
 
 .table-hover tbody tr:hover {
-  background-color: #f3f5f7; }
+  background-color: #edf5f9; }
 
 .table-primary,
 .table-primary > th,
@@ -13816,7 +13820,8 @@ input:focus {
       margin-bottom: 0;
       color: #32323d;
       font-size: 1rem;
-      font-weight: 500; }
+      /*font-weight: 500; CHANGED*/
+      font-weight: bold; }
     .navbar .navbar-menu-wrapper .navbar-nav {
       flex-direction: row;
       align-items: center; }
@@ -14119,7 +14124,8 @@ html {
   background: #eee;
   margin-left: 240px;
   min-height: 100vh;
-  padding: 1.5rem 1.7rem;
+  /*padding: 1.5rem 1.7rem; CHANGED*/
+  padding: 1.2rem 1.2rem;
   transition: width 0.25s ease, margin 0.25s ease;
   width: calc(100% - 240px); }
   @media (max-width: 991px) {
@@ -14148,7 +14154,7 @@ pre {
   -webkit-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   width: calc(100% - 240px);
-  border-top: 1px solid #f2f2f2;
+  border-top: 1px solid #91c2e8;
   font-size: calc(0.875rem - 0.05rem); }
   .footer a {
     color: #33c92e;
@@ -14160,7 +14166,8 @@ pre {
 
 /* Utilities */
 .grid-margin {
-  margin-bottom: 20px; }
+  /*margin-bottom: 20px; CHANGED*/
+  margin-bottom: 1.2rem; }
 
 @media (min-width: 576px) {
   .grid-margin-sm-0 {
@@ -14855,7 +14862,8 @@ pre {
   border: 0;
   border-radius: 2px; }
   .card .card-body {
-    padding: 1.5rem 0.9375rem; }
+    /*padding: 1.5rem 0.9375rem; CHANGED*/
+    padding: 1.5rem 0.9375rem 0px 1.5rem; }
     .card .card-body + .card-body {
       padding-top: 0; }
 
@@ -14878,7 +14886,7 @@ pre {
     .form-check .form-check-label input,
     .form-radio .form-check-label input {
       position: absolute;
-      /* CHANGED TO margin: 0;
+      /*CHANGED TO margin: 0;
       margin-left: -20px;
       margin-top: 4px\9;*/
       margin: 0;
@@ -15423,10 +15431,11 @@ dl {
 .table {
   margin-bottom: 0; }
   .table thead th {
+    color: #83d0f2; /* ADDED */
     border-top: 0;
     border-bottom-width: 1px; }
-    .table thead th i {
-      margin-left: 0.325rem; }
+    /*.table thead th i {
+      margin-left: 0.325rem; } CHANGED*/
   .table th,
   .table td {
     vertical-align: middle;

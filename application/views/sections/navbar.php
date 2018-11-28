@@ -8,7 +8,7 @@
         <p class="page-name d-none d-lg-block">Consultas dinámicas en el mapa digital de Catastro Colima</p>
         <ul class="navbar-nav ml-lg-auto">
             <li class="nav-item">
-            <a href="http://www.catastrocolima.gob.mx/cartografia.html" title="Ir al mapa cartográfico actual" target="_blank"><b>MAPA CARTOGRÁFICO ACTUAL&nbsp;</b><i class="fas fa-fw fa-map-marker-alt"></i></a>
+            <a href="http://www.catastrocolima.gob.mx/cartografia.html" title="Ir al mapa digital actual" target="_blank"><b>MAPA DIGITAL ACTUAL&nbsp;</b><i class="fas fa-fw fa-map-marker-alt"></i></a>
             </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center ml-auto" type="button" data-toggle="offcanvas"><i class="fas fa-fw fa-bars"></i></button>

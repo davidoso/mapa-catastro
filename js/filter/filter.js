@@ -1,5 +1,6 @@
 // Fill 2nd combobox (search columns) depending on the layer selected on the 1st combobox
 $("#cbCapas").on("change", function () {
+    document.getElementById("divValores").innerHTML = null;
     document.getElementById("divValores").innerHTML = '<label class="nav-link"><span class="menu-title">Seleccione un campo..</span><i class="fas fa-fw fa-filter"></i></label>';
     switchSelectCapa();
 });
@@ -13,7 +14,7 @@ function switchSelectCapa() {
     var cbCapas = document.getElementById("cbCapas");
     var capa = cbCapas.options[cbCapas.selectedIndex].value;
     var divCampos = document.getElementById("divCampos");
-    $("body").css('cursor', 'wait');
+    $('body').css('cursor', 'wait');
 
     $.ajax({
         type: "get",
@@ -33,16 +34,13 @@ function switchSelectCapa() {
                 style: 'btn-info',
                 size: 10
             });
-            $('#cbCapas').trigger('mouseleave');
             $('#cbCampos').focus();
             $('#cbCampos').selectpicker('toggle');
-            /*$('#cbCampos').parent().addClass('open'); // This way the searchbox isn't focused
-            $('#cbCampos').selectpicker('refresh');*/
-            $("body").css('cursor', 'auto');
+            $('body').css('cursor', 'auto');
         },
         error: function() {
             console.log("Error! switchSelectCapa() failed. Search columns could not be retrieved");
-            $("body").css('cursor', 'auto');
+            $('body').css('cursor', 'auto');
         }
     }); // AJAX
 }
@@ -53,27 +51,26 @@ function switchSelectCampo() {
     var cbCampos = document.getElementById("cbCampos");
     var campo = cbCampos.options[cbCampos.selectedIndex].value;
     var divValores = document.getElementById("divValores");
-    $("body").css('cursor', 'wait');
+    $('body').css('cursor', 'wait');
 
     if(campo == "NOMBRE") {
         var my_class, my_placeholder, my_maxlength;
         switch(capa) {
         case "BANCOS":
             my_class = "vAlfanumerico";
-            my_placeholder = "Ingrese el banco a buscar";
+            my_placeholder = "Ingrese el banco a buscar..";
             my_maxlength = 30;
             break;
         case "HOTELES":
             my_class = "vAlfanumerico";
-            my_placeholder = "Ingrese el hotel a buscar";
+            my_placeholder = "Ingrese el hotel a buscar..";
             my_maxlength = 30;
             break;
         }
         divValores.innerHTML = null;
-        divValores.innerHTML = '<input type="text" class="form-control ' + my_class + '" id="inputValor" name="inputValor" placeholder="' + my_placeholder + '" maxlength="' + my_maxlength + '">';
-        $('#cbCampos').trigger('mouseleave');
+        divValores.innerHTML = '<input type="text" style="width: 90%;" class="form-control ' + my_class + '" id="inputValor" name="inputValor" placeholder="' + my_placeholder + '" maxlength="' + my_maxlength + '">';
         $('#inputValor').focus();
-        $("body").css('cursor', 'auto');
+        $('body').css('cursor', 'auto');
     } // if (campo == "NOMBRE")
     else {
         $.ajax({
@@ -94,15 +91,46 @@ function switchSelectCampo() {
                     style: 'btn-info',
                     size: 6
                 });
-                $('#cbCampos').trigger('mouseleave');
                 $('#cbValores').focus();
                 $('#cbValores').selectpicker('toggle');
-                $("body").css('cursor', 'auto');
+                $('body').css('cursor', 'auto');
             },
             error: function() {
                 console.log("Error! switchSelectCampo() failed. Values could not be retrieved");
-                $("body").css('cursor', 'auto');
+                $('body').css('cursor', 'auto');
             }
         }); // AJAX
     } // else (campo == "NOMBRE")
+}
+
+// Convert to uppercase, remove multiple whitespaces and trim inputs on focus out
+$(document).on("focusout", "input[type=text]", function() {
+    this.value = this.value.toUpperCase().replace(/\s{2,}/g, " ").trim();
+});
+$(document).on("keypress", ".vLetras", function(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    return validarLetras(charCode);
+});
+$(document).on("keypress", ".vNumeros", function(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    return validarNumeros(charCode);
+});
+$(document).on("keypress", ".vAlfanumerico", function(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    return validarAlfanumerico(charCode);
+});
+
+// Allow/block keys depending on the input class
+function validarLetras(charCode) {
+    return !(charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)
+        && charCode != 32 && (charCode <= 192 || charCode >= 255));
+}
+
+function validarNumeros(charCode) {
+    return !(charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 32
+        && (charCode <= 192 || charCode >= 255));
+}
+
+function validarAlfanumerico(charCode) {
+    return (validarLetras(charCode) || validarNumeros(charCode));
 }

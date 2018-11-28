@@ -24,7 +24,7 @@ class Map_m extends CI_Model {
 		$this->db->from('ctrl_select_capas AS SC');
 		$this->db->join('ctrl_campos_a_filtrar AS CF', 'SC.id_capa = CF.id_capa');
 		$this->db->where('SC.capa', $capa);
-		$this->db->order_by('SC.carpeta, SC.capa');
+		$this->db->order_by('CF.campo_frontend');
 		$query = $this->db->get();
 
 		return $query->result();
