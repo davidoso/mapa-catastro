@@ -18,6 +18,8 @@
 <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap4.min.css">
 <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/jquery.toast.min.css">
+<!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="fonts/fontawesome-free/css/all.min.css">
 <!--===============================================================================================-->
     <!-- jQuery version downloaded from: -->
@@ -42,6 +44,9 @@
 <!--===============================================================================================-->
 	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="js/jquery.toast.min.js"></script>
+    <script type="text/javascript" src="js/toastNotif.js"></script>
 <!--===============================================================================================-->
     <script>
         $.fn.selectpicker.Constructor.BootstrapVersion = '4';

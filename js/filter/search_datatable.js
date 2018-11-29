@@ -55,7 +55,7 @@ $(document).ready(function() {
                 // Validate at least 4 alphanumeric characters in case the user copy-paste some text
                 re = /^[A-Z0-9Ñ\s]{4,}$/;
                 if(!re.test(valor)) {
-                    alert("Ingrese al menos 4 caracteres alfanuméricos");
+                    showToastNotif('Nombre inválido', 'Ingrese al menos 4 caracteres alfanuméricos', 'bottom-right', 'error');
                 }
                 else {
                     addIfNotDuplicate(capa, campo, valor);
@@ -73,7 +73,7 @@ $(document).ready(function() {
     });
 
     // https://datatables.net/reference/api/row().remove()
-    $("#myDataTable tbody").on('click','[id=btn_delete]',function(){
+    $("#myDataTable tbody").on('click', '[id=btn_delete]', function() {
         tabla.row($(this).parents('tr')).remove().draw();
     });
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
             for(i = 0; i < totalRows; i++) {
                 if(capa == data[i].capa && campo == data[i].campo && valor == data[i].valor) {
                     duplicate = true;
-                    alert("Ya se agregó la consulta");
+                    showToastNotif('Consulta duplicada', 'La consulta ya existe en la tabla de búsqueda', 'bottom-right', 'warning');
                     break;
                 }
             }
@@ -110,9 +110,53 @@ $(document).ready(function() {
             "opt_edit": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'><i class='fas fa-pencil-alt'></i></button>",
             "opt_delete": "<button id='btn_delete' class='btn btn-outline-danger btn-sm' title='Eliminar consulta'>&nbsp;<i class='fas fa-trash'></i></button>"
          }).draw();
+
+        showToastNotif('Consulta agregada', 'Capa: ' + capa + ', en campo: ' + campo, 'bottom-right', 'info');
     }
 
-    /*$("#btnQuery").on( "click", function () {
+    $("#btnQuery").on("click", function () {
+        //queryMap();
+    });
 
-    });*/
+    //$("#dropdown-options li a").click(function() { Another way to define function
+    $("#dropdown-options li a").on("click", function () {
+        var opt = $(this).data("opt");
+        switchOption(opt);
+    });
+
+    $(".nav-item .label-options").on("click", function () {
+        var opt = $(this).data("opt");
+        switchOption(opt);
+        /*if(opt == 0) {
+            //queryMap();
+        }
+        else {
+            switchOption(opt);
+        }*/
+    });
+
+    function switchOption(opt) {
+        switch(opt) {
+            case 1: // AGREGAR CAPA
+                addSimpleLayer();
+                break;
+            /*case 2: // LIMPIAR MAPA
+                break;
+            case 3: // LIMPIAR TODO
+                break;
+            case 4: // LIMPIAR AYUDA
+                break;*/
+        }
+    }
+
+    function addSimpleLayer() {
+        var capa = document.getElementById("cbCapas").value;
+        if(capa == '') {
+            showToastNotif('Capa no seleccionada', 'Seleccione una capa, por favor', 'bottom-right', 'warning');
+        }
+        else {
+            addQuery(capa, '(SIN FILTROS)', '(SIN FILTROS)');
+            showToastNotif('Consulta agregada', 'Capa: ' + capa + ' (SIN FILTROS)', 'bottom-right', 'info');
+        }
+    }
 }); // $(document).ready()

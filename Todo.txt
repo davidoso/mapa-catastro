@@ -11,6 +11,8 @@ Cosas por hacer:
     * Eliminar todos los comentarios y archivos inútiles como macros al subir en webhost
     * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
     * Cambiar field por column en sqlqueries
+    * opt_edit en Datatable
+    * Capa sin filtros a filtro específico y viceversa en MODAL
 
 Importante:
     * Datatable para Filtros agregados (1 sola tabla con totales y ops de editar/eliminar)

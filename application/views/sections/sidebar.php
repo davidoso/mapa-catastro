@@ -14,16 +14,16 @@
                         <!-- <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-table" aria-hidden="true"></i>&nbsp;&nbsp;VER TABLA DE BÚSQUEDA</a></li>
                         <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Ver las consultas agregadas por capa con y sin filtros (campo/valor)"></i></li> -->
 
-                        <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;AGREGAR CAPA</a></li>
+                        <li class="opt-lbl"><a class="opt-lbl-text" href="#" data-opt="1"><i class="fas fa-fw fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;AGREGAR CAPA</a></li>
                         <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Agregar la capa sin filtros (campo/valor) a la tabla de búsqueda"></i></li>
 
-                        <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;LIMPIAR MAPA</a></li>
+                        <li class="opt-lbl"><a class="opt-lbl-text" href="#" data-opt="2"><i class="fas fa-fw fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;LIMPIAR MAPA</a></li>
                         <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Limpiar los marcadores y polígonos trazados en el mapa"></i></li>
 
-                        <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-undo" aria-hidden="true"></i>&nbsp;&nbsp;LIMPIAR TODO</a></li>
+                        <li class="opt-lbl"><a class="opt-lbl-text" href="#" data-opt="3"><i class="fas fa-fw fa-undo" aria-hidden="true"></i>&nbsp;&nbsp;LIMPIAR TODO</a></li>
                         <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Limpiar el mapa y la tabla de búsqueda"></i></li>
 
-                        <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-question-circle" aria-hidden="true"></i>&nbsp;&nbsp;AYUDA</a></li>
+                        <li class="opt-lbl"><a class="opt-lbl-text" href="#" data-opt="4"><i class="fas fa-fw fa-question-circle" aria-hidden="true"></i>&nbsp;&nbsp;AYUDA</a></li>
                         <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Abrir modal de ayuda y preguntas frecuentes"></i></li>
                     </ul>
                 </div>
@@ -102,7 +102,7 @@
             <span class="nav-link">ACCIONES</span>
         </li>
         <li class="nav-item">
-            <label class="nav-link">
+            <label class="nav-link label-options" data-opt="0">
                 <span class="menu-title">Consultar</span>
                 <i class="fas fa-fw fa-search" data-toggle="tooltip" data-placement="top" title="Consultar en el mapa"></i>
             </label>
@@ -114,25 +114,25 @@
             </label>
         </li> -->
         <li class="nav-item">
-            <label class="nav-link">
+            <label class="nav-link label-options" data-opt="1">
                 <span class="menu-title">Agregar capa</span>
                 <i class="fas fa-fw fa-plus" data-toggle="tooltip" data-placement="top" title="Agregar la capa sin filtros (campo/valor) a la tabla de búsqueda"></i>
             </label>
         </li>
         <li class="nav-item">
-            <label class="nav-link">
+            <label class="nav-link label-options" data-opt="2">
                 <span class="menu-title">Limpiar mapa</span>
                 <i class="fas fa-fw fa-map-marker" data-toggle="tooltip" data-placement="top" title="Limpiar los marcadores y polígonos trazados en el mapa"></i>
             </label>
         </li>
         <li class="nav-item">
-            <label class="nav-link">
+            <label class="nav-link label-options" data-opt="3">
                 <span class="menu-title">Limpiar todo</span>
                 <i class="fas fa-fw fa-undo" data-toggle="tooltip" data-placement="top" title="Limpiar el mapa y la tabla de búsqueda"></i>
             </label>
         </li>
         <li class="nav-item">
-            <label class="nav-link">
+            <label class="nav-link label-options" data-opt="4">
                 <span class="menu-title">Ayuda</span>
                 <i class="fas fa-fw fa-question-circle" data-toggle="tooltip" data-placement="top" title="Abrir modal de ayuda y preguntas frecuentes"></i>
             </label>
