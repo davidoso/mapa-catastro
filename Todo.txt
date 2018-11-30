@@ -1,18 +1,16 @@
 Cosas por hacer:
     * Nueva versión de readme.md
-    * Acomodar sección Help y 'Más opciones' del sidebar
-    * Acomodar fuente en inputValor e inputSearch de selectboxes
+    * Acomodar sección Help y switchOpt para las opciones del sidebar/dropdown
     * Acomodar div del MAPA y map/map.js
-    * Dropdown con 5 opciones (en vez de botones). Abrir con hover. Tooltips y alinear <li>
-    * Alert con mensaje
-        error: si se agrega capa sin seleccionar o filtro sin campo/valor
-        error: con valor nulo o regex que no sea alfanumérico (si se copia/pega texto)
-        success: filtro agregado con éxito/capa sin filtros
-    * Eliminar todos los comentarios y archivos inútiles como macros al subir en webhost
+    * Acomodar llamadas AJAX en mapTotals, mapFilters y mapSelectedMarker
+    * Modal con tabla de info del marcador seleccionado
+    * Eliminar todos los comentarios, archivos inútiles y carpeta beta al subir en webhost
     * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
-    * Cambiar field por column en sqlqueries
+    * Cambiar comentario field por column en sqlqueries
     * opt_edit en Datatable
-    * Capa sin filtros a filtro específico y viceversa en MODAL
+    * Delete todo.txt
+    * Notif error sin área de influencia / tabla de búsqueda vacía
+    * Notif success después de imprimir marcadores (tarda más que mapTotals)
 
 Importante:
     * Datatable para Filtros agregados (1 sola tabla con totales y ops de editar/eliminar)

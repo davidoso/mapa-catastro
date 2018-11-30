@@ -110,3 +110,7 @@ tbody tr td {
 .text-purple-darken {
   color: #8e24aa;
 }
+
+.label-options {
+  cursor: pointer;
+}

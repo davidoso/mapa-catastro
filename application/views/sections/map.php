@@ -30,7 +30,7 @@
         source: new ol.source.OSM()
     });
 
-    var center = ol.proj.transform([-103.724040, 19.245244], 'EPSG:4326', 'EPSG:3857'); // Colima coordinates
+    var center = ol.proj.transform([-103.716, 19.247], 'EPSG:4326', 'EPSG:3857'); // Colima coordinates
 
     var view = new ol.View({
         center: center,

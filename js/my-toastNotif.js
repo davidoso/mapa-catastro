@@ -1,6 +1,6 @@
 // http://www.bootstrapdash.com/demo/stellar-admin/jquery/pages/ui-features/notifications.html
 // Required files: jquery.toast.min.css, jquery.toast.min.js & toastDemo.js
-(function ($) {
+(function($) {
     showToastNotif = function(heading, text, position, icon) {
         'use strict';
         resetToastPosition();

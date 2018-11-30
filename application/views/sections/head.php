@@ -46,7 +46,10 @@
 	<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
 <!--===============================================================================================-->
     <script type="text/javascript" src="js/jquery.toast.min.js"></script>
-    <script type="text/javascript" src="js/toastNotif.js"></script>
+    <script type="text/javascript" src="js/my-toastNotif.js"></script>
+<!--===============================================================================================-->
+    <script type="text/javascript" src="js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="js/my-sweetalert.js"></script>
 <!--===============================================================================================-->
     <script>
         $.fn.selectpicker.Constructor.BootstrapVersion = '4';

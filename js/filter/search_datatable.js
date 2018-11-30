@@ -43,22 +43,21 @@ $(document).ready(function() {
         "lengthChange": false
     }); // $("#myDataTable").DataTable()
 
-
     $(document).on("keyup", "#inputValor", function(e) {
         if(e.which == 13) { // Enter keycode
-            this.value = this.value.toUpperCase().replace(/\s{2,}/g, " ").trim(); // Same as focusout
+            this.value = this.value.toUpperCase().replace(/\s{2,}/g, " ").trim(); // Same as focusout in filter.js
             var capa = document.getElementById("cbCapas").value;
             var campo = document.getElementById("cbCampos").value;
             var valor = this.value;
 
-            if(valor != '') {
+            if(valor != '') { // Do not show notification if the input is empty
                 // Validate at least 4 alphanumeric characters in case the user copy-paste some text
-                re = /^[A-Z0-9Ñ\s]{4,}$/;
+                re = /^[A-Z0-9ÁÉÍÓÚÑ\s]{4,}$/;
                 if(!re.test(valor)) {
                     showToastNotif('Nombre inválido', 'Ingrese al menos 4 caracteres alfanuméricos', 'bottom-right', 'error');
                 }
                 else {
-                    addIfNotDuplicate(capa, campo, valor);
+                    checkBeforeAddFilter(capa, campo, valor);
                 }
             }
         }
@@ -69,7 +68,7 @@ $(document).ready(function() {
         var campo = document.getElementById("cbCampos").value;
         var valor = document.getElementById("cbValores").value;
 
-        addIfNotDuplicate(capa, campo, valor);
+        checkBeforeAddFilter(capa, campo, valor);
     });
 
     // https://datatables.net/reference/api/row().remove()
@@ -77,30 +76,65 @@ $(document).ready(function() {
         tabla.row($(this).parents('tr')).remove().draw();
     });
 
-    function addIfNotDuplicate(capa, campo, valor) {
-        var data = tabla.data();
-        var totalRows = tabla.data().count();
-        //console.log("Total rows: " + totalRows);
+    // https://stackoverflow.com/questions/25866466/delete-a-row-from-a-datatable
+    // https://datatables.net/forums/discussion/43162/removing-rows-from-a-table-based-on-a-column-value
+    // https://datatables.net/reference/type/row-selector
+    $(document).on("click", ".btn-ftl", function() { // Delete single filter(s) to layer rows (ftl)
+        var capa = document.getElementById("cbCapas").value;
 
-        if(totalRows == 0) {
-            addQuery(capa, campo, valor);
+        tabla.rows( function (idx, data, node) {
+            return data.capa === capa;
+        }).remove().draw(); // Remove at least one row
+
+        addLayer(capa); // Add layer row
+    });
+
+    $(document).on("click", ".btn-ltf", function() { // Delete layer to single filter(s) rows (ltf)
+        var capa = document.getElementById("cbCapas").value;
+        var campo = document.getElementById("cbCampos").value;
+        var valor = "";
+        if(document.getElementById("cbValores"))
+            valor = document.getElementById("cbValores").value;
+        else
+            valor = document.getElementById("inputValor").value;
+
+        tabla.rows( function (idx, data, node) {
+            return data.capa === capa;
+        }).remove().draw(); // Remove one and only one row (layer)
+
+        addFilter(capa, campo, valor); // Add single filter row
+    });
+
+    function checkBeforeAddFilter(capa, campo, valor) {
+        var data = tabla.data();
+        var totalRows = data.count();
+
+        if(totalRows == 0) { // If the table is empty, add the row without checking anything
+            addFilter(capa, campo, valor);
         }
         else {
-            var duplicate = false;
+            var duplicateRow, layerRow = false;
+
             for(i = 0; i < totalRows; i++) {
-                if(capa == data[i].capa && campo == data[i].campo && valor == data[i].valor) {
-                    duplicate = true;
+                if(data[i].capa == capa && data[i].campo == campo && data[i].valor == valor) {
+                    duplicateRow = true;
                     showToastNotif('Consulta duplicada', 'La consulta ya existe en la tabla de búsqueda', 'bottom-right', 'warning');
                     break;
                 }
+                if(data[i].capa == capa && data[i].campo == '(SIN FILTROS)') {
+                    layerRow = true;
+                    showSweetAlert(1, capa, 'ltf'); // ltf stands for 'layer to filter'
+                    break;
+                }
             }
-            if(!duplicate) {
-                addQuery(capa, campo, valor);
+            // Add the row if it doesn't exist already and there's no the same layer without filters
+            if(!duplicateRow && !layerRow) {
+                addFilter(capa, campo, valor);
             }
-        }
+        } // else (totalRows == 0)
     }
 
-    function addQuery(capa, campo, valor) { // Add filter either from inputValor or cbValores
+    function addFilter(capa, campo, valor) { // Add row either from #inputValor or #cbValores
         tabla.row.add({
             "capa": capa,
             "campo": campo,
@@ -115,10 +149,10 @@ $(document).ready(function() {
     }
 
     $("#btnQuery").on("click", function () {
-        //queryMap();
+        queryMap();
     });
 
-    //$("#dropdown-options li a").click(function() { Another way to define function
+    //$("#dropdown-options li a").click(function() {}) Another way to define function
     $("#dropdown-options li a").on("click", function () {
         var opt = $(this).data("opt");
         switchOption(opt);
@@ -126,19 +160,18 @@ $(document).ready(function() {
 
     $(".nav-item .label-options").on("click", function () {
         var opt = $(this).data("opt");
-        switchOption(opt);
-        /*if(opt == 0) {
-            //queryMap();
+        if(opt == 0) {
+            queryMap(); // First label option, same as btnQuery in split button
         }
         else {
-            switchOption(opt);
-        }*/
+            switchOption(opt); // Same remaining 4 labels as dropdown options
+        }
     });
 
     function switchOption(opt) {
         switch(opt) {
             case 1: // AGREGAR CAPA
-                addSimpleLayer();
+                checkBeforeAddLayer();
                 break;
             /*case 2: // LIMPIAR MAPA
                 break;
@@ -149,14 +182,58 @@ $(document).ready(function() {
         }
     }
 
-    function addSimpleLayer() {
+    function checkBeforeAddLayer() {
         var capa = document.getElementById("cbCapas").value;
         if(capa == '') {
             showToastNotif('Capa no seleccionada', 'Seleccione una capa, por favor', 'bottom-right', 'warning');
         }
         else {
-            addQuery(capa, '(SIN FILTROS)', '(SIN FILTROS)');
-            showToastNotif('Consulta agregada', 'Capa: ' + capa + ' (SIN FILTROS)', 'bottom-right', 'info');
-        }
+            var data = tabla.data();
+            var totalRows = data.count();
+            var duplicateRow = false;
+            var sameLayerRows = 0;
+
+            if(totalRows == 0) { // If the table is empty, add the row without checking anything
+                addLayer(capa);
+            }
+            else {
+                for(i = 0; i < totalRows; i++) {
+                    if(data[i].capa == capa)
+                        // If the row already exists, alert and do nothing after the for loop ends
+                        if(data[i].campo == '(SIN FILTROS)') {
+                            duplicateRow = true;
+                            showToastNotif('Consulta duplicada', 'La consulta ya existe en la tabla de búsqueda', 'bottom-right', 'warning');
+                        }
+                        else
+                            sameLayerRows++;
+                }
+                if(!duplicateRow)
+                    // The table has 1+ rows but no one is about the current layer, so it's ok to add it
+                    if(sameLayerRows == 0) {
+                        addLayer(capa);
+                    }
+                    else {
+                        showSweetAlert(sameLayerRows, capa, 'ftl'); // ftl stands for 'filter to layer'
+                    }
+            } // else (totalRows == 0)
+        } // else (capa == '')
+    }
+
+    function addLayer(capa) { // Add row either from dropdown or label option click in sidebar
+        tabla.row.add({
+            "capa": capa,
+            "campo": "(SIN FILTROS)",
+            "valor": "(SIN FILTROS)",
+            // "total": Math.floor(Math.random() * 99) // Random number from 0 to 100 (testing)
+            "total": "-",
+            "opt_edit": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'><i class='fas fa-pencil-alt'></i></button>",
+            "opt_delete": "<button id='btn_delete' class='btn btn-outline-danger btn-sm' title='Eliminar    consulta'>&nbsp;<i class='fas fa-trash'></i></button>"
+        }).draw();
+
+        showToastNotif('Consulta agregada', 'Capa: ' + capa + ' (SIN FILTROS)', 'bottom-right', 'info');
+    }
+
+    function queryMap() {
+        alert("queryMap()");
     }
 }); // $(document).ready()
