@@ -71,9 +71,33 @@ $(document).ready(function() {
         checkBeforeAddFilter(capa, campo, valor);
     });
 
+    // https://stackoverflow.com/questions/13343566/set-select-option-selected-by-value
+    $("#myDataTable tbody").on('click', '[id=btn_edit]', function() {
+        var data = tabla.row( $(this).parents('tr') ).data();
+        var nuevo = "campo/valor";
+
+        $("#cbCapas").val(data.capa).change(); // Change selected option in #cbCapas
+
+        if(data.campo != '(SIN FILTROS)') { // Change option in #cbCampos in case the row is a single filter
+            nuevo = "valor";
+            setTimeout(function() {
+                $("#cbCampos").val(data.campo).change();
+                    if(data.campo == 'NOMBRE')
+                        $("#inputValor").click();
+            }, 500); // Code to be executed after 500 ms
+        }
+
+        /* Delete current row because it will be added again with a new value (or even a whole new row
+        if the user selects another layer and column) */
+        tabla.row( $(this).parents('tr') ).remove().draw();
+        showToastNotif('Modo edición habilitado', 'Seleccione un nuevo ' + nuevo + ' para reemplazar la consulta anterior', 'bottom-right', 'success');
+    });
+
     // https://datatables.net/reference/api/row().remove()
     $("#myDataTable tbody").on('click', '[id=btn_delete]', function() {
-        tabla.row($(this).parents('tr')).remove().draw();
+        tabla.row( $(this).parents('tr') ).remove().draw();
+
+        showToastNotif('Consulta eliminada', 'La consulta se ha eliminado de la tabla de búsqueda', 'bottom-right', 'success');
     });
 
     // https://stackoverflow.com/questions/25866466/delete-a-row-from-a-datatable
@@ -145,7 +169,7 @@ $(document).ready(function() {
             "opt_delete": "<button id='btn_delete' class='btn btn-outline-danger btn-sm' title='Eliminar consulta'>&nbsp;<i class='fas fa-trash'></i></button>"
          }).draw();
 
-        showToastNotif('Consulta agregada', 'Capa: ' + capa + ', en campo: ' + campo, 'bottom-right', 'info');
+        showToastNotif('Consulta agregada', 'Capa: ' + capa + ', en campo: ' + campo + ', con valor: ' + valor, 'bottom-right', 'info');
     }
 
     $("#btnQuery").on("click", function () {
@@ -227,7 +251,7 @@ $(document).ready(function() {
             // "total": Math.floor(Math.random() * 99) // Random number from 0 to 100 (testing)
             "total": "-",
             "opt_edit": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'><i class='fas fa-pencil-alt'></i></button>",
-            "opt_delete": "<button id='btn_delete' class='btn btn-outline-danger btn-sm' title='Eliminar    consulta'>&nbsp;<i class='fas fa-trash'></i></button>"
+            "opt_delete": "<button id='btn_delete' class='btn btn-outline-danger btn-sm' title='Eliminar consulta'>&nbsp;<i class='fas fa-trash'></i></button>"
         }).draw();
 
         showToastNotif('Consulta agregada', 'Capa: ' + capa + ' (SIN FILTROS)', 'bottom-right', 'info');

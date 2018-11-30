@@ -55,11 +55,6 @@
 <script type="text/javascript" src="js/filter/filter.js"></script>
 <script type="text/javascript" src="js/filter/map_dec2utm.js"></script>
 <script type="text/javascript" src="js/filter/map_utm2dec.js"></script>
-
-<!-- <X?php $this->load->view('modals/modal_help'); ?>
-<X?php $this->load->view('modals/modal_warning'); ?>
-<X?php $this->load->view('modals/modal_warning2'); ?>
-<X?php $this->load->view('modals/modal_marker'); ?> -->
-<script src="js/filter/search_datatable.js"></script>
+<script type="text/javascript" src="js/filter/search_datatable.js"></script>
 </body>
 </html>

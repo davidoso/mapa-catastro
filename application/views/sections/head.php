@@ -27,6 +27,7 @@
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/popper.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
     <!-- Bootstrap select JavaScript library downloaded from: -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script> -->
 <!--===============================================================================================-->
@@ -35,7 +36,7 @@
     <script type="text/javascript" src="js/misc.js"></script>
 <!--===============================================================================================-->
 	<!-- JavaScript library to convert from decimal coordinates to utm and viceversa -->
-	<!-- NOTE: proj4.js did not work so map_dec2utm y map_utm2dc scripts were used instead -->
+	<!-- NOTE: proj4.js did not work so map_dec2utm.js y map_utm2dc.js scripts were used instead -->
 	<!-- <script type="text/javascript" src="js/map/proj4.js"></script> -->
 <!--===============================================================================================-->
     <!-- OpenLayers JavaScript library v4.6.5 downloaded from: -->
