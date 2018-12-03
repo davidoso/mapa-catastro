@@ -18,9 +18,9 @@ function switchSelectCapa() {
 
     $.ajax({
         type: "get",
-        url: "index.php/Map_c/getCampos",
+        url: "index.php/App_c/getCampos",
         data: { capa:capa },
-        dataType: 'json',
+        dataType: "json",
         success: function(data) {
             // e.g. 'BANCOS' turns to 'Capa: Bancos' in the dropdown-header
             var header = "Capa: " + capa.charAt(0) + capa.substring(1).toLowerCase();
@@ -75,9 +75,9 @@ function switchSelectCampo() {
     else {
         $.ajax({
             type: "get",
-            url: "index.php/Map_c/getValores",
+            url: "index.php/App_c/getValores",
             data: { capa:capa, campo:campo },
-            dataType: 'json',
+            dataType: "json",
             success: function(data) {
                 // e.g. 'CONDICIÓN FÍSICA' turns to 'Campo: Condición física' in the dropdown-header
                 var header = "Campo: " + campo.charAt(0) + campo.substring(1).toLowerCase();

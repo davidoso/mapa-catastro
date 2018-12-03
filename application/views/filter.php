@@ -49,9 +49,7 @@
   </div> <!-- container-scroller -->
 
 
-<!-- Limpiar funciones innecesarias de map.js -->
-<!-- <script type="text/javascript" src="js/map/map.js"></script> -->
-<?php $this->load->view('sections/map'); ?>
+<script type="text/javascript" src="js/map/map.js"></script>
 <script type="text/javascript" src="js/filter/filter.js"></script>
 <script type="text/javascript" src="js/filter/map_dec2utm.js"></script>
 <script type="text/javascript" src="js/filter/map_utm2dec.js"></script>

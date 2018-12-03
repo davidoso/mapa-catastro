@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Map_c extends CI_Controller {
+class App_c extends CI_Controller {
 
-	// Constructor para cargar el modelo
+	// Constructor para cargar el modelo principal
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('map_m', 'm');
+		$this->load->model('sidebar_m', 'sm');
 	}
 
 	// Mostrar página inicial/home de las consultas dinámicas y el mapa
@@ -14,7 +14,7 @@ class Map_c extends CI_Controller {
 	{
 		// Llenar select #cbCapas
 		// https://stackoverflow.com/questions/23691396/building-a-select-with-optgroup-from-a-sql-query
-		$db_capas = $this->m->getCapas();
+		$db_capas = $this->sm->getCapas();
 		$cbCapas = array();
 		foreach($db_capas as $key => $value) {
     		$cbCapas[$value['carpeta']][] = array(
@@ -61,7 +61,7 @@ class Map_c extends CI_Controller {
 	public function getCampos()
 	{
 		// Llenar select #cbCampos (campos a filtrar según capa)
-		$campos = $this->m->getCampos();
+		$campos = $this->sm->getCampos();
 		echo json_encode($campos);
 	}
 
@@ -69,8 +69,22 @@ class Map_c extends CI_Controller {
 	{
 		/* Llenar select #cbValores (valores a filtrar según campo de la capa). Sólo aplica para campos con un
 		rango de valores preestablecidos, como material, cond_fisica o empresa */
-		$valores = $this->m->getValores();
+		$valores = $this->sm->getValores();
 		echo json_encode($valores);
+	}
+
+	public function getMapTotals()
+	{
+		$this->load->model('map_m', 'm');
+		$totals = $this->m->getMapTotals();
+		echo json_encode($totals);
+	}
+
+	public function getMapMarkers()
+	{
+		$this->load->model('map_m', 'm');
+		$markers = $this->m->getMapMarkers();
+		echo json_encode($markers);
 	}
 }
 ?>

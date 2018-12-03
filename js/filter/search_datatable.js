@@ -257,7 +257,29 @@ $(document).ready(function() {
         showToastNotif('Consulta agregada', 'Capa: ' + capa + ' (SIN FILTROS)', 'bottom-right', 'info');
     }
 
+    function validQuery() {
+        if(tabla.data().count() == 0) {
+            showToastNotif('Tabla de búsqueda vacía', 'Seleccione al menos una capa y agregue una consulta con o sin filtros (campo/valor)', 'bottom-right', 'error');
+            return false;
+        }
+        else {
+            if(boxSource.getFeatures().length == 0) {
+                showToastNotif('Sin área de influencia', 'Trace una figura en el mapa para delimitar el área de influencia donde se aplicarán las consultas de la tabla de búsqueda', 'bottom-right', 'error');
+                return false;
+            }
+            return true;
+        }
+    }
+
     function queryMap() {
-        alert("queryMap()");
+        if(validQuery()) {
+            flickrSource.clear();   // Delete UTM2DEC points (map markers) added during the previous query
+            if(selectedMarker) {    // Delete last selected map marker in case it exists
+                selectedMarker.getFeatures().clear();
+            }
+            $('body').css('cursor', 'wait');
+
+            continueIfQueryIsValid(tabla.data()); // Calls getMapTotals and getMapMarkers in map.js
+        } // if(validQuery())
     }
 }); // $(document).ready()
