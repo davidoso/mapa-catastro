@@ -2,9 +2,9 @@
     require_once 'mapSwitchTable.php';
     require_once 'mapFilterSwitchColumn.php';
 
-    // This code must not be edited. All the map filters must be added/changed in mapFilterSwitchColumn.php
+    // This code must not be edited. All the map queries must be added/changed in mapFilterSwitchColumn.php
 
-    /* Since filters are not sorted by layer, compare the layer name every 3 positions (layer, column, value)
+    /* Since queries are not sorted by layer, compare the layer name every 3 positions (layer, column, value)
     $arrLayers saves the layer short names (that will be converted to database table names later) */
     $arrLayers = array();
     for ($i = 0; $i < count($tableData); $i+=3) {
@@ -24,7 +24,7 @@
         ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') ))
         AND (?";
 
-        $query = str_replace("layerColumn", $arrLayers[$i], $query);                // Map marker id
+        $query = str_replace("layerColumn", $arrLayers[$i], $query);                        // Map marker id
         $query = str_replace("layerTable", switchTable("capa", $arrLayers[$i]), $query);    // DB table name
         $query = str_replace("polygonCoordinates", pointsArrayToString($pointsArray), $query);
         array_push($arrQueries, $query);
@@ -35,8 +35,8 @@
         $cond = switchColumn($filter[1], $filter[2]);
         //echo "COND: " . $cond . "\n";
         if ($arrQueries[$i][-1] === "?") { // ? symbol is a flag that tells whether a condition has been added
-            $arrQueries[$i] = substr($arrQueries[$i], 0, -1); //Remove ? symbol
-            $arrQueries[$i] = $arrQueries[$i] . $cond; // Concatenate first condition
+            $arrQueries[$i] = substr($arrQueries[$i], 0, -1);   //Remove ? symbol
+            $arrQueries[$i] = $arrQueries[$i] . $cond;          // Concatenate first condition
         }
         else {
             // Concatenate remaining conditions with OR (basic example)

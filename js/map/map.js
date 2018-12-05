@@ -215,42 +215,37 @@ selectedMarker.on('select', function(e) {
     }
 });
 
-// When jQuery has loaded the data, we can create features for each element in a layer
+// When jQuery has retrieved the data, this creates features for each layer element and adds them in the map
 function printMarkers(data) {
-    var data = JSON.parse(data);
+    // Required variables for each element in the data array
+    var feature, coordArray, lon, lat, coordinate, geometry;
     // We need to transform the geometries into the view's projection
     var transform = ol.proj.getTransform('EPSG:4326', 'EPSG:3857');
-    // Loop over the items in the response
-    data.items.forEach(function(item) {
-        // Create a new feature with the item as the properties
-        var feature = new ol.Feature(item);
+    // Text notification after loop ends
+    var successMessage;
+
+    for(var i = 0; i < data.length; i++) {
+        // Create a new feature with the element as the properties
+        feature = new ol.Feature(data[i]);
         // Create an appropriate geometry and add it to the feature
         // proj4.js library did not work, so utm2dec(x, y, utmz, north) is used insted
-        /*var lon = UTMtoDecimal([parseFloat(item.longitude), parseFloat(item.latitude)], "lon");
-        var lat = UTMtoDecimal([parseFloat(item.longitude), parseFloat(item.latitude)], "lat");
-        var coordinate = transform([lon, lat]);*/
-
-        //console.log("UTM Longitude: " + parseFloat(item.longitude));
-        //console.log("UTM Latitude: " + parseFloat(item.latitude));
-        // Colima belongs to 13Q or 13N zone (north)
-        var coordArray = utm2dec(parseFloat(item.longitude), parseFloat(item.latitude), 13, true);
-        //console.log("DD Longitude:  " + coordArray[0]);
-        //console.log("DD Latitude:  " + coordArray[1]);
-
-        var lon = coordArray[0];
-        var lat = coordArray[1];
-        var coordinate = transform([lon, lat]);
-        //console.log("Coordinate (x,y): " + coordinate);
-
-        var geometry = new ol.geom.Point(coordinate);
+        // Colima belongs to 13Q or 13N (north) zone
+        coordArray = utm2dec(parseFloat(data[i].longitude), parseFloat(data[i].latitude), 13, true);
+        lon = coordArray[0];
+        lat = coordArray[1];
+        coordinate = transform([lon, lat]);
+        geometry = new ol.geom.Point(coordinate);
         feature.setGeometry(geometry);
-        feature.setStyle(flickrStyle(item.layer));  // Set map marker depending on the layer
-        flickrSource.addFeature(feature);           // Add the feature to the source
-    });
+        feature.setStyle(flickrStyle(data[i].layer));   // Set map marker depending on the layer
+        flickrSource.addFeature(feature);               // Add the feature to the source
+    }
 
-    $('body').css('cursor', 'auto');                // Reset mouse cursor after finishing drawing markers
+    data.length == 1 ? successMessage = "1 marcador trazado en el mapa" : successMessage = data.length + " marcadores trazados en el mapa";
+    showToastNotif('Búsqueda completada', successMessage, 'bottom-right', 'success');
+    $('body').css('cursor', 'auto');                    // Reset mouse cursor after finishing drawing markers
 }
 
+// When jQuery has retrieved the data, this updates the total column in the datatable for each row
 function printTotals(data) {
     var data = JSON.parse(data);
 
@@ -279,14 +274,7 @@ function printTotals(data) {
         }
     }
 
-    // Resize row height in tblTotales
-    for(var i = 0; i < tableF.rows.length; i++) {
-        height = $(tableF.rows[i]).height();
-        row = tableT.rows[i];
-        row.setAttribute("height", height);
-    }
 }
-
 
 // https://github.com/openlayers/openlayers/issues/2500
 // https://epsg.io/transform#s_srs=3857&t_srs=4326
@@ -338,9 +326,9 @@ function continueIfQueryIsValid(datatableObj) {
         url: "index.php/App_c/getMapTotals",
         data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
         dataType: "json",
-        success: function(result) {
-            alert(result);
-            //printTotals(result);
+        success: function(data) {
+            console.log(data);
+            //printTotals(data);
         },
         error: function() {
             console.log("Error! Totals could not be retrieved");
@@ -348,23 +336,27 @@ function continueIfQueryIsValid(datatableObj) {
         }
     }); // AJAX
 
-    /*$.ajax({
+    $.ajax({
         type: "POST",
         url: "index.php/App_c/getMapMarkers",
         data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
         dataType: "json",
-        success: function(result) {
-            //console.log(result);
-            /* This AJAX call is slower than getMapTotals, so it resets the mouse cursor at the end
-            Update: The function still needs more time to add the markers for each feature, so the
-            cursor is reset at the end of printMarkers(result) 
-            //$('body').css('cursor', 'auto');
-            if(result != "EMPTY QUERY")
-                printMarkers(result);
-            else
+        success: function(data) {
+            //console.log(data);
+            /* This AJAX call is slower than getMapTotals and requires a lot of time to add the markers
+            for each feature, so it resets the mouse cursor at the end of printMarkers(data) */
+            if(data.length == 0) {
+                showToastNotif('Búsqueda sin resultados', 'No se encontraron elementos dentro del área de influencia', 'bottom-right', 'warning');
                 $('body').css('cursor', 'auto'); // Reset mouse cursor if there are no markers to draw
+            }
+            else
+                printMarkers(data);
+        },
+        error: function() {
+            console.log("Error! Markers could not be retrieved");
+            $('body').css('cursor', 'auto');
         }
-    }); // AJAX*/
+    }); // AJAX
 }
 
 $(document).ready(function() {

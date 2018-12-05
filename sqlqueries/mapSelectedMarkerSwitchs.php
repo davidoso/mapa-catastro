@@ -8,7 +8,6 @@
             JOIN ct_material CM on T.id_material = CM.id_material";
 
         switch($marcador) {
-
             /* CAPAS QUE TIENEN LLAVES FORÁNEAS A CATÁLOGOS */
             case "postes":
             case "luminarias":
@@ -37,7 +36,6 @@
             "CM.material AS 'MATERIAL', CF.cond_fisica AS 'CONDICIÓN FÍSICA'";
 
         switch($marcador) {
-
             /* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: GENERALES */
             case "bancos":
                 return $coordinates . "nombre AS 'BANCO', tipo AS 'SERVICIO'";

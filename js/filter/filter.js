@@ -1,6 +1,5 @@
 // Fill 2nd combobox (search columns) depending on the layer selected on the 1st combobox
 $("#cbCapas").on("change", function () {
-    document.getElementById("divValores").innerHTML = null;
     document.getElementById("divValores").innerHTML = '<label class="nav-link"><span class="menu-title">Seleccione un campo..</span><i class="fas fa-fw fa-filter"></i></label>';
     switchSelectCapa();
 });
@@ -28,7 +27,6 @@ function switchSelectCapa() {
             $(data).each(function(k, v) {
                 campos += '<option value="' + v.campo + '">' + v.campo + '</option>';
             });
-            divCampos.innerHTML = null;
             divCampos.innerHTML = '<select class="selectpicker show-tick" id="cbCampos" name="cbCampos" title="Campo a filtrar.."><optgroup label="' + header + '">'+ campos + '</select>';
             $('#cbCampos').selectpicker({
                 style: 'btn-info',
@@ -67,7 +65,6 @@ function switchSelectCampo() {
             my_maxlength = 30;
             break;
         }
-        divValores.innerHTML = null;
         divValores.innerHTML = '<input type="text" style="width: 90%;" class="form-control ' + my_class + '" id="inputValor" name="inputValor" placeholder="' + my_placeholder + '" maxlength="' + my_maxlength + '">';
         $('#inputValor').focus();
         $('body').css('cursor', 'auto');
@@ -85,7 +82,6 @@ function switchSelectCampo() {
                 $(data).each(function(k, v) {
                     valores += '<option value="' + v.valor + '">' + v.valor + '</option>';
                 });
-                divValores.innerHTML = null;
                 divValores.innerHTML = '<select class="selectpicker show-tick" id="cbValores" name="cbValores" title="Valor a filtrar.." data-dropup-auto="false" data-live-search="true" data-live-search-placeholder="Buscar valor.." data-live-search-style="contains"><optgroup label="' + header + '">'+ valores + '</select>';
                 $('#cbValores').selectpicker({
                     style: 'btn-info',

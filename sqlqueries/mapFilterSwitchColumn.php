@@ -1,7 +1,6 @@
 <?php
     function switchColumn($column, $value) {
         switch($column) {
-
             /* VALORES DE COLUMNAS CON NOMBRES FIJOS, COMUNES O CON MISMO NOMBRE EN EL FRONTEND Y LA BD */
             case "(SIN FILTROS)":
                 return "1 = 1";
@@ -12,10 +11,10 @@
 
             /* VALORES DE CAMPOS DE CATÁLOGOS */
             case "MATERIAL":
-                return "id_material = " . getCatalogValue("material", $value);
+                return "id_material = " . getCatalogId("material", $value);
                 break;
             case "CONDICIÓN FÍSICA":
-                return "id_cond_fisica = " . getCatalogValue("cond_fisica", $value);
+                return "id_cond_fisica = " . getCatalogId("cond_fisica", $value);
                 break;
 
              /* VALORES DE CAMPOS CON FORMATOS ESPECÍFICOS O NULOS PRESENTADOS CON UN ALIAS  */
@@ -34,7 +33,7 @@
         }
     }
 
-    function getCatalogValue($columnBaseName, $value) {
+    function getCatalogId($columnBaseName, $value) {
         try {
             $servername = "localhost";
             $database = "catastro_full";
@@ -115,9 +114,9 @@
     }
 
     // Unescape the string values in the JSON arrays
-    $tableData = stripcslashes($_POST['pTableData']);           // 3-column table filters (layer, field and value)
-    $booleanOp = stripcslashes($_POST['pBooleanOp']);           // OR or AND operator to join WHERE clauses
-    $pointsArray = stripcslashes($_POST['pPointsArray']);       // Polygon coordinates in the map
+    $tableData = stripcslashes($_POST['pTableData']);       // 3-column table filters (layer, column and value)
+    $booleanOp = stripcslashes($_POST['pBooleanOp']);       // OR or AND operator to join WHERE clauses
+    $pointsArray = stripcslashes($_POST['pPointsArray']);   // Polygon coordinates in the map
 
     // Decode the JSON arrays
     $tableData = json_decode($tableData, TRUE);

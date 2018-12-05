@@ -2,7 +2,7 @@
     require_once 'mapSwitchTable.php';
     require_once 'mapFilterSwitchColumn.php';
 
-    // This code must not be edited. All the map filters must be added/changed in mapFilterSwitchColumn.php
+    // This code must not be edited. All the map queries must be added/changed in mapFilterSwitchColumn.php
 
     if ($booleanOp[0] === "OR") {
         // $arrQueries initializes the n SQL queries depending on the number of rows in $tableData (division by 3)
@@ -62,7 +62,7 @@
     } // if ($booleanOp[0] === "OR")
 
     else { // ($booleanOp[0] === "AND")
-        /* Since filters are not sorted by layer, compare the layer name every 3 positions (layer, column, value)
+        /* Since queries are not sorted by layer, compare the layer name every 3 positions (layer, column, value)
         $arrLayers saves the layer short names (that will be converted to database table names later) */
         $arrLayers = array();
         for ($i = 0; $i < count($tableData); $i+=3) {

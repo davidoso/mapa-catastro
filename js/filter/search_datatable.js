@@ -197,12 +197,14 @@ $(document).ready(function() {
             case 1: // AGREGAR CAPA
                 checkBeforeAddLayer();
                 break;
-            /*case 2: // LIMPIAR MAPA
+            case 2: // LIMPIAR MAPA
+                clearMap();
                 break;
             case 3: // LIMPIAR TODO
+                clearAll();
                 break;
-            case 4: // LIMPIAR AYUDA
-                break;*/
+            case 4: // AYUDA
+                break;
         }
     }
 
@@ -278,8 +280,26 @@ $(document).ready(function() {
                 selectedMarker.getFeatures().clear();
             }
             $('body').css('cursor', 'wait');
-
-            continueIfQueryIsValid(tabla.data()); // Calls getMapTotals and getMapMarkers in map.js
+            continueIfQueryIsValid(tabla.data()); // Calls getMapTotals() and getMapMarkers() in map.js
         } // if(validQuery())
+    }
+
+    function clearMap() {
+        boxSource.clear();      // Clear features in boxSource vector layer drawn with addInteraction() in map.js
+        flickrSource.clear();   // Clear map markers from previous query drawn with printMarkers() in map.js
+        if(selectedMarker)      // Clear last selected map marker if exists
+            selectedMarker.getFeatures().clear();
+    }
+
+    function clearAll() {
+        clearMap();                                                 // Clear map
+        tabla.clear().draw();                                       // Clear datatable
+        document.getElementById("rbtnOR").checked = true;           // Select OR operator
+        // Reset 4 selects in sidebar
+        document.getElementById("divValores").innerHTML = '<label class="nav-link"><span class="menu-title">Seleccione un campo..</span><i class="fas fa-fw fa-filter"></i></label>';
+        document.getElementById("divCampos").innerHTML = '<label class="nav-link"><span class="menu-title">Seleccione una capa..</span><i class="fas fa-fw fa-layer-group"></i></label>';
+        // https://stackoverflow.com/questions/41883537/how-to-reset-value-of-bootstrap-select-after-button-click
+        $("#cbCapas").val("default").selectpicker("refresh");
+        $("#cbShapes").val("Box").change();
     }
 }); // $(document).ready()

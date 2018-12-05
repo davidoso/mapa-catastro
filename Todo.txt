@@ -11,6 +11,8 @@ Cosas por hacer:
     * Notif error sin área de influencia / tabla de búsqueda vacía
     * Notif success después de imprimir marcadores (tarda más que mapTotals)
     * Revisar que todos las opciones del sidebar/dropdown estén validadas y actuén bien
+    * sqlqueries a beta files
+    * Revisar comentarios en map.js y Map_m
 
 Importante:
     * Datatable para Filtros agregados (1 sola tabla con totales y ops de editar/eliminar)
