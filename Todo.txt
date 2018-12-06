@@ -1,8 +1,9 @@
 Cosas por hacer:
     * Nueva versión de readme.md
+    * Link en readme (1a versión y 2da versión)
     * Hacer pruebas intensivas de funcionamiento
     * Acomodar modal Help
-    * Eliminar todos los comentarios, archivos inútiles y carpeta beta al subir en webhost
+    * Eliminar todos los comentarios de controllers, models y views; archivos inútiles y carpetas other_files/rdbms_comparison al subir a Hostinger
     * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
     * Delete todo.txt
-    * sqlqueries a beta files
+    * Acomodar php.ini en Hostinger: max_execution_time=120

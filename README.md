@@ -1,42 +1,45 @@
-# NUEVA VERSIÓN EN CONSTRUCCIÓN..
-# ESTE ES EL README DE LA VERSIÓN BETA (ES OBSOLETO)
 # Consultas dinámicas para el mapa digital de Catastro Colima
 
 - [Mapa digital actual]
-- [Propuesta de solución]
+- [Propuesta de solución beta]: 1a versión. Ahora obsoleta
+- [Propuesta de solución mejorada]: 2a versión. Para producción
 
-## Configuración de XAMPP requerida
+## Configuración de PHP requerida
 
 ```
 php.ini en carpeta xampp/php:
-max_execution_time=90
+max_execution_time=120
 ```
 
-## ¿Cómo cambiar o agregar filtros?
+## ¿Cómo cambiar o agregar consultas de búsqueda (con o sin filtros campo/valor por capa)?
 
 ### Paso 1
-#### Modificar 3 tablas en MariaDB para agregar los filtros en la vista filter.php
-
-- **ctrl_select_capas**: para llenar etiquetas *optgroup* (equivale a carpeta, e.g. VIALIDAD) y múltiples *option* (equivale a capa, e.g. TOPES) del 1er *select* con id=`cbCapas`
-- **ctrl_campos_a_filtrar**: para llenar etiquetas *option* (equivale a campo, e.g. COLOR) del 2do *select* con id=`cbCampos` con los campos a filtrar por capa
-- **ctrl_nombre_columnas**: para obtener el nombre de las columnas en la BD (cuando se pulse el botón *CONSULTAR* con id=`btnQuery` y se llame por ajax el archivo **mapFilterSwitchColumn.php** dependiendo los campos a filtrar especificados en **ctrl_campos_a_filtrar**
+#### Modificar 3 tablas en MariaDB
+- **ctrl_select_capas**: para llenar etiquetas *optgroup* (equivale a carpeta, e.g. VIALIDAD) y múltiples *option* (equivale a capa, e.g. TOPES) del 1er *select* con id=`cbCapas`. El marcador es el nombre de la imagen de la capa en images/mapMarkers
+- **ctrl_campos_a_filtrar**: para llenar múltiples *option* (equivale a campo, e.g. COLOR) del 2do *select* con id=`cbCampos` con los campos a filtrar por capa
+- **ctrl_nombre_columnas**: para obtener el nombre de las columnas en la BD (cuando se pulse el botón *CONSULTAR* con id=`btnQuery` o la etiqueta homónima en el menú ACCIONES del sidebar)
 #### NOTA 1
-Comprobar el nombre con el que aparecerán los campos por capa en el 2do *select* con id=`cbCampos` ejecutando la vista en la BD **v_campos_a_filtrar_por_capa**. El nombre exacto debe escribirse en los case de la **función switchSelect2()** en la vista filter.php
+Comprobar el nombre con el que aparecerán los campos por capa en el 2do *select* con id=`cbCampos` ejecutando la vista en la BD **v_campos_a_filtrar_por_capa**
+
 
 ### Paso 2
-#### Modificar switch en las funciones de los siguientes 3 códigos php:
-- **Función switchSelect2()** en la vista filter.php para agregar campos/valores en el frontend
-- **Función switchColumn()** en [mapFilterSwitchColumn.php](sqlqueries/mapFilterSwitchColumn.php)
-- **Funciones switchTableMarker() y switchColumnMarker()** en [mapSelectedMarkerSwitchs.php](sqlqueries/mapSelectedMarkerSwitchs.php)
-#### NOTA 2
-Los case en [mapSelectedMarkerSwitchs.php](sqlqueries/mapSelectedMarkerSwitchs.php) son **IGUALES** que los nombres de la imagen del marcador de la capa localizados en la carpeta *images/mapMarkers*
+#### De ser necesario, modificar la sentencia if/else en la función switchSelectCampo() del archivo [filter.js](js/filter/filter.js)
+- Es necesario para agregar un input de texto para campos que **no** tienen una serie de valores predefinidos, e.g. nombre de un banco u hotel
+- **No aplica** en los campos con valores predefinidos, e.g. material, cond_fisica o empresa, que llaman la función getValores() por ajax del modelo Sidebar_m.php para llenar el 3er *select* con id=`cbValores`
+
 
 ### Paso 3
-#### Modificar el modelo map_m.php y el controlador map_c.php
-- *Modelo*: sirve para llenar el 3er *select* con id=`cbFiltros` (se encuentra en macro_valor_select.php) de valores según el campo seleccionado en el 2do *select* con id=`cbCampos`
-- *Controlador*: obtiene los valores del modelo para llenar los 3 *select* (`cbCapas`, `cbCampos` y `cbFiltros`). Ver ejemplos comentados con "Llenar selects de la capa .."
-#### NOTA 3
-El paso 3 sólo es necesario si el campo tiene una serie de valores predefinidos, e.g. material, cond_fisica o empresa
+#### Modificar las siguientes funciones del modelo [Sidebar_m.php](application/models/Sidebar_m.php)
+- **Función switchColumn($column, $value)**: los case corresponden a los nombres de las columnas en el frontend (checar ctrl_nombre_columnas en la BD). Transforma y envía los campos de la BD al frontend
+- **Función valueExceptions($capa, $campo, $nombre_tabla)**: campos que no se pueden obtener con una simple consulta DISTINCT(campo). Transforma y envía los campos de la BD al frontend
+
+
+### Paso 4
+#### Modificar las siguientes funciones del modelo [Map_m.php](application/models/Map_m.php)
+- **Función switchColumn($column, $value)**: los case corresponden a los nombres de las columnas en el frontend (checar ctrl_nombre_columnas en la BD). Transforma los campos del frontend a la BD
+- **Funciones switchTableSelectedMarker($marcador) y switchColumnSelectedMarker($marcador)**: los case corresponden al nombre de la imagen del [marcador](images/mapMarkers) de la capa (checar ctrl_select_capas en la BD). Transforman los campos de la BD al frontend
+
 
 [Mapa digital actual]: <http://www.catastrocolima.gob.mx/cartografia.html>
-[Propuesta de solución]: <http://osint.ateneoitc.com>
+[Propuesta de solución beta]: <http://osint.ateneoitc.com>
+[Propuesta de solución mejorada]: ??
