@@ -110,6 +110,7 @@
                 $polygonCoordinates = $polygonCoordinates . $pointsArray[$i] . ' ';
             }
         }
+
         return substr($polygonCoordinates, 0, -2); // Drop last comma and whitespace
     }
 

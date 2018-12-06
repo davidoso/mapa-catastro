@@ -139,34 +139,34 @@ addInteraction();
 // Map cursor is ready to select mouseovered markers after printMarkers(data) adds features to flickrSource
 map.addInteraction(selectedMarker);
 
-function showMarkerInfo(innerHTMLData) {
-    var tableM = document.getElementById("tblMarkerInfo");
+function showMarkerInfo(innerHTMLData, utm_lon, utm_lat) {
+    var markerTable = document.getElementById("map-marker-table");
 
-    tableM.innerHTML = "";
-    tableM.innerHTML = innerHTMLData;
+    markerTable.innerHTML = "";
+    markerTable.innerHTML = innerHTMLData;
 
     // Latitude appears first on GPS coordinates
-    var coord_y = parseFloat(tableM.rows[0].cells[1].innerHTML); // coord_x (UTM) to decimal latitude
-    var coord_x = parseFloat(tableM.rows[1].cells[1].innerHTML); // coord_y (UTM) to decimal longitude
+    var coord_y = parseFloat(utm_lat);  // Original UTM latitude string (from map marker) to float
+    var coord_x = parseFloat(utm_lon);  // Original UTM longitude string (from map marker) to float
 
     // utm2dec() takes longitude first
     var coordArray = utm2dec(coord_x, coord_y, 13, true); // Colima belongs to 13Q or 13N (north) zone
-    var lat = coordArray[1];
-    var lon = coordArray[0];
+    var dec_lat = coordArray[1];
+    var dec_lon = coordArray[0];
 
     // .toFixed(6) converts a number into a string, keeping only 6 decimals
-    lat = lat.toFixed(6);
-    lon = lon.toFixed(6);
+    dec_lat = dec_lat.toFixed(6);
+    dec_lon = dec_lon.toFixed(6);
 
     // Change UTM coordinates to decimal in the table
-    tableM.rows[0].cells[1].innerHTML = lat;
-    tableM.rows[1].cells[1].innerHTML = lon;
+    markerTable.rows[0].cells[1].innerHTML = dec_lat;
+    markerTable.rows[1].cells[1].innerHTML = dec_lon;
 
     // Change href link according to the element coordinates
-    var googleMapsQuery = "http://maps.google.com/maps?q=" + lat + "," + lon;
-    document.getElementById("aGoogleMaps").href = googleMapsQuery;
+    var googleMapsQuery = "http://maps.google.com/maps?q=" + dec_lat + "," + dec_lon;
+    document.getElementById("a-googlemaps").href = googleMapsQuery;
 
-    $("#myModalMapMarker").modal("show");
+    $('#map-marker-modal').modal('show');
 }
 
 /*
@@ -204,11 +204,16 @@ selectedMarker.on('select', function(e) {
 
             $.ajax({
                 type: "POST",
-                url: "sqlqueries/mapSelectedMarker.php",
-                data: "pMarkerData=" + markerData,
-                success: function(result) {
-                    //console.log(result);
-                    showMarkerInfo(result);
+                url: "index.php/App_c/getMapSelectedMarker",
+                data: "markerData=" + markerData,
+                dataType: "json",
+                success: function(data) {
+                    //console.log("Selected marker table data: " + data);
+                    showMarkerInfo(data, coord_x, coord_y);
+                },
+                error: function() {
+                    console.log("Error! Selected marker data could not be retrieved");
+                    $('body').css('cursor', 'auto');
                 }
             }); // AJAX
         });

@@ -1,14 +1,8 @@
 Cosas por hacer:
     * Nueva versión de readme.md
+    * Hacer pruebas intensivas de funcionamiento
     * Acomodar modal Help
-    * Acomodar map/map.js
-    * Acomodar llamada AJAX en mapSelectedMarker
-    * Modal con tabla de info del marcador seleccionado
     * Eliminar todos los comentarios, archivos inútiles y carpeta beta al subir en webhost
     * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
     * Delete todo.txt
-    * Notif success después de imprimir marcadores (tarda más que mapTotals)
-    * Revisar que todos las opciones del sidebar/dropdown estén validadas y actuén bien
     * sqlqueries a beta files
-    * Revisar comentarios en map.js y Map_m
-    * Acomodar showMarkerInfo y selectedMarker.on('select') en map.js

@@ -114,3 +114,22 @@ tbody tr td {
 .label-options {
   cursor: pointer;
 }
+
+.marker-table-td-col {
+  width: 40%;
+  text-align: right;
+}
+
+.marker-table-td-value {
+  width: 60%;
+  text-align: justify;
+  text-transform: uppercase;
+}
+
+#p-googlemaps {
+  margin: 0px;
+}
+
+#a-googlemaps {
+  font-size: 1em;
+}

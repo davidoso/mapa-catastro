@@ -27,7 +27,7 @@
         FROM tableName
         WHERE coord_x = coord_x_ajax AND coord_y = coord_y_ajax LIMIT 1";
 
-        $query = str_replace("tableName", switchTableMarker($markerData["marcador"]), $query);  // DB table name
+        $query = str_replace("tableName", switchTableMarker($markerData["marcador"]), $query); // DB table name
         $query = str_replace("coord_x_ajax", $markerData["coord_x"], $query);                       // Longitude
         $query = str_replace("coord_y_ajax", $markerData["coord_y"], $query);                       // Latitude
         $query = str_replace("tableColumns", switchColumnMarker($markerData["marcador"]), $query);  // DB columns

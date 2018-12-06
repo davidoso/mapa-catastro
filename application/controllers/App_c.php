@@ -86,5 +86,12 @@ class App_c extends CI_Controller {
 		$markers = $this->m->getMapMarkers();
 		echo json_encode($markers);
 	}
+
+	public function getMapSelectedMarker()
+	{
+		$this->load->model('map_m', 'm');
+		$selectedMarker = $this->m->getMapSelectedMarker();
+		echo json_encode($selectedMarker);
+	}
 }
 ?>
