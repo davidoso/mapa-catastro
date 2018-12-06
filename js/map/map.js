@@ -215,7 +215,7 @@ selectedMarker.on('select', function(e) {
     }
 });
 
-// When jQuery has retrieved the data, this creates features for each layer element and adds them in the map
+// When jQuery has retrieved the data, this creates features for each layer element and adds them to the map
 function printMarkers(data) {
     // Required variables for each element in the data array
     var feature, coordArray, lon, lat, coordinate, geometry;
@@ -246,34 +246,17 @@ function printMarkers(data) {
 }
 
 // When jQuery has retrieved the data, this updates the total column in the datatable for each row
-function printTotals(data) {
-    var data = JSON.parse(data);
+// tableData and totalData have the same length because the latter was created from the former in the model
+// https://stackoverflow.com/questions/25929347/how-to-redraw-datatable-with-new-data
+function printTotals(totalData) {
+    var table = $('#myDataTable').DataTable();
+    var tableData = table.data();
 
-    var tableF = document.getElementById("tblFiltros");
-    var tableT = document.getElementById("tblTotales");
-    var row, height, capaRowIndex;
-    var dataIndex = 0;
-
-    tableT.innerHTML = "";
-
-    // Insert empty rows in tblTotales
-    for(var i = 0; i < tableF.rows.length; i++) {
-        tableT.insertRow(i);
+    for(i = 0; i < tableData.count(); i++) {
+        tableData[i].total = totalData[i];      // Update total cell for each row
     }
 
-    // Add total numbers in cells in tblTotales
-    for(var i = 1; i <= addedFiltersCounter; i++) {
-        if(document.getElementById("capa" + i)) {
-            capaRowIndex = document.getElementById("capa" + i).parentNode.rowIndex;
-            row = tableT.rows[capaRowIndex - 1];
-            row.insertCell(0);
-            row.cells[0].innerHTML = data[dataIndex];
-            dataIndex++;
-            // Another way:
-            //tableT.rows[i].cells[0].innerHTML = data[i];
-        }
-    }
-
+    table.clear().rows.add(tableData).draw();   // Redraw the table with the same values aside from total column
 }
 
 // https://github.com/openlayers/openlayers/issues/2500
@@ -327,8 +310,8 @@ function continueIfQueryIsValid(datatableObj) {
         data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
         dataType: "json",
         success: function(data) {
-            console.log(data);
-            //printTotals(data);
+            //console.log("Totals: " + data);
+            printTotals(data);
         },
         error: function() {
             console.log("Error! Totals could not be retrieved");
@@ -342,7 +325,7 @@ function continueIfQueryIsValid(datatableObj) {
         data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
         dataType: "json",
         success: function(data) {
-            //console.log(data);
+            //console.log("Markers: " + data);
             /* This AJAX call is slower than getMapTotals and requires a lot of time to add the markers
             for each feature, so it resets the mouse cursor at the end of printMarkers(data) */
             if(data.length == 0) {
@@ -358,10 +341,3 @@ function continueIfQueryIsValid(datatableObj) {
         }
     }); // AJAX
 }
-
-$(document).ready(function() {
-    // Close all FAQ accordion tabs when the modal is close
-    /*$("#myModalHelp").on("hidden.bs.modal", function () {
-        $('.panel-collapse.in').collapse('hide');
-    });*/
-}); // $(document).ready()

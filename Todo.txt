@@ -1,19 +1,14 @@
 Cosas por hacer:
     * Nueva versión de readme.md
-    * Acomodar sección Help y switchOpt para las opciones del sidebar/dropdown
-    * Acomodar div del MAPA y map/map.js
-    * Acomodar llamadas AJAX en mapTotals, mapFilters y mapSelectedMarker
+    * Acomodar modal Help
+    * Acomodar map/map.js
+    * Acomodar llamada AJAX en mapSelectedMarker
     * Modal con tabla de info del marcador seleccionado
     * Eliminar todos los comentarios, archivos inútiles y carpeta beta al subir en webhost
     * Abrir xls en mis_capas_xls y comprobar que esté seleccionada la 1a hoja esq. izq.
-    * Cambiar comentario field por column en sqlqueries
     * Delete todo.txt
-    * Notif error sin área de influencia / tabla de búsqueda vacía
     * Notif success después de imprimir marcadores (tarda más que mapTotals)
     * Revisar que todos las opciones del sidebar/dropdown estén validadas y actuén bien
     * sqlqueries a beta files
     * Revisar comentarios en map.js y Map_m
-
-Importante:
-    * Datatable para Filtros agregados (1 sola tabla con totales y ops de editar/eliminar)
-    * Reestructurar todas las funciones de filter sin HTML DOM Table cells
+    * Acomodar showMarkerInfo y selectedMarker.on('select') en map.js

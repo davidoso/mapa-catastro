@@ -68,7 +68,7 @@ function switchSelectCampo() {
         divValores.innerHTML = '<input type="text" style="width: 90%;" class="form-control ' + my_class + '" id="inputValor" name="inputValor" placeholder="' + my_placeholder + '" maxlength="' + my_maxlength + '">';
         $('#inputValor').focus();
         $('body').css('cursor', 'auto');
-    } // if (campo == "NOMBRE")
+    } // if(campo == "NOMBRE")
     else {
         $.ajax({
             type: "get",
@@ -96,7 +96,7 @@ function switchSelectCampo() {
                 $('body').css('cursor', 'auto');
             }
         }); // AJAX
-    } // else (campo == "NOMBRE")
+    } // else(campo == "NOMBRE")
 }
 
 // Convert to uppercase, remove multiple whitespaces and trim inputs on focus out

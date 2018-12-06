@@ -155,7 +155,7 @@ $(document).ready(function() {
             if(!duplicateRow && !layerRow) {
                 addFilter(capa, campo, valor);
             }
-        } // else (totalRows == 0)
+        } // else(totalRows == 0)
     }
 
     function addFilter(capa, campo, valor) { // Add row either from #inputValor or #cbValores
@@ -163,7 +163,7 @@ $(document).ready(function() {
             "capa": capa,
             "campo": campo,
             "valor": valor,
-            // "total": Math.floor(Math.random() * 99) // Random number from 0 to 100 (testing)
+            // "total": Math.floor(Math.random() * 99) // Random number from 0 to 100 (testing purposes)
             "total": "-",
             "opt_edit": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'><i class='fas fa-pencil-alt'></i></button>",
             "opt_delete": "<button id='btn_delete' class='btn btn-outline-danger btn-sm' title='Eliminar consulta'>&nbsp;<i class='fas fa-trash'></i></button>"
@@ -241,8 +241,8 @@ $(document).ready(function() {
                     else {
                         showSweetAlert(sameLayerRows, capa, 'ftl'); // ftl stands for 'filter to layer'
                     }
-            } // else (totalRows == 0)
-        } // else (capa == '')
+            } // else(totalRows == 0)
+        } // else(capa == '')
     }
 
     function addLayer(capa) { // Add row either from dropdown or label option click in sidebar
@@ -250,7 +250,7 @@ $(document).ready(function() {
             "capa": capa,
             "campo": "(SIN FILTROS)",
             "valor": "(SIN FILTROS)",
-            // "total": Math.floor(Math.random() * 99) // Random number from 0 to 100 (testing)
+            // "total": Math.floor(Math.random() * 99) // Random number from 0 to 100 (testing purposes)
             "total": "-",
             "opt_edit": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'><i class='fas fa-pencil-alt'></i></button>",
             "opt_delete": "<button id='btn_delete' class='btn btn-outline-danger btn-sm' title='Eliminar consulta'>&nbsp;<i class='fas fa-trash'></i></button>"

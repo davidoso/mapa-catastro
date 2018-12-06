@@ -39,8 +39,8 @@
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $jsonString = '';
-        foreach ($row as $field => $value) {
-            $jsonString = $jsonString . '<tr> <td style="width: 40%; text-align: right;">' . $field . '</td>' .
+        foreach ($row as $col => $value) {
+            $jsonString = $jsonString . '<tr> <td style="width: 40%; text-align: right;">' . $col . '</td>' .
                 '<td style="width: 60%">' . $value . '</td> </tr>';
         }
 

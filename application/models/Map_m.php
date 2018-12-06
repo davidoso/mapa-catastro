@@ -22,7 +22,8 @@ class Map_m extends CI_Model {
                 return "nombre like '%" . $value . "%'";
                 break;
 
-            /* VALORES DE CAMPOS DE CATÁLOGOS */
+			/* VALORES DE CAMPOS DE CATÁLOGOS. Es necesario que la tabla, id y descripcion sigan la nomenclatura
+			base, e.g. cond_fisica: ct_cond_fisica (tabla), id_cond_fisica (id) y cond_fisica (descripcion) */
             case "MATERIAL":
                 return "id_material = " . $this->getCatalogId("material", $value);
                 break;
@@ -32,7 +33,7 @@ class Map_m extends CI_Model {
 
              /* VALORES DE CAMPOS CON FORMATOS ESPECÍFICOS O NULOS PRESENTADOS CON UN ALIAS  */
             case "FUENTE": // Fuente secundaria de una luminaria
-                if ($value === "SIN FUENTE") {
+                if($value === "SIN FUENTE") {
                     return "f_secundaria IS NULL";
                 }
                 else {
@@ -72,15 +73,15 @@ class Map_m extends CI_Model {
 	private function pointsArrayToString($pointsArray)
 	{
         $polygonCoordinates = "";
-        for ($i = 0; $i < count($pointsArray); $i++) {
-            if (($i + 1) % 2 == 0) {
+        for($i = 0; $i < count($pointsArray); $i++) {
+            if(($i + 1) % 2 == 0) {
                 $polygonCoordinates = $polygonCoordinates . $pointsArray[$i] . ', ';
             }
             else {
                 $polygonCoordinates = $polygonCoordinates . $pointsArray[$i] . ' ';
             }
         }
-        return substr($polygonCoordinates, 0, -2); // Drop last comma and whitespace
+    	return substr($polygonCoordinates, 0, -2); // Drop last comma and whitespace
     }
 
 	// This function must not be edited. All the map queries must be added/changed in switchColumn()
@@ -89,8 +90,34 @@ class Map_m extends CI_Model {
 		$tableData = json_decode($_POST['tableData']);		// 3-column table queries (layer, column and value)
 		$pointsArray = json_decode($_POST['pointsArray']);	// Polygon coordinates in the map
 		$booleanOp = $_POST['booleanOp'];					// OR or AND operator to join WHERE clauses
+		//$arrQueryBuilder = array(); // Outputs n sql queries after a succesful AJAX call (testing purposes)
 
-		return $tableData;
+		if($booleanOp === "OR") {
+			$returnData = array();
+
+			for($i = 0; $i < count($tableData); $i++) {
+				// DB table name
+				$from = $this->switchTable('capa', $tableData[$i]->capa);
+				// One user-added condition for each row in the datatable, despite a layer having +1 queries
+				$cond = $this->switchColumn($tableData[$i]->campo, $tableData[$i]->valor);
+				// All elements must be inside the drawn polygon area in the map
+				$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') )) AND (" . $cond . ")";
+
+				$this->db->select('count(id) AS totalByRow');
+				$this->db->from($from);
+				$this->db->where($where);
+
+				//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
+				//array_push($arrQueryBuilder, $stmt);
+				$queryResult = $this->db->get()->row_array()['totalByRow'];
+                array_push($returnData, $queryResult);
+			}
+		} // if($booleanOp === "OR")
+		else {
+
+		} // else($booleanOp === "OR"), i.e. AND
+
+		return $returnData;
 	}
 
     // This function must not be edited. All the map queries must be added/changed in switchColumn()
@@ -100,12 +127,13 @@ class Map_m extends CI_Model {
 		$pointsArray = json_decode($_POST['pointsArray']);	// Polygon coordinates in the map
 		$booleanOp = $_POST['booleanOp'];					// OR or AND operator to join WHERE clauses
 
-		/* Since queries are not sorted by layer in the datatable, $arrLayers saves the layer frontend-names
-		(that will be converted to database table-names later) */
+		/* Since queries are not sorted by layer in the datatable (tabla.data() saves the rows the way they were
+		added, despite colum sorting), $arrLayers saves the layer frontend-names. These will be converted to
+		database table-names later */
 		$arrLayers = array();
 		$jaggedArrayByLayer = array();
-		$arrQueryBuilder = array();
 		$returnData = array();
+		//$arrQueryBuilder = array(); // Outputs n sql queries after a succesful AJAX call (testing purposes)
 
 		for($dtRow = 0; $dtRow < count($tableData); $dtRow++) {
 			if(!in_array($tableData[$dtRow]->capa, $arrLayers))
@@ -127,9 +155,7 @@ class Map_m extends CI_Model {
 			// DB table name
 			$from = $this->switchTable('capa', $arrLayers[$i]);
 			// All elements must be inside the drawn polygon area in the map
-			$where =
-			"ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') ))
-			AND (?";
+			$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') )) AND (?";
 
 			for($j = 0; $j < count($jaggedArrayByLayer[$i]); $j++) {
 				$dtRow = $jaggedArrayByLayer[$i][$j];
@@ -144,12 +170,12 @@ class Map_m extends CI_Model {
 				}
 			}
 
-			$where = $where . ")"; // Close conditions
+			$where = $where . ")"; // Close user-added conditions
 			$this->db->select($select);
 			$this->db->from($from);
 			$this->db->where($where);
 
-			//$stmt = $this->db->get_compiled_select();
+			//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
 			//array_push($arrQueryBuilder, $stmt);
 			$queryResult = $this->db->get()->result_array();
 			$returnData = array_merge($returnData, $queryResult);
