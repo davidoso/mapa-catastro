@@ -7484,7 +7484,6 @@ address {
 ol,
 ul,
 dl {
-  margin-left: 1rem; /* ADDED */
   margin-top: 0;
   margin-bottom: 1rem; }
 

@@ -145,3 +145,7 @@ tbody tr td {
 #accordion-help a:hover {
   color: #8e24aa !important;
 }
+
+#ul-pregunta-1 {
+  margin-left: 1rem;
+}

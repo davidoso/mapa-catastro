@@ -16,7 +16,7 @@
 						</div>
 						<div id="pregunta-1" class="collapse" role="tabpanel" aria-labelledby="pregunta-1-title" data-parent="#accordion-help">
 							<div class="card-body">Para realizar una <strong class="text-danger">consulta de los datos abiertos</strong> que la Dirección General de Catastro Municipal de Colima ofrece en el municipio de Colima y parte de Villa de Álvarez, es necesario:
-								<ul>
+								<ul id="ul-pregunta-1">
 									<li>Agregar una o más capas con o sin filtros de búsqueda a la tabla de búsqueda.</li>
 									<li>Trazar un área de influencia en el mapa.</li>
 								</ul>
