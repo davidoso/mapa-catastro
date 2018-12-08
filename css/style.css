@@ -7484,6 +7484,7 @@ address {
 ol,
 ul,
 dl {
+  margin-left: 1rem; /* ADDED */
   margin-top: 0;
   margin-bottom: 1rem; }
 
@@ -10590,7 +10591,8 @@ tbody.collapse.show {
 
 .badge-info, .preview-list .preview-item .preview-thumbnail .badge.badge-offline {
   color: #fff;
-  background-color: #6569df; }
+  /*background-color: #6569df; CHANGED*/
+  background-color: #7478e8; }
   .badge-info[href]:focus, .preview-list .preview-item .preview-thumbnail [href].badge.badge-offline:focus, .badge-info[href]:hover, .preview-list .preview-item .preview-thumbnail [href].badge.badge-offline:hover {
     color: #fff;
     text-decoration: none;
@@ -14423,6 +14425,312 @@ pre {
 
 /*-------------------------------------------------------------------*/
 /* === Components === */
+/* Accordions */
+.accordion .card {
+  margin-bottom: 10px;
+  border: 1px solid #f2f2f2; }
+  .accordion .card .card-header {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    background: #f5f5f5; }
+    .accordion .card .card-header a {
+      display: block;
+      padding: .75rem 1.70rem .75rem 1.25rem;
+      color: #32323d;
+      text-decoration: none;
+      font-size: inherit;
+      position: relative;
+      -webkit-transition-duration: 0.5s;
+      -moz-transition-duration: 0.5s;
+      -o-transition-duration: 0.5s;
+      transition-duration: 0.5s;
+      font-family: "Roboto", sans-serif;
+      font-weight: 500;
+      transition-property: border-color ,background;
+      -webkit-transition-property: border-color, background; }
+      .accordion .card .card-header a:before {
+        /*font-family: "Material Design Icons";*/
+        position: absolute;
+        right: 7px;
+        top: 10px;
+        font-size: 1rem;
+        display: block;
+        color: #000; }
+      .accordion .card .card-header a[aria-expanded="true"]:before {
+        content: "\002D"; }
+      .accordion .card .card-header a[aria-expanded="false"]:before {
+        content: "\002B"; }
+      .accordion .card .card-header a[aria-expanded="false"]:hover {
+        background: #e8e8e8; }
+    .accordion .card .card-header.bg-success a, .accordion .card .card-header.bg-warning a, .accordion .card .card-header.bg-danger a, .accordion .card .card-header.bg-primary a, .accordion .card .card-header.bg-dark a {
+      color: #ffffff; }
+      .accordion .card .card-header.bg-success a:before, .accordion .card .card-header.bg-warning a:before, .accordion .card .card-header.bg-danger a:before, .accordion .card .card-header.bg-primary a:before, .accordion .card .card-header.bg-dark a:before {
+        color: #ffffff; }
+  .accordion .card .card-body {
+    font-size: 0.88rem;
+    padding: 12px 20px 26px 20px;
+    background: #f5f5f5; }
+  .accordion .card.bg-success, .accordion .card.bg-danger, .accordion .card.bg-primary, .accordion .card.bg-info, .accordion .card.bg-warning, .accordion .card.bg-dark {
+    color: #ffffff; }
+    .accordion .card.bg-success .card-header, .accordion .card.bg-danger .card-header, .accordion .card.bg-primary .card-header, .accordion .card.bg-info .card-header, .accordion .card.bg-warning .card-header, .accordion .card.bg-dark .card-header {
+      color: #ffffff;
+      border: none; }
+      .accordion .card.bg-success .card-header:before, .accordion .card.bg-danger .card-header:before, .accordion .card.bg-primary .card-header:before, .accordion .card.bg-info .card-header:before, .accordion .card.bg-warning .card-header:before, .accordion .card.bg-dark .card-header:before {
+        color: #ffffff; }
+      .accordion .card.bg-success .card-header a, .accordion .card.bg-danger .card-header a, .accordion .card.bg-primary .card-header a, .accordion .card.bg-info .card-header a, .accordion .card.bg-warning .card-header a, .accordion .card.bg-dark .card-header a {
+        color: #ffffff; }
+
+/* inverse buttons */
+.accordion-inverse-primary {
+  background: rgba(36, 213, 216, 0.16);
+  color: #24d5d8;
+  border: none; }
+  .accordion-inverse-primary.card .card-header {
+    color: #24d5d8;
+    border: none;
+    background: transparent; }
+    .accordion-inverse-primary.card .card-header a,
+    .accordion-inverse-primary.card .card-header h1,
+    .accordion-inverse-primary.card .card-header h2,
+    .accordion-inverse-primary.card .card-header h3,
+    .accordion-inverse-primary.card .card-header h4,
+    .accordion-inverse-primary.card .card-header h5,
+    .accordion-inverse-primary.card .card-header h6,
+    .accordion-inverse-primary.card .card-header p,
+    .accordion-inverse-primary.card .card-header span {
+      color: #24d5d8 !important; }
+    .accordion-inverse-primary.card .card-header a {
+      border-color: #24d5d8; }
+      .accordion-inverse-primary.card .card-header a:before {
+        color: #24d5d8 !important; }
+      .accordion-inverse-primary.card .card-header a[aria-expanded="true"] {
+        border-bottom: 1px solid rgba(36, 213, 216, 0.16); }
+      .accordion-inverse-primary.card .card-header a[aria-expanded="false"] {
+        border-bottom: 1px solid transparent; }
+        .accordion-inverse-primary.card .card-header a[aria-expanded="false"]:hover {
+          background: rgba(36, 213, 216, 0.2); }
+  .accordion-inverse-primary .card-body {
+    background: transparent !important; }
+
+.accordion-inverse-secondary {
+  background: rgba(170, 178, 189, 0.16);
+  color: #aab2bd;
+  border: none; }
+  .accordion-inverse-secondary.card .card-header {
+    color: #aab2bd;
+    border: none;
+    background: transparent; }
+    .accordion-inverse-secondary.card .card-header a,
+    .accordion-inverse-secondary.card .card-header h1,
+    .accordion-inverse-secondary.card .card-header h2,
+    .accordion-inverse-secondary.card .card-header h3,
+    .accordion-inverse-secondary.card .card-header h4,
+    .accordion-inverse-secondary.card .card-header h5,
+    .accordion-inverse-secondary.card .card-header h6,
+    .accordion-inverse-secondary.card .card-header p,
+    .accordion-inverse-secondary.card .card-header span {
+      color: #aab2bd !important; }
+    .accordion-inverse-secondary.card .card-header a {
+      border-color: #aab2bd; }
+      .accordion-inverse-secondary.card .card-header a:before {
+        color: #aab2bd !important; }
+      .accordion-inverse-secondary.card .card-header a[aria-expanded="true"] {
+        border-bottom: 1px solid rgba(170, 178, 189, 0.16); }
+      .accordion-inverse-secondary.card .card-header a[aria-expanded="false"] {
+        border-bottom: 1px solid transparent; }
+        .accordion-inverse-secondary.card .card-header a[aria-expanded="false"]:hover {
+          background: rgba(170, 178, 189, 0.2); }
+  .accordion-inverse-secondary .card-body {
+    background: transparent !important; }
+
+.accordion-inverse-success {
+  background: rgba(51, 201, 46, 0.16);
+  color: #33c92e;
+  border: none; }
+  .accordion-inverse-success.card .card-header {
+    color: #33c92e;
+    border: none;
+    background: transparent; }
+    .accordion-inverse-success.card .card-header a,
+    .accordion-inverse-success.card .card-header h1,
+    .accordion-inverse-success.card .card-header h2,
+    .accordion-inverse-success.card .card-header h3,
+    .accordion-inverse-success.card .card-header h4,
+    .accordion-inverse-success.card .card-header h5,
+    .accordion-inverse-success.card .card-header h6,
+    .accordion-inverse-success.card .card-header p,
+    .accordion-inverse-success.card .card-header span {
+      color: #33c92e !important; }
+    .accordion-inverse-success.card .card-header a {
+      border-color: #33c92e; }
+      .accordion-inverse-success.card .card-header a:before {
+        color: #33c92e !important; }
+      .accordion-inverse-success.card .card-header a[aria-expanded="true"] {
+        border-bottom: 1px solid rgba(51, 201, 46, 0.16); }
+      .accordion-inverse-success.card .card-header a[aria-expanded="false"] {
+        border-bottom: 1px solid transparent; }
+        .accordion-inverse-success.card .card-header a[aria-expanded="false"]:hover {
+          background: rgba(51, 201, 46, 0.2); }
+  .accordion-inverse-success .card-body {
+    background: transparent !important; }
+
+.accordion-inverse-info {
+  background: rgba(101, 105, 223, 0.16);
+  color: #6569df;
+  border: none; }
+  .accordion-inverse-info.card .card-header {
+    color: #6569df;
+    border: none;
+    background: transparent; }
+    .accordion-inverse-info.card .card-header a,
+    .accordion-inverse-info.card .card-header h1,
+    .accordion-inverse-info.card .card-header h2,
+    .accordion-inverse-info.card .card-header h3,
+    .accordion-inverse-info.card .card-header h4,
+    .accordion-inverse-info.card .card-header h5,
+    .accordion-inverse-info.card .card-header h6,
+    .accordion-inverse-info.card .card-header p,
+    .accordion-inverse-info.card .card-header span {
+      color: #6569df !important; }
+    .accordion-inverse-info.card .card-header a {
+      border-color: #6569df; }
+      .accordion-inverse-info.card .card-header a:before {
+        color: #6569df !important; }
+      .accordion-inverse-info.card .card-header a[aria-expanded="true"] {
+        border-bottom: 1px solid rgba(101, 105, 223, 0.16); }
+      .accordion-inverse-info.card .card-header a[aria-expanded="false"] {
+        border-bottom: 1px solid transparent; }
+        .accordion-inverse-info.card .card-header a[aria-expanded="false"]:hover {
+          background: rgba(101, 105, 223, 0.2); }
+  .accordion-inverse-info .card-body {
+    background: transparent !important; }
+
+.accordion-inverse-warning {
+  background: rgba(254, 217, 97, 0.16);
+  color: #fed961;
+  border: none; }
+  .accordion-inverse-warning.card .card-header {
+    color: #fed961;
+    border: none;
+    background: transparent; }
+    .accordion-inverse-warning.card .card-header a,
+    .accordion-inverse-warning.card .card-header h1,
+    .accordion-inverse-warning.card .card-header h2,
+    .accordion-inverse-warning.card .card-header h3,
+    .accordion-inverse-warning.card .card-header h4,
+    .accordion-inverse-warning.card .card-header h5,
+    .accordion-inverse-warning.card .card-header h6,
+    .accordion-inverse-warning.card .card-header p,
+    .accordion-inverse-warning.card .card-header span {
+      color: #fed961 !important; }
+    .accordion-inverse-warning.card .card-header a {
+      border-color: #fed961; }
+      .accordion-inverse-warning.card .card-header a:before {
+        color: #fed961 !important; }
+      .accordion-inverse-warning.card .card-header a[aria-expanded="true"] {
+        border-bottom: 1px solid rgba(254, 217, 97, 0.16); }
+      .accordion-inverse-warning.card .card-header a[aria-expanded="false"] {
+        border-bottom: 1px solid transparent; }
+        .accordion-inverse-warning.card .card-header a[aria-expanded="false"]:hover {
+          background: rgba(254, 217, 97, 0.2); }
+  .accordion-inverse-warning .card-body {
+    background: transparent !important; }
+
+.accordion-inverse-danger {
+  background: rgba(253, 50, 88, 0.16);
+  color: #fd3258;
+  border: none; }
+  .accordion-inverse-danger.card .card-header {
+    color: #fd3258;
+    border: none;
+    background: transparent; }
+    .accordion-inverse-danger.card .card-header a,
+    .accordion-inverse-danger.card .card-header h1,
+    .accordion-inverse-danger.card .card-header h2,
+    .accordion-inverse-danger.card .card-header h3,
+    .accordion-inverse-danger.card .card-header h4,
+    .accordion-inverse-danger.card .card-header h5,
+    .accordion-inverse-danger.card .card-header h6,
+    .accordion-inverse-danger.card .card-header p,
+    .accordion-inverse-danger.card .card-header span {
+      color: #fd3258 !important; }
+    .accordion-inverse-danger.card .card-header a {
+      border-color: #fd3258; }
+      .accordion-inverse-danger.card .card-header a:before {
+        color: #fd3258 !important; }
+      .accordion-inverse-danger.card .card-header a[aria-expanded="true"] {
+        border-bottom: 1px solid rgba(253, 50, 88, 0.16); }
+      .accordion-inverse-danger.card .card-header a[aria-expanded="false"] {
+        border-bottom: 1px solid transparent; }
+        .accordion-inverse-danger.card .card-header a[aria-expanded="false"]:hover {
+          background: rgba(253, 50, 88, 0.2); }
+  .accordion-inverse-danger .card-body {
+    background: transparent !important; }
+
+.accordion-inverse-light {
+  background: rgba(245, 247, 250, 0.16);
+  color: #f5f7fa;
+  border: none; }
+  .accordion-inverse-light.card .card-header {
+    color: #f5f7fa;
+    border: none;
+    background: transparent; }
+    .accordion-inverse-light.card .card-header a,
+    .accordion-inverse-light.card .card-header h1,
+    .accordion-inverse-light.card .card-header h2,
+    .accordion-inverse-light.card .card-header h3,
+    .accordion-inverse-light.card .card-header h4,
+    .accordion-inverse-light.card .card-header h5,
+    .accordion-inverse-light.card .card-header h6,
+    .accordion-inverse-light.card .card-header p,
+    .accordion-inverse-light.card .card-header span {
+      color: #f5f7fa !important; }
+    .accordion-inverse-light.card .card-header a {
+      border-color: #f5f7fa; }
+      .accordion-inverse-light.card .card-header a:before {
+        color: #f5f7fa !important; }
+      .accordion-inverse-light.card .card-header a[aria-expanded="true"] {
+        border-bottom: 1px solid rgba(245, 247, 250, 0.16); }
+      .accordion-inverse-light.card .card-header a[aria-expanded="false"] {
+        border-bottom: 1px solid transparent; }
+        .accordion-inverse-light.card .card-header a[aria-expanded="false"]:hover {
+          background: rgba(245, 247, 250, 0.2); }
+  .accordion-inverse-light .card-body {
+    background: transparent !important; }
+
+.accordion-inverse-dark {
+  background: rgba(50, 50, 61, 0.16);
+  color: #32323d;
+  border: none; }
+  .accordion-inverse-dark.card .card-header {
+    color: #32323d;
+    border: none;
+    background: transparent; }
+    .accordion-inverse-dark.card .card-header a,
+    .accordion-inverse-dark.card .card-header h1,
+    .accordion-inverse-dark.card .card-header h2,
+    .accordion-inverse-dark.card .card-header h3,
+    .accordion-inverse-dark.card .card-header h4,
+    .accordion-inverse-dark.card .card-header h5,
+    .accordion-inverse-dark.card .card-header h6,
+    .accordion-inverse-dark.card .card-header p,
+    .accordion-inverse-dark.card .card-header span {
+      color: #32323d !important; }
+    .accordion-inverse-dark.card .card-header a {
+      border-color: #32323d; }
+      .accordion-inverse-dark.card .card-header a:before {
+        color: #32323d !important; }
+      .accordion-inverse-dark.card .card-header a[aria-expanded="true"] {
+        border-bottom: 1px solid rgba(50, 50, 61, 0.16); }
+      .accordion-inverse-dark.card .card-header a[aria-expanded="false"] {
+        border-bottom: 1px solid transparent; }
+        .accordion-inverse-dark.card .card-header a[aria-expanded="false"]:hover {
+          background: rgba(50, 50, 61, 0.2); }
+  .accordion-inverse-dark .card-body {
+    background: transparent !important; }
+
 /* Badges */
 .badge {
   border-radius: 0.25rem;

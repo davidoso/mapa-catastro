@@ -111,6 +111,10 @@ tbody tr td {
   color: #8e24aa;
 }
 
+.text-hot-pink {
+  color: hotpink;
+}
+
 .label-options {
   cursor: pointer;
 }
@@ -132,4 +136,12 @@ tbody tr td {
 
 #a-googlemaps {
   font-size: 1em;
+}
+
+#accordion-help .card-body {
+  text-align: justify !important;
+}
+
+#accordion-help a:hover {
+  color: #8e24aa !important;
 }

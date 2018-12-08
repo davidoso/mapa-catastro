@@ -204,6 +204,7 @@ $(document).ready(function() {
                 clearAll();
                 break;
             case 4: // AYUDA
+                $('#modal-help').modal('show');
                 break;
         }
     }

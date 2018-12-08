@@ -130,3 +130,8 @@ function validarNumeros(charCode) {
 function validarAlfanumerico(charCode) {
     return (validarLetras(charCode) || validarNumeros(charCode));
 }
+
+// Close all FAQ accordion tabs when the modal is close
+$("#modal-help").on("hidden.bs.modal", function () {
+    $('.collapse').collapse('hide');
+});
