@@ -30,8 +30,8 @@
 <!--===============================================================================================-->
     <!-- Bootstrap select JavaScript library downloaded from: -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script> -->
-<!--===============================================================================================-->
     <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+<!--===============================================================================================-->
     <script type="text/javascript" src="js/off-canvas.js"></script>
     <script type="text/javascript" src="js/misc.js"></script>
 <!--===============================================================================================-->
@@ -47,7 +47,7 @@
 	<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
 <!--===============================================================================================-->
     <script type="text/javascript" src="js/jquery.toast.min.js"></script>
-    <script type="text/javascript" src="js/my-toastNotif.js"></script>
+    <script type="text/javascript" src="js/my-toastnotification.js"></script>
 <!--===============================================================================================-->
     <script type="text/javascript" src="js/sweetalert.min.js"></script>
     <script type="text/javascript" src="js/my-sweetalert.js"></script>

@@ -5,7 +5,7 @@
     'use strict';
     var title, text, queryNumberText;
 
-    if(btnType === 'ftl') { // Set filter to layer title and text
+    if(btnType === 'ftl') { // Set filter to layer title and text. 'ftl' in search_datatable.js
       if(queryNumber == 1) {
         title = '¿Desea reemplazar la consulta que ya existe?';
         queryNumberText = 'su consulta se eliminará';
@@ -16,7 +16,7 @@
       }
       text = 'Si agrega la capa: ' + layerName + ' (SIN FILTROS), ' + queryNumberText + ' de la tabla de búsqueda porque el mapa desplegará todos los elementos de la capa dentro del área de influencia.';
     }
-    else { // Set layer to filter title and text
+    else { // Set layer to filter title and text. 'ltf' in search_datatable.js
       title = '¿Desea reemplazar la capa que ya existe?';
       text = 'Si agrega esta consulta, la capa: ' + layerName + ' (SIN FILTROS) se eliminará de la tabla de búsqueda porque el mapa desplegará solo los elementos que cumplen esta condición, en lugar de todos.'
     }
