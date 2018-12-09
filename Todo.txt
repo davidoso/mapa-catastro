@@ -1,0 +1,12 @@
+PENDIENTES:
+
+* Programar y probar los filtros de las capas restantes (aprox. 30)
+
+* Modificar el HTML DOM de divValores con un selectbox de operadores relacionales y un input con clase vNumeros para validar entrada de dígitos [0-9] si el campo es numérico (función switchSelectCampo() en filter/filter.js)
+
+* Custom error pages en Hostinger
+
+* Agrupar marcadores por proximidad y nivel de zoom (en especial criptas del panteón, postes, luminarias, teléfonos y predios)
+    https://community.tibco.com/wiki/clustering-markers-maps-tibco-spotfire
+    https://asmaloney.com/2015/06/code/clustering-markers-on-leaflet-maps
+    https://stackoverflow.com/questions/31722630/group-coordinates-by-proximity-to-each-other

@@ -57,7 +57,12 @@ $(document).ready(function() {
                     showToastNotif('Nombre inválido', 'Ingrese al menos 4 caracteres alfanuméricos', 'bottom-right', 'error');
                 }
                 else {
-                    checkBeforeAddFilter(capa, campo, valor);
+                    if(valor.length > 30) { // In case an advanced user changes the input maxlength attribute
+                        showToastNotif('Nombre inválido', 'Ingrese no más de 30 caracteres alfanuméricos', 'bottom-right', 'error');
+                    }
+                    else {
+                        checkBeforeAddFilter(capa, campo, valor);
+                    }
                 }
             }
         }
