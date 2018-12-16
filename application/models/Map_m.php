@@ -14,16 +14,22 @@ class Map_m extends CI_Model {
 	private function switchColumn($column, $value)
 	{
         switch($column) {
-            /* VALORES DE COLUMNAS CON NOMBRES FIJOS, COMUNES O CON MISMO NOMBRE EN EL FRONTEND Y LA BD */
-            case "(SIN FILTROS)":
+			/* CONDICIÓN QUE SIEMPRE ES VERDADERA PARA TRAER TODOS LOS ELEMENTOS DE UNA CAPA */
+			case "(SIN FILTROS)":
                 return "1 = 1";
-                break;
+				break;
+
+			/* COLUMNAS CON VALORES NO PREDEFINIDOS QUE SE INGRESAN MEDIANTE UN INPUT DE TEXTO.
+			NOTA: ESTAS COLUMNAS NO ESTÁN EN ctrl_nombre_columnas */
             case "NOMBRE":
                 return "nombre like '%" . $value . "%'";
                 break;
+            case "NOMBRE COMERCIAL":
+                return "nombre_comercial like '%" . $value . "%'";
+                break;
 
-			/* VALORES DE CAMPOS DE CATÁLOGOS. Es necesario que la tabla, id y descripcion sigan la nomenclatura
-			base, e.g. cond_fisica: ct_cond_fisica (tabla), id_cond_fisica (id) y cond_fisica (descripcion) */
+			/* VALORES DE CAMPOS DE CATÁLOGOS. Es necesario que la tabla, id y descripción sigan la nomenclatura
+			base, e.g. cond_fisica: ct_cond_fisica (tabla), id_cond_fisica (id) y cond_fisica (descripción) */
             case "MATERIAL":
                 return "id_material = " . $this->getCatalogId("material", $value);
                 break;
@@ -105,6 +111,10 @@ class Map_m extends CI_Model {
 
 				$this->db->select('count(id) AS totalByRow');
 				$this->db->from($from);
+				// Layers that have columns from +1 table that are not catalogs and thus require an inner join
+				if($tableData[$i]->capa == "GIROS COMERCIALES") {
+					$this->db->join('comercio_tbl_giros_comerciales_licencias AS L', 'comercio_tbl_giros_comerciales.id = L.id_giro_comercial');
+				}
 				$this->db->where($where);
 
 				//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
@@ -154,6 +164,10 @@ class Map_m extends CI_Model {
 
 				$this->db->select('count(id) AS totalByLayer');
 				$this->db->from($from);
+				// Layers that have columns from +1 table that are not catalogs and thus require an inner join
+				if($arrLayers[$i] == "GIROS COMERCIALES") {
+					$this->db->join('comercio_tbl_giros_comerciales_licencias AS L', 'comercio_tbl_giros_comerciales.id = L.id_giro_comercial');
+				}
 				$this->db->where($where);
 
 				//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
@@ -224,6 +238,10 @@ class Map_m extends CI_Model {
 			$where = $where . ")"; // Close user-added conditions
 			$this->db->select($select);
 			$this->db->from($from);
+			// Layers that have columns from +1 table that are not catalogs and thus require an inner join
+			if($arrLayers[$i] == "GIROS COMERCIALES") {
+				$this->db->join('comercio_tbl_giros_comerciales_licencias AS L', 'comercio_tbl_giros_comerciales.id = L.id_giro_comercial');
+			}
 			$this->db->where($where);
 
 			//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
@@ -236,27 +254,35 @@ class Map_m extends CI_Model {
 	}
 
 	private function switchTableSelectedMarker($marcador) {
-    	/* CATÁLOGOS A UNIR CON LA TABLA DE LA CAPA DADO QUE ÉSTA TRAE LA LLAVE FORÁNEA PERO NO EL NOMBRE */
-        $cond_fisica =
-        	"JOIN ct_cond_fisica CF on T.id_cond_fisica = CF.id_cond_fisica";
-        $cond_fisica_and_material =
-        	"JOIN ct_cond_fisica CF on T.id_cond_fisica = CF.id_cond_fisica
-        	JOIN ct_material CM on T.id_material = CM.id_material";
+		/* NOMBRE DE LA TABLA COMO APARECE EN ctrl_select_capas */
+		$tableBaseName = $this->switchTable("marcador", $marcador);
+
+		/* CATÁLOGOS A UNIR CON LA TABLA DE LA CAPA DADO QUE ÉSTA TRAE LA LLAVE FORÁNEA PERO NO EL NOMBRE.
+		NOTA: HAY UN ESPACIO QUE SEPARA EL NOMBRE DE LA TABLA Y LA PALABRA 'JOIN' */
+		$cond_fisica =
+			" JOIN ct_cond_fisica USING (id_cond_fisica)";
+		$cond_fisica_and_material =
+			" JOIN ct_cond_fisica USING (id_cond_fisica) JOIN ct_material USING (id_material)";
 
         switch($marcador) {
             /* CAPAS QUE TIENEN LLAVES FORÁNEAS A CATÁLOGOS */
             case "postes":
             case "luminarias":
             case "panteon_municipal":
-                return $this->switchTable("marcador", $marcador) . " T " . $cond_fisica_and_material;
+                return $tableBaseName . $cond_fisica_and_material;
                 break;
             case "telefonos_publicos":
-                return $this->switchTable("marcador", $marcador) . " T " . $cond_fisica;
-                break;
+                return $tableBaseName . $cond_fisica;
+				break;
+
+			/* CAPAS QUE REQUIEREN UN JOIN CON OTRAS TABLAS QUE NO SON CATÁLOGOS */
+			case "giros_comerciales":
+				return $tableBaseName . " AS GC JOIN comercio_tbl_giros_comerciales_licencias AS L ON GC.id = L.id_giro_comercial";
+				break;
 
             /* CUALQUIER OTRA CAPA SIN CATÁLOGOS */
             default:
-                return $this->switchTable("marcador", $marcador);
+                return $tableBaseName;
         }
 	}
 
@@ -267,9 +293,9 @@ class Map_m extends CI_Model {
 
         /* ALIAS DE VALORES DE CATÁLOGOS */
         $cond_fisica =
-            "CF.cond_fisica AS 'CONDICIÓN FÍSICA'";
+            "cond_fisica AS 'CONDICIÓN FÍSICA'";
         $cond_fisica_and_material =
-            "CM.material AS 'MATERIAL', CF.cond_fisica AS 'CONDICIÓN FÍSICA'";
+            "material AS 'MATERIAL', cond_fisica AS 'CONDICIÓN FÍSICA'";
 
         switch($marcador) {
             /* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: GENERALES */
@@ -294,12 +320,40 @@ class Map_m extends CI_Model {
                 return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL', ficha AS 'FICHA', epoca AS 'ÉPOCA', genero_arquitectonico AS 'GÉNERO ARQUITECTÓNICO', ubicacion AS 'UBICACIÓN'";
                 break;
 
-            /* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: REGISTRO CIVIL */
-            case "panteon_municipal":
-                return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL', num_manzana AS 'NO. DE MANZANA', num_lote AS 'NO. DE LOTE', seccion AS 'NO. DE SECCIÓN', seccion_calle AS 'NO. DE SECCIÓN EN CALLE', calle AS 'NO. DE CALLE', numero AS 'NO.', capacidad AS 'CAPACIDAD', " . $cond_fisica_and_material . ", observaciones AS 'OBSERVACIONES'";
-                break;
+			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: COMERCIO */
+			case "giros_comerciales":
+				return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL', colonia AS 'COLONIA', localidad AS 'LOCALIDAD'";
+				break;
+			case "plazas_comerciales":
+				return $coordinates . "nombre AS 'PLAZA'";
+				break;
+
+			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: SALUD */
+			case "hospitales":
+				return $coordinates . "nombre AS 'HOSPITAL', dependencia AS 'DEPENDENCIA', tipo_hospital AS 'CLASIFICACIÓN'";
+				break;
+
+			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: REGISTRO CIVIL */
+			case "panteon_municipal":
+				return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL', num_manzana AS 'NO. DE MANZANA', num_lote AS 'NO. DE LOTE', seccion AS 'NO. DE SECCIÓN', seccion_calle AS 'NO. DE SECCIÓN EN CALLE', calle AS 'NO. DE CALLE', numero AS 'NO.', capacidad AS 'CAPACIDAD', " . $cond_fisica_and_material . ", observaciones AS 'OBSERVACIONES'";
+				break;
         }
-    }
+	}
+
+	// Location is in comercio_tbl_giros_comerciales and trade(s) in comercio_tbl_giros_comerciales_licencias
+	private function getTrades($coord_x, $coord_y) {
+		$this->db->select("id AS 'id_giro_comercial'");
+		$this->db->where( array('coord_x' => $coord_x, 'coord_y' => $coord_y) );
+		$location = $this->db->get('comercio_tbl_giros_comerciales')->row_array();
+		$id_giro_comercial = $location['id_giro_comercial'];
+
+		$this->db->select("giro_comercial AS 'GIRO', nombre_comercial AS 'NOMBRE', licencia AS 'LICENCIA'");
+		$this->db->where('id_giro_comercial', $id_giro_comercial);
+		$this->db->order_by(1);
+		$tradesArray = $this->db->get('comercio_tbl_giros_comerciales_licencias')->result_array();
+
+        return $tradesArray;
+	}
 
 	public function getMapSelectedMarker()
 	{
@@ -320,7 +374,24 @@ class Map_m extends CI_Model {
 		foreach($queryResult as $col => $value) {
         	$jsonTable = $jsonTable . '<tr><td class="marker-table-td-col">' . $col . '</td>' .
                 '<td class="marker-table-td-value">' . $value . '</td></tr> ';
-        }
+		}
+
+		// This is a special case because several trades and stores might be in the same place
+		if($markerData->marcador == "giros_comerciales") {
+			$tradesArray = $this->getTrades($markerData->coord_x, $markerData->coord_y);
+			foreach($tradesArray as $i => $trade) {
+				$giro_num = $i + 1;
+				$jsonTable = $jsonTable . '<tr><td class="marker-table-td-col">GIRO ' . $giro_num . '</td>' .
+					'<td class="marker-table-td-value">' . $trade['GIRO'] . '</td></tr> ';
+				/* Remove the first element from the single-array trade so the index number only appears on
+				GIRO # instead of all the three labels (GIRO #, NOMBRE #, LICENCIA #) */
+				array_shift($trade);
+				foreach($trade as $col => $value) {
+					$jsonTable = $jsonTable . '<tr><td class="marker-table-td-col">' . $col . '</td>' .
+						'<td class="marker-table-td-value">' . $value . '</td></tr> ';
+				}
+			}
+		}
 
 		//return $manualQuery; // Return generated sql query (testing purposes)
 		return $jsonTable;

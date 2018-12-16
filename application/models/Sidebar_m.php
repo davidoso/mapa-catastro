@@ -53,22 +53,29 @@ class Sidebar_m extends CI_Model {
 				$this->db->join('ct_material AS C', 'T.id_material = C.id_material');
 				$this->db->order_by(1);
 				$query = $this->db->get();
-
 				return $query->result();
+
 			case "CONDICIÓN FÍSICA":
 				$this->db->select("DISTINCT(UPPER(C.cond_fisica)) AS 'valor'");
 				$this->db->from($nombre_tabla . ' AS T');
 				$this->db->join('ct_cond_fisica AS C', 'T.id_cond_fisica = C.id_cond_fisica');
 				$query = $this->db->get();
-
 				return $query->result();
+
+			case "GIRO COMERCIAL":
+				$this->db->select("DISTINCT(UPPER(L.giro_comercial)) AS 'valor'");
+				$this->db->from($nombre_tabla . ' AS T');
+				$this->db->join('comercio_tbl_giros_comerciales_licencias AS L', 'T.id = L.id_giro_comercial');
+				$this->db->order_by(1);
+				$query = $this->db->get();
+				return $query->result();
+
 			default:
 				$queryException = $this->valueExceptions($capa, $campo, $nombre_tabla);
 				if(!$queryException) {
 					$this->db->select('DISTINCT(UPPER(' . $columna_bd . ')) AS valor');
 					$this->db->order_by(1);
 					$query = $this->db->get($nombre_tabla);
-
 					return $query->result();
 				}
 				else {

@@ -51,21 +51,31 @@ function switchSelectCampo() {
     var divValores = document.getElementById("divValores");
     $('body').css('cursor', 'wait');
 
-    if(campo == "NOMBRE") {
-        var my_class, my_placeholder, my_maxlength;
+    if(campo == "NOMBRE" || campo == "NOMBRE COMERCIAL") {
+        var my_class, my_placeholder; // my_class may be: vLetras, vNumeros, vAlfanumerico
         switch(capa) {
         case "BANCOS":
-            my_class = "vAlfanumerico";
+            my_class = "vLetras";
             my_placeholder = "Ingrese el banco a buscar..";
-            my_maxlength = 30;
             break;
         case "HOTELES":
-            my_class = "vAlfanumerico";
+            my_class = "vLetras";
             my_placeholder = "Ingrese el hotel a buscar..";
-            my_maxlength = 30;
+            break;
+        case "GIROS COMERCIALES":
+            my_class = "vAlfanumerico";
+            my_placeholder = "Ingrese el negocio a buscar..";
+            break;
+        case "PLAZAS COMERCIALES":
+            my_class = "vAlfanumerico";
+            my_placeholder = "Ingrese la plaza a buscar..";
+            break;
+        case "HOSPITALES":
+            my_class = "vLetras";
+            my_placeholder = "Ingrese el hospital a buscar..";
             break;
         }
-        divValores.innerHTML = '<input type="text" style="width: 90%;" class="form-control ' + my_class + '" id="inputValor" name="inputValor" placeholder="' + my_placeholder + '" maxlength="' + my_maxlength + '">';
+        divValores.innerHTML = '<input type="text" style="width: 90%;" class="form-control ' + my_class + '" id="inputValor" name="inputValor" placeholder="' + my_placeholder + '" maxlength="30">';
         $('#inputValor').focus();
         $('body').css('cursor', 'auto');
     } // if(campo == "NOMBRE")

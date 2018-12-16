@@ -122,6 +122,7 @@ tbody tr td {
 .marker-table-td-col {
   width: 40%;
   text-align: right;
+  text-transform: uppercase; /* Column name in query should be already uppercase but just in case */
 }
 
 .marker-table-td-value {

@@ -12,7 +12,7 @@ En otras palabras, todas las funciones espaciales de MySQL 5.5. funcionan con MB
 
 La función utilizada para el desarrollo del proyecto con MariaDB fue ST_Intersects, la cual exhibe el comportamiento esperado (ver imágenes de consultas de ejemplo).
 
-Las funciones con el prefijo ST_ (Spatial Type) son versiones que cumplen con la especificación, es decir, NO SE BASAN EN MBR. Las funciones ST_ están disponibles a partir de MySQL 5.6
+Las funciones con el prefijo ST_ (Spatial Type) son versiones que cumplen con la especificación, es decir, NO SE BASAN EN MBR. Las funciones ST_ están disponibles a partir de MySQL 5.6.
 
 
 

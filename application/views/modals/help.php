@@ -52,7 +52,7 @@
 							<h6 class="mb-0"><a class="collapsed" data-toggle="collapse" href="#pregunta-5" aria-expanded="false" aria-controls="pregunta-5">¿Cuántos filtros de búsqueda puedo agregar?</a></h6>
 						</div>
 						<div id="pregunta-5" class="collapse" role="tabpanel" aria-labelledby="pregunta-5-title" data-parent="#accordion-help">
-							<div class="card-body">No hay una cantidad límite. Una capa puede tener <strong class="text-danger">ya sea uno o más filtros de búsqueda específicos o una consulta general sin filtros</strong>. Un mensaje de alerta puede aparecer si ocurre un caso especial de combinación entre ellos.</div>
+							<div class="card-body">No hay una cantidad límite. <strong class="text-danger">Una capa puede tener ya sea uno o más filtros de búsqueda específicos o una consulta general sin filtros</strong>. Un mensaje de alerta puede aparecer si ocurre un caso especial de combinación entre ellos.</div>
 						</div>
 					</div> <!-- accordion-inverse-info pregunta-5 -->
 					<div class="card accordion-inverse-info">
@@ -60,7 +60,7 @@
 							<h6 class="mb-0"><a class="collapsed" data-toggle="collapse" href="#pregunta-6" aria-expanded="false" aria-controls="pregunta-6">¿Qué significan los conectores OR y AND?</a></h6>
 						</div>
 						<div id="pregunta-6" class="collapse" role="tabpanel" aria-labelledby="pregunta-6-title" data-parent="#accordion-help">
-							<div class="card-body">Los conectores OR y AND, denominados <i>operadores booleanos</i>, sirven para unir 2 o más filtros de búsqueda de una misma capa. <strong class="text-danger">Si usa OR, los elementos encontrados deben cumplir al menos una condición; con AND deben cumplir todas las condiciones</strong>.<br>
+							<div class="card-body">Los conectores OR y AND, denominados <i>operadores booleanos</i>, sirven para unir 2 o más filtros de búsqueda de una misma capa. <strong class="text-danger">Si usa OR, los elementos encontrados deben cumplir al menos una condición; si usa AND deben cumplir todas las condiciones</strong>.<br>
 							&emsp;&emsp;Por ejemplo: la búsqueda con OR de teléfonos públicos que funcionen o que sean de moneda puede mostrar teléfonos que funcionen pero sean de tarjeta, o que no funcionen pero sean de moneda. La búsqueda con AND muestra teléfonos que funcionen y sean de moneda.</div>
 						</div>
 					</div> <!-- accordion-inverse-info pregunta-6 -->
@@ -71,7 +71,7 @@
 						<div id="pregunta-7" class="collapse" role="tabpanel" aria-labelledby="pregunta-7-title" data-parent="#accordion-help">
 							<div class="card-body"><strong class="text-danger">Con el conector OR, la cantidad total mostrada corresponde a cada filtro</strong>, es decir, cuántos elementos cumplen solo esa condición en particular. Los totales en cada fila de la tabla son independientes. Dado que no es necesario que se satisfagan todas las condiciones, un filtro puede tener un total de 0 y aun así pueden aparecer marcadores en el mapa si se satisface otro filtro de la misma capa.<br>
 							&emsp;&emsp;<strong class="text-danger">Con el conector AND, la cantidad total mostrada es siempre igual</strong> para todos los filtros de una misma capa. Es importante que los campos sean coherentes, por ejemplo: un poste no puede ser de madera y metal a la vez.<br>
-							&emsp;&emsp;Si se realiza una consulta general sin filtros o una con un solo filtro específico, la cantidad total mostrada es igual independientemente del conector seleccionado.</div>
+							&emsp;&emsp;Si en una capa se realiza una consulta general sin filtros o una con un solo filtro específico, la cantidad total mostrada es igual independientemente del conector seleccionado.</div>
 						</div>
 					</div> <!-- accordion-inverse-info pregunta-7 -->
 					<div class="card accordion-inverse-info">
@@ -97,7 +97,7 @@
 							<h6 class="mb-0"><a class="collapsed" data-toggle="collapse" href="#pregunta-A" aria-expanded="false" aria-controls="pregunta-A">¿Qué es un área de influencia?</a></h6>
 						</div>
 						<div id="pregunta-A" class="collapse" role="tabpanel" aria-labelledby="pregunta-A-title" data-parent="#accordion-help">
-							<div class="card-body">El área de influencia es un polígono, <strong class="text-danger">ya sea un cuadrilátero o de figura libre</strong>, que delimita el espacio geográfico en donde buscar. Su tamaño es arbitrario: puede ser tan grande como toda la ciudad o más pequeño que una manzana.</div>
+							<div class="card-body"><strong class="text-danger">El área de influencia es un polígono, ya sea un cuadrilátero o de figura libre, que delimita el espacio geográfico en donde buscar</strong>. Su tamaño es arbitrario: puede ser tan grande como toda la ciudad o más pequeño que una manzana.</div>
 						</div>
 					</div> <!-- accordion-inverse-info pregunta-A -->
 					<div class="card accordion-inverse-info">
@@ -114,7 +114,7 @@
 							<h6 class="mb-0"><a class="collapsed" data-toggle="collapse" href="#pregunta-C" aria-expanded="false" aria-controls="pregunta-C">¿Puedo consultar simultáneamente en varias áreas de influencia?</a></h6>
 						</div>
 						<div id="pregunta-C" class="collapse" role="tabpanel" aria-labelledby="pregunta-C-title" data-parent="#accordion-help">
-							<div class="card-body">Actualmente sólo es posible realizar una consulta a la vez en la última área de influencia dibujada. En el mapa no puede haber más de 2 áreas de influencia: la más reciente y la anterior como marco de referencia. Sin embargo, no se pueden hacer consultas simultáneas en ambas.</div>
+							<div class="card-body">Actualmente solo es posible realizar una consulta a la vez en la última área de influencia dibujada. En el mapa no puede haber más de 2 áreas de influencia: la más reciente y la anterior como marco de referencia. Sin embargo, no se pueden hacer consultas simultáneas en ambas.</div>
 						</div>
 					</div> <!-- accordion-inverse-info pregunta-C -->
 
