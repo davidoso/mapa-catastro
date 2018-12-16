@@ -347,9 +347,9 @@ class Map_m extends CI_Model {
 		$location = $this->db->get('comercio_tbl_giros_comerciales')->row_array();
 		$id_giro_comercial = $location['id_giro_comercial'];
 
-		$this->db->select("giro_comercial AS 'GIRO', nombre_comercial AS 'NOMBRE', licencia AS 'LICENCIA'");
+		$this->db->select("nombre_comercial AS 'NEGOCIO', giro_comercial AS 'GIRO', licencia AS 'LICENCIA'");
 		$this->db->where('id_giro_comercial', $id_giro_comercial);
-		$this->db->order_by(1);
+		$this->db->order_by(2);
 		$tradesArray = $this->db->get('comercio_tbl_giros_comerciales_licencias')->result_array();
 
         return $tradesArray;
@@ -380,11 +380,11 @@ class Map_m extends CI_Model {
 		if($markerData->marcador == "giros_comerciales") {
 			$tradesArray = $this->getTrades($markerData->coord_x, $markerData->coord_y);
 			foreach($tradesArray as $i => $trade) {
-				$giro_num = $i + 1;
-				$jsonTable = $jsonTable . '<tr><td class="marker-table-td-col">GIRO ' . $giro_num . '</td>' .
-					'<td class="marker-table-td-value">' . $trade['GIRO'] . '</td></tr> ';
+				$trade_num = $i + 1;
+				$jsonTable = $jsonTable . '<tr><td class="marker-table-td-col">NEGOCIO ' . $trade_num . '</td>' .
+					'<td class="marker-table-td-value">' . $trade['NEGOCIO'] . '</td></tr> ';
 				/* Remove the first element from the single-array trade so the index number only appears on
-				GIRO # instead of all the three labels (GIRO #, NOMBRE #, LICENCIA #) */
+				NEGOCIO # instead of all the three labels (NEGOCIO #, GIRO #, LICENCIA #) */
 				array_shift($trade);
 				foreach($trade as $col => $value) {
 					$jsonTable = $jsonTable . '<tr><td class="marker-table-td-col">' . $col . '</td>' .

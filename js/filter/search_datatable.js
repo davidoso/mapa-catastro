@@ -87,7 +87,7 @@ $(document).ready(function() {
             nuevo = "valor";
             setTimeout(function() {
                 $("#cbCampos").val(data.campo).change();
-                    if(data.campo == 'NOMBRE')
+                    if(data.campo == 'NOMBRE' || data.campo == 'NOMBRE COMERCIAL')
                         $("#inputValor").click();
             }, 500); // Code to be executed after 500 ms
         }
