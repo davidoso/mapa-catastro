@@ -70,6 +70,14 @@ class Sidebar_m extends CI_Model {
 				$query = $this->db->get();
 				return $query->result();
 
+			case "MERCADO":
+			case "TIANGUIS":
+				$this->db->select("DISTINCT(UPPER(nombre)) AS 'valor'");
+				$this->db->order_by(1);
+				$comercio_tbl = ($campo == "MERCADO" ? "comercio_tbl_mercados" : "comercio_tbl_tianguis");
+				$query = $this->db->get($comercio_tbl);
+				return $query->result();
+
 			default:
 				$queryException = $this->valueExceptions($capa, $campo, $nombre_tabla);
 				if(!$queryException) {

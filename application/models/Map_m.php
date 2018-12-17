@@ -89,7 +89,21 @@ class Map_m extends CI_Model {
 		}
 
     	return substr($polygonCoordinates, 0, -2); // Drop last comma and whitespace
-    }
+	}
+
+	private function getJoinCondition($baseTable)
+	{
+		switch($baseTable) {		// Base table alias is already BT when this function is called
+			case "GIROS COMERCIALES":
+				return array('comercio_tbl_giros_comerciales_licencias AS L', 'BT.id = L.id_giro_comercial');
+			case "LOCATARIOS MERCADOS":
+				return array('comercio_tbl_mercados AS M', 'BT.id_mercado = M.id');
+			case "TIANGUISTAS":
+				return array('comercio_tbl_tianguis AS T', 'BT.id_tianguis = T.id');
+			default:				// Any other case will return null so no join condition will be added
+				return null;
+		}
+	}
 
 	// This function must not be edited. All the map queries must be added/changed in switchColumn()
 	public function getMapTotals()
@@ -102,19 +116,20 @@ class Map_m extends CI_Model {
 
 		if($booleanOp === "OR") {
 			for($i = 0; $i < count($tableData); $i++) {
-				// DB table name
-				$from = $this->switchTable('capa', $tableData[$i]->capa);
+				// DB table name alias is BT
+				$from = $this->switchTable('capa', $tableData[$i]->capa) . " AS BT";
 				// One user-added condition for each row in the datatable, despite a layer having +1 queries
 				$cond = $this->switchColumn($tableData[$i]->campo, $tableData[$i]->valor);
 				// All elements must be inside the drawn polygon area in the map
-				$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') )) AND (" . $cond . ")";
+				$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (" . $cond . ")";
 
-				$this->db->select('count(id) AS totalByRow');
+				$this->db->select('count(BT.id) AS totalByRow');
 				$this->db->from($from);
-				// Layers that have columns from +1 table that are not catalogs and thus require an inner join
-				if($tableData[$i]->capa == "GIROS COMERCIALES") {
-					$this->db->join('comercio_tbl_giros_comerciales_licencias AS L', 'comercio_tbl_giros_comerciales.id = L.id_giro_comercial');
-				}
+				/* Some layers have columns from another table (not the base table in ctrl_select_capas)
+				that is not a catalog and thus require an explicit inner join */
+				$arrJoinCondition = $this->getJoinCondition($tableData[$i]->capa);
+				if($arrJoinCondition !== NULL)
+					$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
 				$this->db->where($where);
 
 				//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
@@ -157,17 +172,18 @@ class Map_m extends CI_Model {
 						$allLayerCond = $allLayerCond . ' AND ' . $singleCond; // AND is $booleanOp
 				}
 
-				// DB table name
-				$from = $this->switchTable('capa', $arrLayers[$i]);
+				// DB table name alias is BT
+				$from = $this->switchTable('capa', $arrLayers[$i]) . " AS BT";
 				// All elements must be inside the drawn polygon area in the map
-				$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') )) AND (" . $allLayerCond . ")";
+				$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (" . $allLayerCond . ")";
 
-				$this->db->select('count(id) AS totalByLayer');
+				$this->db->select('count(BT.id) AS totalByLayer');
 				$this->db->from($from);
-				// Layers that have columns from +1 table that are not catalogs and thus require an inner join
-				if($arrLayers[$i] == "GIROS COMERCIALES") {
-					$this->db->join('comercio_tbl_giros_comerciales_licencias AS L', 'comercio_tbl_giros_comerciales.id = L.id_giro_comercial');
-				}
+				/* Some layers have columns from another table (not the base table in ctrl_select_capas)
+				that is not a catalog and thus require an explicit inner join */
+				$arrJoinCondition = $this->getJoinCondition($arrLayers[$i]);
+				if($arrJoinCondition !== NULL)
+					$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
 				$this->db->where($where);
 
 				//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
@@ -216,11 +232,11 @@ class Map_m extends CI_Model {
 
 		for($i = 0; $i < count($arrLayers); $i++) {
 			// Map marker id
-			$select = "coord_x AS longitude, coord_y AS latitude, lower(tr('" . $arrLayers[$i] . "', 'ÁÉÍÓÚÑ ', 'AEIOUN_')) AS layer";
-			// DB table name
-			$from = $this->switchTable('capa', $arrLayers[$i]);
+			$select = "BT.coord_x AS longitude, BT.coord_y AS latitude, lower(tr('" . $arrLayers[$i] . "', 'ÁÉÍÓÚÑ ', 'AEIOUN_')) AS layer";
+			// DB table name alias is BT
+			$from = $this->switchTable('capa', $arrLayers[$i]) . " AS BT";
 			// All elements must be inside the drawn polygon area in the map
-			$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(coord_x, CHAR(20)), ' ', CONVERT(coord_y, CHAR(20)), ')') )) AND (?";
+			$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (?";
 
 			for($j = 0; $j < count($jaggedArrayByLayer[$i]); $j++) {
 				$dtRow = $jaggedArrayByLayer[$i][$j];
@@ -238,10 +254,11 @@ class Map_m extends CI_Model {
 			$where = $where . ")"; // Close user-added conditions
 			$this->db->select($select);
 			$this->db->from($from);
-			// Layers that have columns from +1 table that are not catalogs and thus require an inner join
-			if($arrLayers[$i] == "GIROS COMERCIALES") {
-				$this->db->join('comercio_tbl_giros_comerciales_licencias AS L', 'comercio_tbl_giros_comerciales.id = L.id_giro_comercial');
-			}
+			/* Some layers have columns from another table (not the base table in ctrl_select_capas)
+			that is not a catalog and thus require an explicit inner join */
+			$arrJoinCondition = $this->getJoinCondition($arrLayers[$i]);
+			if($arrJoinCondition !== NULL)
+				$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
 			$this->db->where($where);
 
 			//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
@@ -255,7 +272,7 @@ class Map_m extends CI_Model {
 
 	private function switchTableSelectedMarker($marcador) {
 		/* NOMBRE DE LA TABLA COMO APARECE EN ctrl_select_capas */
-		$tableBaseName = $this->switchTable("marcador", $marcador);
+		$baseTable = $this->switchTable("marcador", $marcador);
 
 		/* CATÁLOGOS A UNIR CON LA TABLA DE LA CAPA DADO QUE ÉSTA TRAE LA LLAVE FORÁNEA PERO NO EL NOMBRE.
 		NOTA: HAY UN ESPACIO QUE SEPARA EL NOMBRE DE LA TABLA Y LA PALABRA 'JOIN' */
@@ -269,27 +286,33 @@ class Map_m extends CI_Model {
             case "postes":
             case "luminarias":
             case "panteon_municipal":
-                return $tableBaseName . $cond_fisica_and_material;
+                return $baseTable . $cond_fisica_and_material;
                 break;
             case "telefonos_publicos":
-                return $tableBaseName . $cond_fisica;
+                return $baseTable . $cond_fisica;
 				break;
 
 			/* CAPAS QUE REQUIEREN UN JOIN CON OTRAS TABLAS QUE NO SON CATÁLOGOS */
 			case "giros_comerciales":
-				return $tableBaseName . " AS GC JOIN comercio_tbl_giros_comerciales_licencias AS L ON GC.id = L.id_giro_comercial";
+				return $baseTable . " AS BT JOIN comercio_tbl_giros_comerciales_licencias AS L ON BT.id = L.id_giro_comercial";
+				break;
+			case "locatarios_mercados":
+				return $baseTable . " AS BT JOIN comercio_tbl_mercados AS M ON BT.id_mercado = M.id";
+				break;
+			case "tianguistas":
+				return $baseTable . " AS BT JOIN comercio_tbl_tianguis AS T ON BT.id_tianguis = T.id";
 				break;
 
             /* CUALQUIER OTRA CAPA SIN CATÁLOGOS */
             default:
-                return $tableBaseName;
+                return $baseTable . " AS BT";
         }
 	}
 
 	private function switchColumnSelectedMarker($marcador) {
         /* LAS COORDENADAS APARECEN EN CUALQUIER CAPA */
         $coordinates =
-            "coord_y AS 'LATITUD', coord_x AS 'LONGITUD', "; // Latitude appears first on GPS coordinates
+            "BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', "; // Latitude appears first on GPS coordinates
 
         /* ALIAS DE VALORES DE CATÁLOGOS */
         $cond_fisica =
@@ -327,6 +350,18 @@ class Map_m extends CI_Model {
 			case "plazas_comerciales":
 				return $coordinates . "nombre AS 'PLAZA'";
 				break;
+			case "mercados":
+				return $coordinates . "nombre AS 'MERCADO', calle AS 'CALLE', colonia AS 'COLONIA', propietario AS 'PROPIETARIO', tipo_predio AS 'PREDIO'";
+				break;
+			case "tianguis":
+				return $coordinates . "nombre AS 'TIANGUIS', calle AS 'CALLE', colonia AS 'COLONIA', CONCAT(dia, ' ', horario) AS 'HORARIO', area AS 'ÁREA EN M2'";
+				break;
+			case "locatarios_mercados":
+				return $coordinates . "M.nombre AS 'MERCADO', giro AS 'GIRO', local_ AS 'NO. DE LOCAL', observaciones AS 'OBSERVACIONES'";
+				break;
+			case "tianguistas":
+				return $coordinates . "T.nombre AS 'TIANGUIS', giro AS 'GIRO', area AS 'ÁREA EN M2', union_ AS 'UNIÓN'";
+				break;
 
 			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: SALUD */
 			case "hospitales":
@@ -340,8 +375,8 @@ class Map_m extends CI_Model {
         }
 	}
 
-	// Location is in comercio_tbl_giros_comerciales and trade(s) in comercio_tbl_giros_comerciales_licencias
-	private function getTrades($coord_x, $coord_y) {
+	// Location is in comercio_tbl_giros_comerciales and business in comercio_tbl_giros_comerciales_licencias
+	private function getBusiness($coord_x, $coord_y) {
 		$this->db->select("id AS 'id_giro_comercial'");
 		$this->db->where( array('coord_x' => $coord_x, 'coord_y' => $coord_y) );
 		$location = $this->db->get('comercio_tbl_giros_comerciales')->row_array();
@@ -350,9 +385,9 @@ class Map_m extends CI_Model {
 		$this->db->select("nombre_comercial AS 'NEGOCIO', giro_comercial AS 'GIRO', licencia AS 'LICENCIA'");
 		$this->db->where('id_giro_comercial', $id_giro_comercial);
 		$this->db->order_by(2);
-		$tradesArray = $this->db->get('comercio_tbl_giros_comerciales_licencias')->result_array();
+		$bizArray = $this->db->get('comercio_tbl_giros_comerciales_licencias')->result_array();
 
-        return $tradesArray;
+        return $bizArray;
 	}
 
 	public function getMapSelectedMarker()
@@ -364,7 +399,7 @@ class Map_m extends CI_Model {
 		// DB table name
 		$from = $this->switchTableSelectedMarker($markerData->marcador);
 		// The element coordinates must be the ones from the selected marker
-		$where = "coord_x = " . $markerData->coord_x . " AND coord_y = " . $markerData->coord_y;
+		$where = "BT.coord_x = " . $markerData->coord_x . " AND BT.coord_y = " . $markerData->coord_y;
 
 		$manualQuery = "SELECT " . $select . " FROM " . $from . " WHERE " . $where;
 
@@ -376,17 +411,17 @@ class Map_m extends CI_Model {
                 '<td class="marker-table-td-value">' . $value . '</td></tr> ';
 		}
 
-		// This is a special case because several trades and stores might be in the same place
+		// This is a special case because several business and stores might be in the same location
 		if($markerData->marcador == "giros_comerciales") {
-			$tradesArray = $this->getTrades($markerData->coord_x, $markerData->coord_y);
-			foreach($tradesArray as $i => $trade) {
-				$trade_num = $i + 1;
-				$jsonTable = $jsonTable . '<tr><td class="marker-table-td-col">NEGOCIO ' . $trade_num . '</td>' .
-					'<td class="marker-table-td-value">' . $trade['NEGOCIO'] . '</td></tr> ';
-				/* Remove the first element from the single-array trade so the index number only appears on
-				NEGOCIO # instead of all the three labels (NEGOCIO #, GIRO #, LICENCIA #) */
-				array_shift($trade);
-				foreach($trade as $col => $value) {
+			$bizArray = $this->getBusiness($markerData->coord_x, $markerData->coord_y);
+			foreach($bizArray as $i => $biz) {
+				$biz_num = $i + 1;
+				$jsonTable = $jsonTable . '<tr><td class="marker-table-td-col">NOMBRE DEL NEGOCIO ' . $biz_num .
+					'</td>' . '<td class="marker-table-td-value">' . $biz['NEGOCIO'] . '</td></tr> ';
+				/* Remove the first element from the single-array so the index number only appears on NOMBRE DEL
+				NEGOCIO # instead of all the three labels (NOMBER DEL NEGOCIO #, GIRO #, LICENCIA #) */
+				array_shift($biz);
+				foreach($biz as $col => $value) {
 					$jsonTable = $jsonTable . '<tr><td class="marker-table-td-col">' . $col . '</td>' .
 						'<td class="marker-table-td-value">' . $value . '</td></tr> ';
 				}
