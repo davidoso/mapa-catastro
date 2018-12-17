@@ -17,25 +17,20 @@ class Map_m extends CI_Model {
 			/* CONDICIÓN QUE SIEMPRE ES VERDADERA PARA TRAER TODOS LOS ELEMENTOS DE UNA CAPA */
 			case "(SIN FILTROS)":
                 return "1 = 1";
-				break;
 
 			/* COLUMNAS CON VALORES NO PREDEFINIDOS QUE SE INGRESAN MEDIANTE UN INPUT DE TEXTO.
 			NOTA: ESTAS COLUMNAS NO ESTÁN EN ctrl_nombre_columnas */
             case "NOMBRE":
                 return "nombre like '%" . $value . "%'";
-                break;
             case "NOMBRE COMERCIAL":
                 return "nombre_comercial like '%" . $value . "%'";
-                break;
 
 			/* VALORES DE CAMPOS DE CATÁLOGOS. Es necesario que la tabla, id y descripción sigan la nomenclatura
 			base, e.g. cond_fisica: ct_cond_fisica (tabla), id_cond_fisica (id) y cond_fisica (descripción) */
             case "MATERIAL":
                 return "id_material = " . $this->getCatalogId("material", $value);
-                break;
             case "CONDICIÓN FÍSICA":
                 return "id_cond_fisica = " . $this->getCatalogId("cond_fisica", $value);
-                break;
 
              /* VALORES DE CAMPOS CON FORMATOS ESPECÍFICOS O NULOS PRESENTADOS CON UN ALIAS  */
             case "FUENTE": // Fuente secundaria de una luminaria
@@ -45,7 +40,6 @@ class Map_m extends CI_Model {
                 else {
                     return "f_secundaria = '" . $value . "'";
                 }
-                break;
 
             /* CUALQUIER OTRA COLUMNA EN ctrl_nombre_columnas */
             default:
@@ -287,22 +281,17 @@ class Map_m extends CI_Model {
             case "luminarias":
             case "panteon_municipal":
                 return $baseTable . $cond_fisica_and_material;
-                break;
 			case "telefonos_publicos":
 			case "arboles":
                 return $baseTable . $cond_fisica;
-				break;
 
 			/* CAPAS QUE REQUIEREN UN JOIN CON OTRAS TABLAS QUE NO SON CATÁLOGOS */
 			case "giros_comerciales":
 				return $baseTable . " AS BT JOIN comercio_tbl_giros_comerciales_licencias AS L ON BT.id = L.id_giro_comercial";
-				break;
 			case "locatarios_mercados":
 				return $baseTable . " AS BT JOIN comercio_tbl_mercados AS M ON BT.id_mercado = M.id";
-				break;
 			case "tianguistas":
 				return $baseTable . " AS BT JOIN comercio_tbl_tianguis AS T ON BT.id_tianguis = T.id";
-				break;
 
             /* CUALQUIER OTRA CAPA SIN CATÁLOGOS */
             default:
@@ -325,59 +314,44 @@ class Map_m extends CI_Model {
             /* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: GENERALES */
             case "bancos":
                 return $coordinates . "nombre AS 'BANCO', tipo AS 'SERVICIO'";
-                break;
             case "hoteles":
                 return $coordinates . "nombre AS 'HOTEL'";
-                break;
             case "telefonos_publicos":
                 return $coordinates . "empresa_responsable AS 'EMPRESA', tipo AS 'TIPO', funciona AS 'FUNCIONA (SI/NO)', modalidad AS 'MODALIDAD', " . $cond_fisica;
-                break;
             case "postes":
                 return $coordinates . "empresa_responsable AS 'EMPRESA', f_primaria AS 'FUENTE PRIMARIA', f_secundaria AS 'FUENTE SECUNDARIA', " . $cond_fisica_and_material;
-                break;
             case "luminarias":
                 return $coordinates . "f_primaria AS 'FUENTE PRIMARIA', f_secundaria AS 'FUENTE SECUNDARIA', tipo AS 'TIPO DE POSTE', " . $cond_fisica_and_material . ", calle AS 'CALLE', colonia AS 'COLONIA'";
-                break;
 
             /* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: INAH */
             case "monumentos_historicos":
                 return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL', ficha AS 'FICHA', epoca AS 'ÉPOCA', genero_arquitectonico AS 'GÉNERO ARQUITECTÓNICO', ubicacion AS 'UBICACIÓN'";
-                break;
 
 			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: COMERCIO */
 			case "giros_comerciales":
 				return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL', colonia AS 'COLONIA', localidad AS 'LOCALIDAD'";
-				break;
 			case "plazas_comerciales":
 				return $coordinates . "nombre AS 'PLAZA'";
-				break;
 			case "mercados":
 				return $coordinates . "nombre AS 'MERCADO', calle AS 'CALLE', colonia AS 'COLONIA', propietario AS 'PROPIETARIO', tipo_predio AS 'PREDIO'";
-				break;
 			case "tianguis":
 				return $coordinates . "nombre AS 'TIANGUIS', calle AS 'CALLE', colonia AS 'COLONIA', CONCAT(dia, ' ', horario) AS 'HORARIO', area AS 'ÁREA EN M2'";
-				break;
 			case "locatarios_mercados":
 				return $coordinates . "M.nombre AS 'MERCADO', giro AS 'GIRO', local_ AS 'NO. DE LOCAL', observaciones AS 'OBSERVACIONES'";
-				break;
 			case "tianguistas":
 				return $coordinates . "T.nombre AS 'TIANGUIS', giro AS 'GIRO', area AS 'ÁREA EN M2', union_ AS 'UNIÓN'";
-				break;
 
 			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: SALUD */
 			case "hospitales":
 				return $coordinates . "nombre AS 'HOSPITAL', dependencia AS 'DEPENDENCIA', tipo_hospital AS 'CLASIFICACIÓN'";
-				break;
 
 			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: ECOLOGÍA */
 			case "arboles":
 				return $coordinates . "especie AS 'ESPECIE', alto_m AS 'ALTURA', ancho_m AS 'ANCHURA', solicito AS 'SERVICIO SOLICITADO', autoriza as 'RESOLUCIÓN', DATE_FORMAT(fecha_reso, '%d/%m/%y') AS 'FECHA DE RESOLUCIÓN', reforestacion AS 'FUE REFORESTADO', numero AS 'NO. DE ÁRBOL', " . $cond_fisica;
-				break;
 
 			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: REGISTRO CIVIL */
 			case "panteon_municipal":
 				return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL', num_manzana AS 'NO. DE MANZANA', num_lote AS 'NO. DE LOTE', seccion AS 'NO. DE SECCIÓN', seccion_calle AS 'NO. DE SECCIÓN EN CALLE', calle AS 'NO. DE CALLE', numero AS 'NO.', capacidad AS 'CAPACIDAD', " . $cond_fisica_and_material . ", observaciones AS 'OBSERVACIONES'";
-				break;
         }
 	}
 
