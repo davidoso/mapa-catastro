@@ -13,7 +13,7 @@ max_execution_time=120
 ```
 
 
-## Marcadores
+## Marcadores (iconos) para las capas del mapa
 ```
 Descargar marcadores de: https://mapicons.mapsmarker.com
 Nota 1: utilizar paleta de colores de otras categorías (checar marcadores que ya existen)
@@ -22,8 +22,18 @@ que tiene contorno del mismo color que el interior pero más oscuro, no blanco o
 ```
 
 
+## Antes de importar una nueva versión de la BD (catastro_full.sql) en Hostinger
+```
+1. Eliminar función tr
+2. Eliminar vista v_campos_a_filtrar_por_capa
+3. Importar el script SQL y crear manualmente la función y la vista de:
+    https://github.com/fbuccioni/mysql-routines-collection/blob/master/tr.func.sql
+    CREATE VIEW AS.. se encuentra en el archivo MySQL Functions for Catastro.txt
+```
+
+
 ## ¿Cómo cambiar o agregar consultas de búsqueda (con o sin filtros) Un filtro requiere capa / campo / valor
-### Paso 1
+### Paso 1/4
 #### Agregrar registros en 3 tablas en MariaDB
 - **ctrl_select_capas**: para llenar etiquetas *optgroup* (equivale a carpeta, e.g. VIALIDAD) y múltiples *option* (equivale a capa, e.g. TOPES) del 1er *select* con id=`cbCapas`. El marcador es el nombre de la imagen de la capa localizada en [images/mapMarkers](images/mapMarkers) y se genera automáticamente con un trigger. **El nombre del marcador y la imagen deben coincidir**
 ##### Campos a ingresar manualmente: carpeta, capa, nombre_tabla
@@ -37,14 +47,14 @@ campo_frontend y columna_frontend **deben llamarse igual si hacen referencia al 
 Comprobar el nombre con el que aparecerán los campos por capa en `cbCampos` ejecutando la vista en la BD **v_campos_a_filtrar_por_capa**
 
 
-### Paso 2
+### Paso 2/4
 #### De ser necesario, concatenar con OR otra condición a la sentencia if(campo == "NOMBRE" || campo == ["OTRO CAMPO"]) en la función switchSelectCampo() del archivo [filter.js](js/filter/filter.js)
 - Este if es necesario para agregar un input de texto para campos que **NO** tienen una serie de valores predefinidos y que deben ser ingresados manualmente en lugar de un selectbox, e.g. nombre de un banco u hotel
 - El case es el nombre de la capa en el frontend (checar ctrl_select_capas en la BD)
 - **NO APLICA** en los campos con valores predefinidos, e.g. material, cond_fisica o empresa, que llaman la función getValores() por ajax del modelo Sidebar_m.php para llenar el 3er *select* con id=`cbValores`
 
 
-### Paso 3
+### Paso 3/4
 #### Modificar el switch de las siguientes funciones del modelo [Sidebar_m.php](application/models/Sidebar_m.php)
 #### Importante: no editar las otras funciones del modelo
 - **Función getValores()**: los case corresponden a los nombres de las columnas en el frontend (checar ctrl_nombre_columnas en la BD). La función transforma y envía los campos de la BD al frontend
@@ -53,7 +63,7 @@ Comprobar el nombre con el que aparecerán los campos por capa en `cbCampos` eje
 **NO APLICA** si todos los campos a filtrar de la capa fueron ingresados en el archivo filter.js, es decir, este paso es necesario cuando hay al menos un campo que tenga valores predefinidos y requiera el 3er *select* con id=`cbValores`
 
 
-### Paso 4
+### Paso 4/4
 #### Modificar el switch de las siguientes funciones del modelo [Map_m.php](application/models/Map_m.php)
 #### Importante: no editar las otras funciones del modelo
 - **Función switchColumn($column, $value)**: los case corresponden a los nombres de las columnas en el frontend (checar ctrl_nombre_columnas en la BD). La función transforma los campos del frontend a la BD
