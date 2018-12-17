@@ -48,7 +48,7 @@ Comprobar el nombre con el que aparecerán los campos por capa en `cbCampos` eje
 #### Modificar el switch de las siguientes funciones del modelo [Sidebar_m.php](application/models/Sidebar_m.php)
 #### Importante: no editar las otras funciones del modelo
 - **Función getValores()**: los case corresponden a los nombres de las columnas en el frontend (checar ctrl_nombre_columnas en la BD). La función transforma y envía los campos de la BD al frontend
-- **Función valueExceptions($capa, $campo, $nombre_tabla)**: para campos que no se pueden obtener con una simple consulta DISTINCT(campo) y requieran un alias para un valor nulo, un orden diferente a *order_by(1)* u otro caso especial de mostrarse. La función transforma y envía los campos de la BD al frontend
+- **Función valueExceptions($capa, $campo, $nombre_tabla)**: para campos que no se puedan obtener con una simple consulta DISTINCT(campo) y requieran un alias para un valor nulo, un orden diferente a *order_by(1)* u otro caso especial de mostrarse. La función transforma y envía los campos de la BD al frontend
 #### Nota del paso 3
 **NO APLICA** si todos los campos a filtrar de la capa fueron ingresados en el archivo filter.js, es decir, este paso es necesario cuando hay al menos un campo que tenga valores predefinidos y requiera el 3er *select* con id=`cbValores`
 
@@ -57,7 +57,7 @@ Comprobar el nombre con el que aparecerán los campos por capa en `cbCampos` eje
 #### Modificar el switch de las siguientes funciones del modelo [Map_m.php](application/models/Map_m.php)
 #### Importante: no editar las otras funciones del modelo
 - **Función switchColumn($column, $value)**: los case corresponden a los nombres de las columnas en el frontend (checar ctrl_nombre_columnas en la BD). La función transforma los campos del frontend a la BD
-- **Función getJoinCondition($baseTable)**: los case corresponden al nombre de la capa en el frontend. Los valores de los campos a filtrar de estas capas no se encuentran en la tabla base ni en un catálogo y por ende requieren un JOIN con otra tabla, e.g. GIROS COMERCIALES, LOCATARIOS MERCADOS y TIANGUISTAS
+- **Función getJoinCondition($baseTable)**: los case corresponden al nombre de la capa en el frontend. Los valores de los campos a filtrar de estas capas no se encuentran en su tabla base ni en un catálogo *ct_...* y por ende requieren un JOIN con otra tabla, e.g. GIROS COMERCIALES, LOCATARIOS MERCADOS o TIANGUISTAS
 - **Funciones switchTableSelectedMarker($marcador)**
 - **y switchColumnSelectedMarker($marcador)**: los case corresponden al nombre de la imagen del [marcador](images/mapMarkers) de la capa (checar ctrl_select_capas en la BD). Las funciones transforman los campos de la BD al frontend
 
