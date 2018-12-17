@@ -16,9 +16,9 @@ max_execution_time=120
 ## Marcadores
 ```
 Descargar marcadores de: https://mapicons.mapsmarker.com
-Nota 1: utilizar paleta de colores de otras categorías
-Nota 2: conservar mismo estilo glossy (3ro en la fila de izq. a der.)
-con contorno del mismo color que el interior pero más oscuro, no blanco o negro
+Nota 1: utilizar paleta de colores de otras categorías (checar marcadores que ya existen)
+Nota 2: seleccionar el estilo glossy (3ro en la fila de izq. a der.)
+que tiene contorno del mismo color que el interior pero más oscuro, no blanco o negro
 ```
 
 
@@ -26,11 +26,11 @@ con contorno del mismo color que el interior pero más oscuro, no blanco o negro
 ### Paso 1
 #### Agregrar registros en 3 tablas en MariaDB
 - **ctrl_select_capas**: para llenar etiquetas *optgroup* (equivale a carpeta, e.g. VIALIDAD) y múltiples *option* (equivale a capa, e.g. TOPES) del 1er *select* con id=`cbCapas`. El marcador es el nombre de la imagen de la capa localizada en [images/mapMarkers](images/mapMarkers) y se genera automáticamente con un trigger. **El nombre del marcador y la imagen deben coincidir**
-##### Campos a agregar en esta tabla: carpeta, capa, nombre_tabla
+##### Campos a ingresar manualmente: carpeta, capa, nombre_tabla
 - **ctrl_campos_a_filtrar**: para llenar múltiples *option* (equivale a campo, e.g. COLOR) del 2do *select* con id=`cbCampos` con los campos a filtrar por capa
-##### Campos a agregar en esta tabla: campo_frontend
+##### Campos a ingresar manualmente: campo_frontend
 - **ctrl_nombre_columnas**: para obtener el nombre de las columnas en la BD (cuando se pulse el botón CONSULTAR con id=`btnQuery` o la etiqueta homónima en el menú ACCIONES del sidebar). Algunas columnas comunes ya están, e.g. tipo, material, cond_fisica o empresa, por lo que no se deben agregar de nuevo
-##### Campos a agregar en esta tabla: columna_frontend, columna_bd
+##### Campos a ingresar manualmente: columna_frontend, columna_bd
 #### Nota 1 del paso 1
 campo_frontend y columna_frontend deben ser iguales si hacen referencia al mismo campo del 2do *select* con id=`cbCampos`, e.g. CONDICIÓN FÍSICA
 #### Nota 2 del paso 1

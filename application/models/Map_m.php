@@ -275,11 +275,11 @@ class Map_m extends CI_Model {
 		$baseTable = $this->switchTable("marcador", $marcador);
 
 		/* CATÁLOGOS A UNIR CON LA TABLA DE LA CAPA DADO QUE ÉSTA TRAE LA LLAVE FORÁNEA PERO NO EL NOMBRE.
-		NOTA: HAY UN ESPACIO QUE SEPARA EL NOMBRE DE LA TABLA Y LA PALABRA 'JOIN' */
+		NOTA: LA TABLA BASE SIEMPRE LLEVA EL ALIAS BT QUE SE NECESITA PARA EL WHERE EN getMapSelectedMarker() */
 		$cond_fisica =
-			" JOIN ct_cond_fisica USING (id_cond_fisica)";
+			" AS BT JOIN ct_cond_fisica USING (id_cond_fisica)";
 		$cond_fisica_and_material =
-			" JOIN ct_cond_fisica USING (id_cond_fisica) JOIN ct_material USING (id_material)";
+			" AS BT JOIN ct_cond_fisica USING (id_cond_fisica) JOIN ct_material USING (id_material)";
 
         switch($marcador) {
             /* CAPAS QUE TIENEN LLAVES FORÁNEAS A CATÁLOGOS */
@@ -288,7 +288,8 @@ class Map_m extends CI_Model {
             case "panteon_municipal":
                 return $baseTable . $cond_fisica_and_material;
                 break;
-            case "telefonos_publicos":
+			case "telefonos_publicos":
+			case "arboles":
                 return $baseTable . $cond_fisica;
 				break;
 
@@ -366,6 +367,11 @@ class Map_m extends CI_Model {
 			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: SALUD */
 			case "hospitales":
 				return $coordinates . "nombre AS 'HOSPITAL', dependencia AS 'DEPENDENCIA', tipo_hospital AS 'CLASIFICACIÓN'";
+				break;
+
+			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: ECOLOGÍA */
+			case "arboles":
+				return $coordinates . "especie AS 'ESPECIE', alto_m AS 'ALTURA', ancho_m AS 'ANCHURA', solicito AS 'SERVICIO SOLICITADO', autoriza as 'RESOLUCIÓN', DATE_FORMAT(fecha_reso, '%d/%m/%y') AS 'FECHA DE RESOLUCIÓN', reforestacion AS 'FUE REFORESTADO', numero AS 'NO. DE ÁRBOL', " . $cond_fisica;
 				break;
 
 			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: REGISTRO CIVIL */

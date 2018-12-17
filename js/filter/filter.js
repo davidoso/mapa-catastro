@@ -67,11 +67,11 @@ function switchSelectCampo() {
             my_placeholder = "Ingrese el negocio a buscar..";
             break;
         case "PLAZAS COMERCIALES":
-            my_class = "vAlfanumerico";
+            my_class = "vLetras";
             my_placeholder = "Ingrese la plaza a buscar..";
             break;
         case "HOSPITALES":
-            my_class = "vLetras";
+            my_class = "vAlfanumerico";
             my_placeholder = "Ingrese el hospital a buscar..";
             break;
         }
