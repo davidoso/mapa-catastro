@@ -79,23 +79,22 @@ $(document).ready(function() {
     // https://stackoverflow.com/questions/13343566/set-select-option-selected-by-value
     $("#myDataTable tbody").on('click', '[id=btn_edit]', function() {
         var data = tabla.row( $(this).parents('tr') ).data();
-        var nuevo = "campo/valor";
-
-        $("#cbCapas").val(data.capa).change(); // Change selected option in #cbCapas
+        var nuevoMessage = "campo/valor";
 
         if(data.campo != '(SIN FILTROS)') { // Change option in #cbCampos in case the row is a single filter
-            nuevo = "valor";
-            setTimeout(function() {
-                $("#cbCampos").val(data.campo).change();
-                    if(data.campo == 'NOMBRE' || data.campo == 'NOMBRE COMERCIAL')
-                        $("#inputValor").click();
-            }, 500); // Code to be executed after 500 ms
+            globalColumnToEdit = data.campo;
+            nuevoMessage = "valor";
         }
+        else {
+            globalColumnToEdit = '';
+        }
+
+        $("#cbCapas").val(data.capa).change(); // Change selected option in #cbCapas
 
         /* Delete current row because it will be added again with a new value (or even a whole new row
         if the user selects another layer and column) */
         tabla.row( $(this).parents('tr') ).remove().draw();
-        showToastNotif('Modo edición habilitado', 'Seleccione un nuevo ' + nuevo + ' para reemplazar la consulta anterior', 'bottom-right', 'success');
+        showToastNotif('Modo edición habilitado', 'Seleccione un nuevo ' + nuevoMessage + ' para reemplazar la consulta anterior', 'bottom-right', 'success');
     });
 
     // https://datatables.net/reference/api/row().remove()

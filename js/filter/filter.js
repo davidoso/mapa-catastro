@@ -1,3 +1,5 @@
+var globalColumnToEdit = ''; // Saves current column (campo) when the user clicks on edit button in any row
+
 // Fill 2nd combobox (search columns) depending on the layer selected on the 1st combobox
 $("#cbCapas").on("change", function () {
     document.getElementById("divValores").innerHTML = '<label class="nav-link"><span class="menu-title">Seleccione un campo..</span><i class="fas fa-fw fa-filter"></i></label>';
@@ -35,6 +37,12 @@ function switchSelectCapa() {
             $('#cbCampos').focus();
             $('#cbCampos').selectpicker('toggle');
             $('body').css('cursor', 'auto');
+
+            if(globalColumnToEdit != '') { // Change cbCampos value if the edit-mode was enabled
+                $('#cbCampos').val(globalColumnToEdit).change();
+                $('#inputValor').click(); // Focus does not work here
+                globalColumnToEdit = '';
+            }
         },
         error: function() {
             console.log("Error! switchSelectCapa() failed. Search columns could not be retrieved");
