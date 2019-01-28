@@ -34,7 +34,7 @@
             <span class="nav-link">CAPA</span>
         </li>
         <li class="nav-item">
-            <center><select class="selectpicker show-tick" id="cbCapas" name="cbCapas" title="Capa en donde buscar.." data-live-search="true" data-live-search-placeholder="Buscar capa.." data-live-search-style="contains">
+            <center><select class="selectpicker show-tick" id="cbCapas" name="cbCapas" title="Capa en donde buscar.." data-live-search="true" data-live-search-placeholder="Buscar capa.." data-live-search-style="contains" data-style="btn-info">
                 <?php foreach($cbCapas as $key => $value): ?>
                     <optgroup label="<?php echo $key; ?>">
                         <?php foreach($value as $index => $capa): ?>
@@ -71,7 +71,7 @@
         </li>
         <li class="nav-item">
             <center>
-                <select class="selectpicker show-tick" id="cbShapes" name="cbShapes">
+                <select class="selectpicker show-tick" id="cbShapes" name="cbShapes" data-style="btn-info">
                     <option value="Box">RECTÁNGULO</option>
                     <option value="Square">CUADRADO</option>
                     <option value="Polygon">POLÍGONO</option>

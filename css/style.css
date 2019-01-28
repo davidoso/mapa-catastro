@@ -15168,9 +15168,8 @@ pre {
 .card {
   border: 0;
   border-radius: 2px; }
-  .card .card-body {
-    /*padding: 1.5rem 0.9375rem; CHANGED*/
-    padding: 1.5rem 0.9375rem 0px 1.5rem; }
+  /*.card .card-body {
+    padding: 1.5rem 0.9375rem; } CHANGED*/
     .card .card-body + .card-body {
       padding-top: 0; }
 

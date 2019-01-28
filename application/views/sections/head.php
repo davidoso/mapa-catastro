@@ -63,7 +63,7 @@
             tickIcon: 'fa-check'*/
             });
         });
-        $(function () {
+        $(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
