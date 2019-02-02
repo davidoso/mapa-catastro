@@ -16,7 +16,6 @@
             <div class="col-lg-12 grid-margin">
               <div class="card overflow-hidden dashboard-curved-chart">
                 <div class="card-body mx-3">
-                  <!-- <h2 class="card-title border-bottom-none">Mapa cartográfico de Colima, Col.</h2> -->
                   <div class="table-responsive">
                     <table class="table table-striped table-bordered" id="myDataTable" width="100%" cellspacing="0">
                       <thead class="tbl-blue-th">
