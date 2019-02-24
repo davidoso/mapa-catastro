@@ -39,7 +39,7 @@
 	<!-- NOTE: proj4.js did not work so map_dec2utm.js y map_utm2dc.js scripts were used instead -->
 	<!-- <script type="text/javascript" src="js/map/proj4.js"></script> -->
 <!--===============================================================================================-->
-    <!-- OpenLayers JavaScript library v4.6.5 downloaded from: -->
+    <!-- OpenLayers JavaScript library v4.6.4 downloaded from: -->
 	<!-- <script type="text/javascript" src="https://openlayers.org/en/v4.6.4/build/ol.js"></script> -->
 	<script type="text/javascript" src="js/map/ol.js"></script>
 <!--===============================================================================================-->

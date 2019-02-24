@@ -106,7 +106,7 @@ class Map_m extends CI_Model {
 		$pointsArray = json_decode($_POST['pointsArray']);	// Polygon coordinates in the map
 		$booleanOp = $_POST['booleanOp'];					// OR or AND operator to join WHERE clauses
 		$returnData = array();
-		//$arrQueryBuilder = array(); // Outputs n sql queries after a succesful AJAX call (testing purposes)
+		//$arrQueryBuilder = array(); // Output n sql queries after a succesful AJAX call (testing purposes)
 
 		if($booleanOp === "OR") {
 			for($i = 0; $i < count($tableData); $i++) {
@@ -136,7 +136,7 @@ class Map_m extends CI_Model {
 			// Same required array variables as getMapMarkers()
 			$arrLayers = array();
 			$jaggedArrayByLayer = array();
-			/* Saves the total amount for each layer and at the end loops over the tableData to output the
+			/* Save the total amount for each layer and at the end loops over the tableData to output the
 			total for each row. With AND operator all the conditions have the same total */
 			$arrTotalByLayer = array();
 
@@ -155,12 +155,12 @@ class Map_m extends CI_Model {
 			}
 
 			for($i = 0; $i < count($arrLayers); $i++) {
-				$allLayerCond = "?"; // Concatenates one or more single conditions (datatable rows) by layer
+				$allLayerCond = "?"; // Concatenate one or more single conditions (datatable rows) by layer
 
 				for($j = 0; $j < count($jaggedArrayByLayer[$i]); $j++) {
 					$dtRow = $jaggedArrayByLayer[$i][$j];
 					$singleCond = $this->switchColumn($tableData[$dtRow]->campo, $tableData[$dtRow]->valor);
-					if($allLayerCond == "?") // ? symbol is a flag that tells whether a condition has been added
+					if($allLayerCond == "?") // ? symbol is a flag that shows whether a condition has been added
 						$allLayerCond = $singleCond;
 					else
 						$allLayerCond = $allLayerCond . ' AND ' . $singleCond; // AND is $booleanOp
@@ -208,7 +208,7 @@ class Map_m extends CI_Model {
 		$arrLayers = array();
 		$jaggedArrayByLayer = array();
 		$returnData = array();
-		//$arrQueryBuilder = array(); // Outputs n sql queries after a succesful AJAX call (testing purposes)
+		//$arrQueryBuilder = array(); // Output n sql queries after a succesful AJAX call (testing purposes)
 
 		for($dtRow = 0; $dtRow < count($tableData); $dtRow++) {
 			if(!in_array($tableData[$dtRow]->capa, $arrLayers))
@@ -264,7 +264,8 @@ class Map_m extends CI_Model {
 		return $returnData;
 	}
 
-	private function switchTableSelectedMarker($marcador) {
+	private function switchTableSelectedMarker($marcador)
+	{
 		/* NOMBRE DE LA TABLA COMO APARECE EN ctrl_select_capas */
 		$baseTable = $this->switchTable("marcador", $marcador);
 
@@ -299,7 +300,8 @@ class Map_m extends CI_Model {
         }
 	}
 
-	private function switchColumnSelectedMarker($marcador) {
+	private function switchColumnSelectedMarker($marcador)
+	{
         /* LAS COORDENADAS APARECEN EN CUALQUIER CAPA */
         $coordinates =
             "BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', "; // Latitude appears first on GPS coordinates
@@ -356,7 +358,8 @@ class Map_m extends CI_Model {
 	}
 
 	// Location is in comercio_tbl_giros_comerciales and business in comercio_tbl_giros_comerciales_licencias
-	private function getBusiness($coord_x, $coord_y) {
+	private function getBusiness($coord_x, $coord_y)
+	{
 		$this->db->select("id AS 'id_giro_comercial'");
 		$this->db->where( array('coord_x' => $coord_x, 'coord_y' => $coord_y) );
 		$location = $this->db->get('comercio_tbl_giros_comerciales')->row_array();

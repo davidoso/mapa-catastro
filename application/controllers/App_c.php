@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class App_c extends CI_Controller {
 
 	// Constructor para cargar el modelo principal
-	public function __construct(){
+	public function __construct()
+	{
 		parent::__construct();
 		$this->load->model('sidebar_m', 'sm');
 	}
