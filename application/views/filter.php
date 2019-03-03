@@ -49,7 +49,7 @@
     </div> <!-- page-body-wrapper ends -->
   </div> <!-- container-scroller -->
 
-
+<!-- Custom JavaScript for this project -->
 <script type="text/javascript" src="js/map/map.js"></script>
 <script type="text/javascript" src="js/filter/filter.js"></script>
 <script type="text/javascript" src="js/filter/map_dec2utm.js"></script>

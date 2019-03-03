@@ -13,8 +13,8 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
 <!--===============================================================================================-->
     <!-- OpenLayers stylesheet (features zoom levels and default controls) downloaded from: -->
-	<!-- <link rel="stylesheet" type="text/css" href="https://openlayers.org/en/v4.6.4/css/ol.css" -->
-	<link rel="stylesheet" type="text/css" href="css/ol.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://openlayers.org/en/v4.6.4/css/ol.css" -->
+    <link rel="stylesheet" type="text/css" href="css/ol.css">
 <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap4.min.css">
 <!--===============================================================================================-->
@@ -43,8 +43,8 @@
 	<!-- <script type="text/javascript" src="https://openlayers.org/en/v4.6.4/build/ol.js"></script> -->
 	<script type="text/javascript" src="js/map/ol.js"></script>
 <!--===============================================================================================-->
-	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
 <!--===============================================================================================-->
     <script type="text/javascript" src="js/jquery.toast.min.js"></script>
     <script type="text/javascript" src="js/my-toastnotification.js"></script>
