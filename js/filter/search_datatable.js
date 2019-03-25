@@ -1,14 +1,5 @@
 $(document).ready(function() {
     var tabla = $("#myDataTable").DataTable({
-        /*"columnDefs": [{
-            "targets": [0], // First column (normally id)
-            "visible": false
-        }],
-        "ajax": {
-            "url": "http://localhost/projectfolder/index.php/controller/function",
-            "type": "post",
-            "datatype": "json"
-        },*/
         // https://datatables.net/reference/option/dom
         dom: '<"row"<"col-sm-8 my-dt-title"><"col-sm-4"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
         initComplete: function() {
