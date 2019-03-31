@@ -24,6 +24,7 @@ class Sidebar_m extends CI_Model {
 		$this->db->from('ctrl_select_capas AS SC');
 		$this->db->join('ctrl_campos_a_filtrar AS CF', 'SC.id_capa = CF.id_capa');
 		$this->db->where('SC.capa', $capa);
+		$this->db->group_by('CF.campo_frontend');
 		$this->db->order_by('CF.campo_frontend');
 		$query = $this->db->get();
 
@@ -77,6 +78,19 @@ class Sidebar_m extends CI_Model {
 				$comercio_tbl = ($campo == "MERCADO" ? "comercio_tbl_mercados" : "comercio_tbl_tianguis");
 				$query = $this->db->get($comercio_tbl);
 				return $query->result();
+			case "INCIDENCIAS":
+				
+			$result = array(
+				array ("valor" => "AFECTADOS"
+				),
+				array ("valor" => "FALLECIDOS"
+				),
+				array ("valor" => "LESIONADOS"
+				),
+			);
+	
+
+			return ($result);
 
 			default:
 				$queryException = $this->valueExceptions($capa, $campo, $nombre_tabla);

@@ -1,0 +1,84 @@
+.btn-info {
+    color:#000;
+    background-color:#FFF;
+    border-color:#E6E6E6;
+}
+    
+.navbar-color {
+    background-color:#FFF;
+}
+    
+.sidebar .nav .nav-item.nav-category .nav-link {
+    color:#FE9A2E;
+}
+    
+.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info:hover,.btn.btn-info {
+    color:#000;
+}
+    
+.btn-info:hover,.btn-info:not([disabled]):not(.disabled):active,.btn-info:not([disabled]):not(.disabled).active,.show > .btn-info.dropdown-toggle {
+    color:#000;
+    background-color:#E6E6E6;
+    border-color:#FFF;
+}
+    
+#div-rbtns,.sidebar .nav .nav-item .nav-link {
+    color:#FFF;
+}
+
+.table thead th {
+    color:#FE9A2E; 
+}
+
+.content-wrapper{
+    padding-bottom: 0%;
+}
+
+.dataTables_empty{
+   background-color:#E6E6E6;
+}
+
+.custom-mouse-position{
+    color:black;
+}
+
+code{
+    color: #007bff;
+}
+
+.sorting::after{
+    color:white;
+}
+
+.sorting::before{
+    color:white;
+}
+
+.sorting_asc::after{
+    color: white;
+    border-color:white;
+}
+
+.sorting_asc::before{
+    color: white;
+    border-color:white;
+}
+
+.sorting_desc::after{
+    color: white;
+    border-color:white;
+}
+
+.sorting_desc::before{
+    color: white;
+    border-color:white;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #E6E6E6;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: white;
+}
+

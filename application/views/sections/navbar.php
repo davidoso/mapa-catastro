@@ -1,7 +1,7 @@
 <!-- partial:partials/_navbar.html -->
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-    <div class="text-center navbar-brand-wrapper">
-        <a class="navbar-brand brand-logo" href="http://www.catastrocolima.gob.mx/" title="Catastro Colima" target="_blank"><img src="images/logo-catastro.png" alt="Logo de Catastro"></a>
+    <div class="text-center navbar-brand-wrapper navbar-color">
+        <a class="navbar-brand brand-logo" href="http://www.catastrocolima.gob.mx/" title="Catastro Colima" target="_blank"><img src="images/logo_gob.png" alt="Logo de Catastro"></a>
         <a class="navbar-brand brand-logo-mini" href="http://www.catastrocolima.gob.mx/" title="Catastro Colima" target="_blank"><img src="images/logo-catastro.png" alt="Logo de Catastro"></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center">
