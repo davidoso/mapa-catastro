@@ -1,18 +1,19 @@
 <!-- partial:partials/_sidebar.html -->
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
+<nav class="sidebar sidebar-offcanvas canvas-color" id="sidebar">
     <ul class="nav">
+      <!--  repite las opcciones de consultas señaladas mas abajo
         <li class="nav-item">
             <center>
             <div class="btn-group">
                 <div class="btn-group btn-flex">
                     <button type="button" class="btn btn-danger" id="btnQuery">
                         <i class="fas fa-fw fa-search" aria-hidden="true"></i>&nbsp;&nbsp;CONSULTAR</button>
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"> 
                         <span class="caret"></span>
                         <span class="sr-only">Toggle Dropdown</span></button>
                     <ul class="dropdown-menu" role="menu" id="dropdown-options">
-                        <!-- <li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-table" aria-hidden="true"></i>&nbsp;&nbsp;VER TABLA DE BÚSQUEDA</a></li>
-                        <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Ver las consultas agregadas por capa con y sin filtros (campo/valor)"></i></li> -->
+                        --<li class="opt-lbl"><a class="opt-lbl-text" href="#"><i class="fas fa-fw fa-table" aria-hidden="true"></i>&nbsp;&nbsp;VER TABLA DE BÚSQUEDA</a></li>
+                        <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Ver las consultas agregadas por capa con y sin filtros (campo/valor)"></i></li> --
 
                         <li class="opt-lbl"><a class="opt-lbl-text" href="#" data-opt="1"><i class="fas fa-fw fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;AGREGAR CAPA</a></li>
                         <li class="opt-tooltip"><i class="fas fa-fw fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="Agregar la capa sin filtros (campo/valor) a la tabla de búsqueda"></i></li>
@@ -30,11 +31,12 @@
             </div>
             </center>
         </li>
+        -->44
         <li class="nav-item nav-category">
             <span class="nav-link">CAPA</span>
         </li>
         <li class="nav-item">
-            <center><select class="selectpicker show-tick" id="cbCapas" name="cbCapas" title="Capa en donde buscar.." data-live-search="true" data-live-search-placeholder="Buscar capa.." data-live-search-style="contains" data-style="btn-info">
+            <center><select class="selectpicker show-tick" id="cbCapas" name="cbCapas" title="Capa en donde buscar.." data-live-search="true" data-live-search-placeholder="Buscar capa.." data-live-search-style="contains" data-style="btn-info" >
                 <?php foreach($cbCapas as $key => $value): ?>
                     <optgroup label="<?php echo $key; ?>">
                         <?php foreach($value as $index => $capa): ?>

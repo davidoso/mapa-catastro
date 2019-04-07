@@ -11,7 +11,7 @@
       <div class="row row-offcanvas row-offcanvas-right">
         <?php $this->load->view('sections/sidebar'); ?>
 
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="padding-botton: 0%;">
           <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card overflow-hidden dashboard-curved-chart">
@@ -20,12 +20,13 @@
                     <table class="table table-striped table-bordered" id="myDataTable" width="100%" cellspacing="0">
                       <thead class="tbl-blue-th">
                         <tr>
-                          <th width="27%">CAPA</th>
-                          <th width="25%">CAMPO</th>
-                          <th width="27%">VALOR</th>
-                          <th width="5%">TOTAL</th>
-                          <th width="8%"><i class="fas fa-fw fa-pencil-alt" title="Editar consulta"></i></th>
-                          <th width="8%"><i class="fas fa-fw fa-trash" title="Eliminar consulta"></i></th>
+                          <th width="26%">CAPA</th>
+                          <th width="23%">CAMPO</th>
+                          <th width="23%">VALOR</th>
+                          <th width="10%">TOTAL</th>
+                          <th width="6%"><i style="color: #28a745;" class="fas fa-fw fa-plus" title="Mostrar los resultados"></i></th>
+                          <th width="6%"><i style="color:#ffc107;" class="fas fa-fw fa-pencil-alt" title="Editar consulta"></i></th>
+                          <th width="6%"><i style="color:#dc3545;" class="fas fa-fw fa-trash" title="Eliminar consulta"></i></th>
                         </tr>
                       </thead>
                       <tbody>

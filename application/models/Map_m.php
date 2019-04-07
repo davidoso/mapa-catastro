@@ -20,6 +20,8 @@ class Map_m extends CI_Model {
 
 			/* COLUMNAS CON VALORES NO PREDEFINIDOS QUE SE INGRESAN MEDIANTE UN INPUT DE TEXTO.
 			NOTA: ESTAS COLUMNAS NO ESTÁN EN ctrl_nombre_columnas */
+			case "TODOS":
+                return "1 = 1";
             case "NOMBRE":
                 return "nombre like '%" . $value . "%'";
             case "NOMBRE COMERCIAL":
@@ -61,13 +63,16 @@ class Map_m extends CI_Model {
 	{
 		$id = "id_" . $columnBaseName . " AS 'id'";
 		$table = "ct_" . $columnBaseName;
-
-		$this->db->select($id);
-		$this->db->from($table);
-		$this->db->where($columnBaseName, $value);
-		$query = $this->db->get()->row_array();
-
-		return $query['id'];
+		
+		
+			$this->db->select($id);
+			$this->db->from($table);
+			$this->db->where($columnBaseName, $value);
+			$query = $this->db->get()->row_array();
+	
+			return $query['id'];
+		
+		
 	}
 
 	private function pointsArrayToString($pointsArray)
@@ -116,9 +121,11 @@ class Map_m extends CI_Model {
 				$cond = $this->switchColumn($tableData[$i]->campo, $tableData[$i]->valor);
 				// All elements must be inside the drawn polygon area in the map
 				$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (" . $cond . ")";
-
-				$this->db->select('count(BT.id) AS totalByRow');
-				$this->db->from($from);
+				
+					$this->db->select('count(BT.id) AS totalByRow');
+					$this->db->from($from);
+				
+				
 				/* Some layers have columns from another table (not the base table in ctrl_select_capas)
 				that is not a catalog and thus require an explicit inner join */
 				$arrJoinCondition = $this->getJoinCondition($tableData[$i]->capa);
