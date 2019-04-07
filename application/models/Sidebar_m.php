@@ -79,19 +79,21 @@ class Sidebar_m extends CI_Model {
 				$query = $this->db->get($comercio_tbl);
 				return $query->result();
 			case "INCIDENCIAS":
-				
-			$result = array(
-				array ("valor" => "AFECTADOS"
-				),
-				array ("valor" => "FALLECIDOS"
-				),
-				array ("valor" => "LESIONADOS"
-				),
-			);
-	
-
-			return ($result);
-
+				$result = array(
+					array ("valor" => "AFECTADOS"
+					),
+					array ("valor" => "FALLECIDOS"
+					),
+					array ("valor" => "LESIONADOS"
+					),
+				);
+				return ($result);
+			case "TODOS":	
+				$result = array(
+					array ("valor" => "TODOS"
+					)
+				);
+				return ($result);
 			default:
 				$queryException = $this->valueExceptions($capa, $campo, $nombre_tabla);
 				if(!$queryException) {

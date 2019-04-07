@@ -97,16 +97,16 @@ function switchSelectCampo() {
                 // e.g. 'CONDICIÓN FÍSICA' turns to 'Campo: Condición física' in the dropdown-header
                 var header = "Campo: " + campo.charAt(0) + campo.substring(1).toLowerCase();
                 var valores = "";
-                $(data).each(function(k, v) {
-                    valores += '<option value="' + v.valor + '">' + v.valor + '</option>';
-                });
-                divValores.innerHTML = '<select class="selectpicker show-tick" id="cbValores" name="cbValores" title="Valor a filtrar.." data-dropup-auto="false" data-live-search="true" data-live-search-placeholder="Buscar valor.." data-live-search-style="contains"><optgroup label="' + header + '">'+ valores + '</select>';
-                $('#cbValores').selectpicker({
-                    style: 'btn-info',
-                    size: 6
-                });
+                    $(data).each(function(k, v) {
+                        valores += '<option value="' + v.valor + '">' + v.valor + '</option>';
+                    });
+                    divValores.innerHTML = '<select class="selectpicker show-tick" id="cbValores" name="cbValores" title="Valor a filtrar.." data-dropup-auto="false" data-live-search="true" data-live-search-placeholder="Buscar valor.." data-live-search-style="contains"><optgroup label="' + header + '">'+ valores + '</select>';
+                    $('#cbValores').selectpicker({
+                        style: 'btn-info',
+                        size: 6
+                    });
                 $('#cbValores').focus();
-                $('#cbValores').selectpicker('toggle');
+                $('#cbValores').selectpicker('toggle');               
                 $('body').css('cursor', 'auto');
             },
             error: function() {

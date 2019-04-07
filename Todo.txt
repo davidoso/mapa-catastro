@@ -2,7 +2,8 @@ PENDIENTES:
 
 * Programar y probar los filtros de las capas restantes (aprox. 30)
 
-* Modificar el HTML DOM de divValores con un selectbox de operadores relacionales y un input con clase vNumeros para validar entrada de dígitos [0-9] si el campo es numérico (función switchSelectCampo() en filter/filter.js)
+* Modificar el HTML DOM de divValores con un selectbox de operadores relacionales y un input con clase vNumeros 
+  para validar entrada de dígitos [0-9] si el campo es numérico (función switchSelectCampo() en filter/filter.js)
 
 * Custom error pages en Hostinger
 
