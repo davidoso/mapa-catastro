@@ -14158,7 +14158,8 @@ pre {
   border-top: 1px solid #91c2e8;
   font-size: calc(0.875rem - 0.05rem); }
   .footer a {
-    color: #33c92e;
+    /*color: #33c92e; CHANGED*/
+    color: #fe9a2e;
     font-size: inherit; }
   @media (max-width: 991px) {
     .footer {
@@ -14166,9 +14167,9 @@ pre {
       width: 100%; } }
 
 /* Utilities */
-.grid-margin {
+/*.grid-margin {*/
   /*margin-bottom: 20px; CHANGED*/
-  margin-bottom: 1.2rem; }
+  /*margin-bottom: 1.2rem; }*/
 
 @media (min-width: 576px) {
   .grid-margin-sm-0 {
