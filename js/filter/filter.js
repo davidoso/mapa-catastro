@@ -38,9 +38,9 @@ function switchSelectCapa() {
             $('#cbCampos').selectpicker('toggle');
             $('body').css('cursor', 'auto');
 
-            if(globalColumnToEdit != '') { // Change cbCampos value if the edit-mode was enabled
+            if(globalColumnToEdit != '') {  // Change cbCampos value if the edit-mode was enabled
                 $('#cbCampos').val(globalColumnToEdit).change();
-                $('#inputValor').click(); // Focus does not work here
+                $('#inputValor').click();   // Focus does not work here
                 globalColumnToEdit = '';
             }
         },
@@ -75,7 +75,7 @@ function switchSelectCampo() {
             my_placeholder = "Ingrese el negocio a buscar..";
             break;
         case "PLAZAS COMERCIALES":
-            my_class = "vLetras";
+            my_class = "vAlfanumerico";
             my_placeholder = "Ingrese la plaza a buscar..";
             break;
         case "HOSPITALES":

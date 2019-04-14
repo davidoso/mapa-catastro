@@ -11,7 +11,7 @@
             showHideTransition: 'slide',
             icon: icon,             // 4 options (and therefore background color): info, error, warning, success
             stack: false,
-            loaderBg: '#fe9a2e'     // Catastro orange color
+            loaderBg: '#ff711c'     // Catastro orange color
         })
     }
 

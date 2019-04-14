@@ -34,7 +34,7 @@
                   </div> <!-- table-responsive ends -->
 
                   <div id="map" class="map"></div>
-                  <div id="mouse-position" class="text-purple-darken" align="right"></div>
+                  <div id="mouse-position" class="text-orange" align="right"></div>
                 </div> <!-- card-body mx-3 ends -->
               </div>
             </div>

@@ -146,8 +146,8 @@ function showMarkerInfo(innerHTMLData, utm_lon, utm_lat) {
     markerTable.innerHTML = innerHTMLData;
 
     // Latitude appears first on GPS coordinates
-    var coord_y = parseFloat(utm_lat);  // Original UTM latitude string (from map marker) to float
-    var coord_x = parseFloat(utm_lon);  // Original UTM longitude string (from map marker) to float
+    var coord_y = parseFloat(utm_lat); // Original UTM latitude string (from map marker) to float
+    var coord_x = parseFloat(utm_lon); // Original UTM longitude string (from map marker) to float
 
     // utm2dec() takes longitude first
     var coordArray = utm2dec(coord_x, coord_y, 13, true); // Colima belongs to 13Q or 13N (north) zone

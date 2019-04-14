@@ -91,24 +91,23 @@ $(document).ready(function() {
     // https://datatables.net/reference/api/row().remove()
     $("#myDataTable tbody").on('click', '[id=btn_delete]', function() {
         tabla.row( $(this).parents('tr') ).remove().draw();
-
         showToastNotif('Consulta eliminada', 'La consulta se ha eliminado de la tabla de búsqueda', 'bottom-right', 'success');
     });
 
     // https://stackoverflow.com/questions/25866466/delete-a-row-from-a-datatable
     // https://datatables.net/forums/discussion/43162/removing-rows-from-a-table-based-on-a-column-value
     // https://datatables.net/reference/type/row-selector
-    $(document).on("click", ".btn-ftl", function() { // Delete single filter(s) to layer rows (ftl)
+    $(document).on("click", ".btn-ftl", function() {        // Delete single filter(s) to layer rows (ftl)
         var capa = document.getElementById("cbCapas").value;
 
         tabla.rows( function (idx, data, node) {
             return data.capa === capa;
         }).remove().draw(); // Remove at least one row
 
-        addLayer(capa); // Add layer row
+        addLayer(capa);     // Add layer row
     });
 
-    $(document).on("click", ".btn-ltf", function() { // Delete layer to single filter(s) rows (ltf)
+    $(document).on("click", ".btn-ltf", function() {        // Delete layer to single filter(s) rows (ltf)
         var capa = document.getElementById("cbCapas").value;
         var campo = document.getElementById("cbCampos").value;
         var valor = "";
@@ -119,9 +118,9 @@ $(document).ready(function() {
 
         tabla.rows( function (idx, data, node) {
             return data.capa === capa;
-        }).remove().draw(); // Remove one and only one row (layer)
+        }).remove().draw();             // Remove one and only one row (layer)
 
-        addFilter(capa, campo, valor); // Add single filter row
+        addFilter(capa, campo, valor);  // Add single filter row
     });
 
     function checkBeforeAddFilter(capa, campo, valor) {
@@ -180,10 +179,10 @@ $(document).ready(function() {
     $(".nav-item .label-options").on("click", function () {
         var opt = $(this).data("opt");
         if(opt == 0) {
-            queryMap(); // First label option, same as btnQuery in split button
+            queryMap();         // First label option, same as btnQuery in split button
         }
         else {
-            switchOption(opt); // Same remaining 4 labels as dropdown options
+            switchOption(opt);  // Same remaining 4 labels as dropdown options
         }
     });
 

@@ -1,49 +1,53 @@
 // http://www.bootstrapdash.com/demo/stellar-admin/jquery/pages/ui-features/popups.html
 // Required files: sweetalert.min.js & alerts.js
-(function($) {
-  showSweetAlert = function(queryNumber, layerName, btnType) {
-    'use strict';
-    var title, text, queryNumberText;
+showSweetAlert = function(queryNumber, layerName, btnType) {
+  var title, text, queryNumberText;
 
-    if(btnType === 'ftl') { // Set filter to layer title and text. 'ftl' in search_datatable.js
-      if(queryNumber == 1) {
-        title = '¿Desea reemplazar la consulta que ya existe?';
-        queryNumberText = 'su consulta se eliminará';
-      }
-      else {
-        title = '¿Desea reemplazar las ' + queryNumber + ' consultas que ya existen?';
-        queryNumberText = 'sus ' + queryNumber + ' consultas se eliminarán';
-      }
-      text = 'Si agrega la capa: ' + layerName + ' (SIN FILTROS), ' + queryNumberText + ' de la tabla de búsqueda porque el mapa desplegará todos los elementos de la capa dentro del área de influencia.';
+  if(btnType === 'ftl') {   // Set filter to layer title and text. 'ftl' in search_datatable.js
+    if(queryNumber == 1) {
+      title = '¿Desea reemplazar la consulta que ya existe?';
+      queryNumberText = 'su consulta se eliminará';
     }
-    else { // Set layer to filter title and text. 'ltf' in search_datatable.js
-      title = '¿Desea reemplazar la capa que ya existe?';
-      text = 'Si agrega esta consulta, la capa: ' + layerName + ' (SIN FILTROS) se eliminará de la tabla de búsqueda porque el mapa desplegará solo los elementos que cumplen esta condición, en lugar de todos.'
+    else {
+      title = '¿Desea reemplazar las ' + queryNumber + ' consultas que ya existen?';
+      queryNumberText = 'sus ' + queryNumber + ' consultas se eliminarán';
     }
-
-    swal({
-      title: title,
-      text: text,
-      icon: 'warning',
-      buttons: {
-        cancel: {
-          text: "Cancelar",
-          value: null,
-          visible: true,
-          className: "btn btn-danger",
-          closeModal: true,
-        },
-        confirm: {
-          text: "Aceptar",
-          value: true,
-          visible: true,
-          className: "btn btn-primary btn-" + btnType,
-          closeModal: true
-        }
-      }
-    })
+    text = 'Si agrega la capa: ' + layerName + ' (SIN FILTROS), ' + queryNumberText + ' de la tabla de búsqueda porque el mapa desplegará todos los elementos de la capa dentro del área de influencia.';
   }
-})(jQuery);
+  else {                    // Set layer to filter title and text. 'ltf' in search_datatable.js
+    title = '¿Desea reemplazar la capa que ya existe?';
+    text = 'Si agrega esta consulta, la capa: ' + layerName + ' (SIN FILTROS) se eliminará de la tabla de búsqueda porque el mapa desplegará solo los elementos que cumplen esta condición, en lugar de todos.'
+  }
+
+  // SweettAlert 2.0 introduces some important breaking changes.
+  // SweetAlert warning: showCancelButton and showConfirmButton have been deprecated.
+  // Instead, you can set buttons: true to show both buttons, or buttons: false to hide all buttons. Source:
+  // https://sweetalert.js.org/guides/#upgrading-from-1x
+  // https://sweetalert.js.org/docs/#buttons
+  swal({
+    title: title,
+    text: text,
+    icon: 'warning',
+    buttons: {
+      cancel: {
+        text: "Cancelar",
+        value: null,
+        visible: true,
+        className: "btn btn-danger",
+        closeModal: true,
+      },
+      confirm: {
+        text: "Aceptar",
+        value: true,
+        visible: true,
+        className: "btn btn-primary btn-" + btnType,
+        closeModal: true
+      }
+    }
+    // buttons: ["Cancelar", "Aceptar"],
+    // dangerMode: true
+  })
+}
 
 /*if(type === 'basic') {
   swal({
