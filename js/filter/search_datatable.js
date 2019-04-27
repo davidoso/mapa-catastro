@@ -166,17 +166,17 @@ $(document).ready(function() {
         showToastNotif('Consulta agregada', 'Capa: ' + capa + ', en campo: ' + campo + ', con valor: ' + valor, 'bottom-right', 'info');
     }
 
-    $("#btnQuery").on("click", function () {
+    $("#btnQuery").on("click", function() {
         queryMap();
     });
 
     //$("#dropdown-options li a").click(function() {}) Another way to define function
-    $("#dropdown-options li a").on("click", function () {
+    $("#dropdown-options li a").on("click", function() {
         var opt = $(this).data("opt");
         switchOption(opt);
     });
 
-    $(".nav-item .label-options").on("click", function () {
+    $(".nav-item .label-options").on("click", function() {
         var opt = $(this).data("opt");
         if(opt == 0) {
             queryMap();         // First label option, same as btnQuery in split button

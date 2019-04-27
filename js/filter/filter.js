@@ -1,7 +1,7 @@
 var globalColumnToEdit = ''; // Saves current column (campo) when the user clicks on edit button in any row
 
 // Fill 2nd combobox (search columns) depending on the layer selected on the 1st combobox
-$("#cbCapas").on("change", function () {
+$("#cbCapas").on("change", function() {
     document.getElementById("divValores").innerHTML = '<label class="nav-link"><span class="menu-title">Seleccione un campo..</span><i class="fas fa-fw fa-filter"></i></label>';
     switchSelectCapa();
 });
@@ -150,6 +150,6 @@ function validarAlfanumerico(charCode) {
 }
 
 // Close all FAQ accordion tabs when the modal is close
-$("#modal-help").on("hidden.bs.modal", function () {
+$("#modal-help").on("hidden.bs.modal", function() {
     $('.collapse').collapse('hide');
 });

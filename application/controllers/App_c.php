@@ -24,7 +24,7 @@ class App_c extends CI_Controller {
 		}
 		$data['cbCapas'] = $cbCapas;
 
-		/* VERSIÓN BETA: FUNCIONES INNECESARIAS DESPÚES DE MEJORAR EL CÓDIGO CON LLAMADAS AJAX
+		/* NOTE: FUNCIONES INNECESARIAS DESPÚES DE MEJORAR EL CÓDIGO CON LLAMADAS AJAX (VERSIÓN BETA)
 		getCampos() y getValores() reemplazan las funciones JavaScript switchselect1() y switchSelect2()
 		encontradas en filter.php de la carpeta views/beta
 		// Llenar selects de la capa Bancos
