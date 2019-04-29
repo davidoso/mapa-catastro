@@ -58,10 +58,11 @@ function switchSelectCampo() {
     var campo = cbCampos.options[cbCampos.selectedIndex].value;
     var divValores = document.getElementById("divValores");
     $('body').css('cursor', 'wait');
-
-    if(campo == "NOMBRE" || campo == "NOMBRE COMERCIAL") {
+  
+    /*if(campo == "NOMBRE" || campo == "NOMBRE COMERCIAL") {
         var my_class, my_placeholder; // my_class may be: vLetras, vNumeros, vAlfanumerico
         switch(capa) {
+     
         case "BANCOS":
             my_class = "vLetras";
             my_placeholder = "Ingrese el banco a buscar..";
@@ -82,12 +83,18 @@ function switchSelectCampo() {
             my_class = "vAlfanumerico";
             my_placeholder = "Ingrese el hospital a buscar..";
             break;
+        case "CONDOMINIOS":
+            my_class = "vLetras";
+            my_placeholder = "Ingrese el nombre a buscar..";
+            break;
         }
         divValores.innerHTML = '<input type="text" style="width: 90%;" class="form-control ' + my_class + '" id="inputValor" name="inputValor" placeholder="' + my_placeholder + '" maxlength="30">';
         $('#inputValor').focus();
         $('body').css('cursor', 'auto');
     } // if(campo == "NOMBRE")
+    
     else {
+        */
         $.ajax({
             type: "get",
             url: "index.php/App_c/getValores",
@@ -114,7 +121,7 @@ function switchSelectCampo() {
                 $('body').css('cursor', 'auto');
             }
         }); // AJAX
-    } // else(campo == "NOMBRE")
+    //}  else(campo == "NOMBRE")
 }
 
 // Convert to uppercase, remove multiple whitespaces and trim inputs on focus out

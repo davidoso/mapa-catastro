@@ -8,7 +8,7 @@
             </div> <!-- modal-header ends -->
             <div class="modal-body">
 
-				<h4 class="text-center text-hot-pink">TABLA DE BÚSQUEDA</h4>
+				<h4 class="text-center text-color">TABLA DE BÚSQUEDA</h4>
 				<div class="accordion" id="accordion-help" role="tablist">
 					<div class="card accordion-inverse-info">
 						<div class="card-header" role="tab" id="pregunta-1-title">
@@ -91,7 +91,7 @@
 						</div>
 					</div> <!-- accordion-inverse-info pregunta-9 -->
 
-					<h4 class="text-center text-hot-pink">ÁREA DE INFLUENCIA</h4>
+					<h4 class="text-center text-color">ÁREA DE INFLUENCIA</h4>
 					<div class="card accordion-inverse-info">
 						<div class="card-header" role="tab" id="pregunta-A-title">
 							<h6 class="mb-0"><a class="collapsed" data-toggle="collapse" href="#pregunta-A" aria-expanded="false" aria-controls="pregunta-A">¿Qué es un área de influencia?</a></h6>
@@ -118,7 +118,7 @@
 						</div>
 					</div> <!-- accordion-inverse-info pregunta-C -->
 
-					<h4 class="text-center text-hot-pink">DATOS ABIERTOS DE CATASTRO COLIMA</h4>
+					<h4 class="text-center text-color">DATOS ABIERTOS DE CATASTRO COLIMA</h4>
 					<div class="card accordion-inverse-info">
 						<div class="card-header" role="tab" id="pregunta-D-title">
 							<h6 class="mb-0"><a class="collapsed" data-toggle="collapse" href="#pregunta-D" aria-expanded="false" aria-controls="pregunta-D">¿Cómo consulto la información de los marcadores en el mapa?</a></h6>

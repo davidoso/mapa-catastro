@@ -80,6 +80,7 @@ $db['default'] = array(
 	'password' => '',
 	'database' => 'catastro_nuevo',
 	'dbdriver' => 'mysqli',
+	
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
@@ -94,3 +95,4 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => FALSE
 );
+$db['default']['port'] = 3333;

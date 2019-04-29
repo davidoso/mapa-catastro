@@ -13656,6 +13656,7 @@ input:focus {
 .sidebar {
   background: #32323d;
   font-family: "Open Sans", sans-serif;
+  /*cambio de altura*/
   min-height: 100%;
   padding: 0;
   position: absolute;

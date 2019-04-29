@@ -1,3 +1,17 @@
+.accordion-inverse-info.card .card-header a{
+    color: #000 !important;   
+}
+
+.accordion-inverse-info.card .card-header a:before {
+    color: #E6E6E6 !important;
+}
+
+.accordion-inverse-info {
+    background:  #E6E6E6;
+    color: #000
+ 
+}
+
 .btn-info {
     color:#000;
     background-color:#FFF;
@@ -11,7 +25,9 @@
 .sidebar .nav .nav-item.nav-category .nav-link {
     color:#FE9A2E;
 }
-    
+
+
+
 .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info:hover,.btn.btn-info {
     color:#000;
 }
@@ -82,3 +98,6 @@ code{
     background-color: white;
 }
 
+.text-color{
+    color:#FE9A2E;
+}

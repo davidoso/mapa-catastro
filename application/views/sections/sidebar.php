@@ -31,7 +31,7 @@
             </div>
             </center>
         </li>
-        -->44
+        -->
         <li class="nav-item nav-category">
             <span class="nav-link">CAPA</span>
         </li>
