@@ -13,7 +13,7 @@ $(document).ready(function() {
             {
                 "target": -2,
                 "data": "opt_edit",
-                "defaultContent": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'><i class='fas fa-pencil-alt'></i></button>",
+                "defaultContent": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'>&nbsp;<i class='fas fa-pencil-alt'></i></button>",
                 "searchable": false,
                 "orderable": false
             },
@@ -159,7 +159,7 @@ $(document).ready(function() {
             "valor": valor,
             // "total": Math.floor(Math.random() * 99) // Random number from 0 to 100 (testing purposes)
             "total": "-",
-            "opt_edit": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'><i class='fas fa-pencil-alt'></i></button>",
+            "opt_edit": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'>&nbsp;<i class='fas fa-pencil-alt'></i></button>",
             "opt_delete": "<button id='btn_delete' class='btn btn-outline-danger btn-sm' title='Eliminar consulta'>&nbsp;<i class='fas fa-trash'></i></button>"
          }).draw();
 
@@ -247,7 +247,7 @@ $(document).ready(function() {
             "valor": "(SIN FILTROS)",
             // "total": Math.floor(Math.random() * 99) // Random number from 0 to 100 (testing purposes)
             "total": "-",
-            "opt_edit": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'><i class='fas fa-pencil-alt'></i></button>",
+            "opt_edit": "<button id='btn_edit' class='btn btn-outline-warning btn-sm' title='Editar consulta'>&nbsp;<i class='fas fa-pencil-alt'></i></button>",
             "opt_delete": "<button id='btn_delete' class='btn btn-outline-danger btn-sm' title='Eliminar consulta'>&nbsp;<i class='fas fa-trash'></i></button>"
         }).draw();
 

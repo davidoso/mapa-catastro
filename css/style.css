@@ -13727,7 +13727,7 @@ input:focus {
         .sidebar .nav .nav-item.nav-category .nav-link {
           /*padding: 2.625rem 1.4rem 0.625rem; CHANGED*/
           padding: 1rem 1.4rem 1rem;
-          color: #4fc04d; }
+          color: #fe9a2e; }
     .sidebar .nav.sub-menu {
       padding-left: 0; }
       .sidebar .nav.sub-menu .nav-item {
@@ -14160,7 +14160,7 @@ pre {
   font-size: calc(0.875rem - 0.05rem); }
   .footer a {
     /*color: #33c92e; CHANGED*/
-    color: #ff711c;
+    color: #fe9a2e;
     font-size: inherit; }
   @media (max-width: 991px) {
     .footer {

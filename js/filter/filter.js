@@ -31,7 +31,7 @@ function switchSelectCapa() {
             });
             divCampos.innerHTML = '<select class="selectpicker show-tick" id="cbCampos" name="cbCampos" title="Campo a filtrar.."><optgroup label="' + header + '">'+ campos + '</select>';
             $('#cbCampos').selectpicker({
-                style: 'btn-info',
+                style: 'btn-light',
                 size: 10
             });
             $('#cbCampos').focus();
@@ -102,7 +102,7 @@ function switchSelectCampo() {
                 });
                 divValores.innerHTML = '<select class="selectpicker show-tick" id="cbValores" name="cbValores" title="Valor a filtrar.." data-dropup-auto="false" data-live-search="true" data-live-search-placeholder="Buscar valor.." data-live-search-style="contains"><optgroup label="' + header + '">'+ valores + '</select>';
                 $('#cbValores').selectpicker({
-                    style: 'btn-info',
+                    style: 'btn-light',
                     size: 6
                 });
                 $('#cbValores').focus();

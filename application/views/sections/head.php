@@ -57,7 +57,7 @@
         $.fn.selectpicker.Constructor.DEFAULTS.dropupAuto = false;
         $(document).ready(function() {
             $('.selectpicker').selectpicker({
-            style: 'btn-info',
+            style: 'btn-light',
             size: 10
             /*iconBase: 'fa'
             tickIcon: 'fa-check'*/
