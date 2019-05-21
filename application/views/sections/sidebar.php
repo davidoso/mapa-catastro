@@ -124,13 +124,13 @@
         <li class="nav-item">
             <label class="nav-link label-options" data-opt="2">
                 <span class="menu-title">Limpiar mapa</span>
-                <i class="fas fa-fw fa-map-marker" data-toggle="tooltip" data-placement="top" title="Limpiar los marcadores y polígonos trazados en el mapa"></i>
+                <i class="fas fa-fw fa-map-marker " data-toggle="tooltip" data-placement="top" title="Limpiar los marcadores y polígonos trazados en el mapa"></i>
             </label>
         </li>
         <li class="nav-item">
             <label class="nav-link label-options" data-opt="3">
                 <span class="menu-title">Limpiar todo</span>
-                <i class="fas fa-fw fa-undo" data-toggle="tooltip" data-placement="top" title="Limpiar el mapa y la tabla de búsqueda"></i>
+                <i class="fas fa-fw fa-undo " data-toggle="tooltip" data-placement="top" title="Limpiar el mapa y la tabla de búsqueda"></i>
             </label>
         </li>
         <li class="nav-item">

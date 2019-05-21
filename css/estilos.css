@@ -12,16 +12,51 @@
  
 }
 
+body, html{
+    background-color: #eee;
+}
+
 .btn-info {
     color:#000;
     background-color:#FFF;
     border-color:#E6E6E6;
 }
-    
+.content-wrapper{
+    min-height: 70vh;
+    height: 770px;
+    background-color: #eee;
+   
+}
+
+footer {
+    width: 100%;
+    position: relative; 
+    bottom: 0; 
+    margin-top: 5%;
+    height: 80px;
+}
+
+
+
+header{
+    width: 100%; 
+    height: 100%;  
+    position: fixed; 
+    top: 0;
+    z-index:100; 
+}
+
+
 .navbar-color {
     background-color:#FFF;
 }
     
+.sidebar {
+    height: 110%;
+    position: fixed;  
+    min-height: 0% !important; 
+}
+
 .sidebar .nav .nav-item.nav-category .nav-link {
     color:#FE9A2E;
 }
@@ -101,3 +136,21 @@ code{
 .text-color{
     color:#FE9A2E;
 }
+
+
+
+/*Estilos de botones por revisar los demas*/
+
+.btn-dark{
+    background-color:#32323d;
+    margin-top: 10px;
+}
+
+.btn-dark:hover{
+    color:#FE9A2E !important;
+}
+
+.orange{
+    color:#FE9A2E;
+}
+

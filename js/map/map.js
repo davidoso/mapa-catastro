@@ -345,4 +345,18 @@ function continueIfQueryIsValid(datatableObj) {
             $('body').css('cursor', 'auto');
         }
     }); // AJAX
-}
+    
+    $.ajax({
+        type: "POST",
+        url: "index.php/App_c/getMapMarkersData",
+        data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
+        dataType: "json",
+        success: function(data) {
+            document.getElementById("map-table").innerHTML += JSON.stringify(data, undefined, 2); 
+        },
+        error: function() {
+            console.log("Error! Markers could not be retrieved");
+            $('body').css('cursor', 'auto');
+        }
+    }); // AJAX
+}                                                                                                                                     

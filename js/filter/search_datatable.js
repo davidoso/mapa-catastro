@@ -1,24 +1,26 @@
 $(document).ready(function() {
+    var con = 1;
+    var numero =0;
     var tabla = $("#myDataTable").DataTable({
         // https://datatables.net/reference/option/dom
         dom: '<"row"<"col-sm-8 my-dt-title"><"col-sm-4"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
         initComplete: function() {
             $('.my-dt-title').html("<h1>Tabla de búsqueda</h1>");
         },
-        "columns": [
-           
+        "columns": [  
             {"data":"capa"},
             {"data":"campo"},
             {"data":"valor"},
             {"data":"total"},
-            {
+            
+           /* {
                 "className":"details-control",
                 "target": -3,
                 "data": "opt_plus",
-                "defaultContent": "<button id='btn_plus' onclick='addFunction()' class='btn btn-outline-success btn-sm' title='Todos los resultados'>&nbsp;<i class='fas fa-plus'></i></button>",
+                "defaultContent": "<button id='btn_plus'  class='btn btn-outline-success btn-sm' title='Todos los resultados'>&nbsp;<i class='fas fa-plus'></i></button>",
                 "searchable": false,
                 "orderable": false
-            },
+            },*/
             {
                 "target": -2,
                 "data": "opt_edit",
@@ -44,8 +46,10 @@ $(document).ready(function() {
     }); // $("#myDataTable").DataTable()
 
     $(document).on("keyup", "#inputValor", function(e) {
+        
         if(e.which == 13) { // Enter keycode
             this.value = this.value.toUpperCase().replace(/\s{2,}/g, " ").trim(); // Same as focusout in filter.js
+            
             var capa = document.getElementById("cbCapas").value;
             var campo = document.getElementById("cbCampos").value;
             var valor = this.value;
@@ -104,6 +108,7 @@ $(document).ready(function() {
         showToastNotif('Consulta eliminada', 'La consulta se ha eliminado de la tabla de búsqueda', 'bottom-right', 'success');
     });
 
+
     // https://stackoverflow.com/questions/25866466/delete-a-row-from-a-datatable
     // https://datatables.net/forums/discussion/43162/removing-rows-from-a-table-based-on-a-column-value
     // https://datatables.net/reference/type/row-selector
@@ -132,6 +137,8 @@ $(document).ready(function() {
 
         addFilter(capa, campo, valor); // Add single filter row
     });
+
+  
 
     function checkBeforeAddFilter(capa, campo, valor) {
         var data = tabla.data();
@@ -297,6 +304,7 @@ $(document).ready(function() {
     }
 
     function clearAll() {
+        
         clearMap();                                                 // Clear map
         tabla.clear().draw();                                       // Clear datatable
         document.getElementById("rbtnOR").checked = true;           // Select OR operator
@@ -306,41 +314,24 @@ $(document).ready(function() {
         // https://stackoverflow.com/questions/41883537/how-to-reset-value-of-bootstrap-select-after-button-click
         $("#cbCapas").val("default").selectpicker("refresh");
         $("#cbShapes").val("Box").change();
+        var x = document.getElementById("map");
+        var y = document.getElementById("map-table");
+        var z = document.getElementById("mouse-position");
+          x.style.display = "block";
+          z.style.display = "block";
+          y.style.display = "none";
+        remElement(document.getElementById('map-table'));
+        
     }
+
+    // Removing eleemnts usig outerHTML property
+    function remElement(obj) {
+        obj.innerHTML="";
+    }
+   
+  
 }); // $(document).ready()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// first example for a new table into the former table
-function myFunction() {
-    var table = document.getElementById("myDataTable");
-    var x = table.insertRow(0);
-    var e =table.rows.length-1;
-    var l =table.rows[e].cells.length;
-    //x.innerHTML = "&nbsp;";
-    for (var c =0,  m=l; c < m; c++) {
-    table.rows[0].insertCell(c);
-    table.rows[0].cells[c].innerHTML  = "fila";
-    }
-  }
-
-  function addFunction() {
-    var t = $('myDataTable').DataTable();
-    var counter = 1;
- 
-    $('#btn_plus').on( 'click', function () {
-        t.row.add( [
-            counter +'.1',
-            counter +'.2',
-            counter +'.3',
-            counter +'.4',
-            counter +'.5'
-        ] ).draw( false );
- 
-        counter++;
-    } );
-
-} 
-  
 
 
 

@@ -272,7 +272,7 @@ class Map_m extends CI_Model {
 		added, despite colum sorting), $arrLayers saves the layer frontend-names. These will be converted to
 		database table-names later */
 		$arrLayers = array();
-		$jaggedArrayByLayer = array();
+		$jaggedArrayByLayer = array(); 
 		$returnData = array();
 		//$arrQueryBuilder = array(); // Output n sql queries after a succesful AJAX call (testing purposes)
 
@@ -292,7 +292,7 @@ class Map_m extends CI_Model {
 
 		for($i = 0; $i < count($arrLayers); $i++) {
 			// Map marker id
-			$select = "BT.coord_x AS longitude, BT.coord_y AS latitude, lower(tr('" . $arrLayers[$i] . "', 'ÁÉÍÓÚÑ ', 'AEIOUN_')) AS layer";
+			$select = "BT.id, BT.coord_x AS longitude, BT.coord_y AS latitude, lower(tr('" . $arrLayers[$i] . "', 'ÁÉÍÓÚÑ ', 'AEIOUN_')) AS layer";
 			// DB table name alias is BT
 			$from = $this->switchTable('capa', $arrLayers[$i]) . " AS BT";
 			// All elements must be inside the drawn polygon area in the map
@@ -668,6 +668,101 @@ class Map_m extends CI_Model {
 
 		//return $manualQuery; // Return generated sql query (testing purposes)
 		return $jsonTable;
+	}
+
+	public function getMapData()
+	{
+		$tableData = json_decode($_POST['tableData']);		// 3-column table queries (layer, column and value)
+		$pointsArray = json_decode($_POST['pointsArray']);	// Polygon coordinates in the map
+		$booleanOp = $_POST['booleanOp'];					// OR or AND operator to join WHERE clauses
+		$unwanted_array = array('Á'=>'a','É'=>'e','Í'=>'i','Ó'=>'o','Ú'=>'u',' '=>'_');
+		
+		/* Since queries are not sorted by layer in the datatable (tabla.data() saves the rows the way they were
+		added, despite colum sorting), $arrLayers saves the layer frontend-names. These will be converted to
+		database table-names later */
+		$arrLayers = array();
+		$jaggedArrayByLayer = array();
+		$returnData = array();
+		//$arrQueryBuilder = array(); // Output n sql queries after a succesful AJAX call (testing purposes)
+
+		for($dtRow = 0; $dtRow < count($tableData); $dtRow++) {
+			if(!in_array($tableData[$dtRow]->capa, $arrLayers))
+				array_push($arrLayers, $tableData[$dtRow]->capa);
+		}
+
+		for($i = 0; $i < count($arrLayers); $i++) {
+			$jaggedArrayByLayer[$i] = array();
+		}
+
+		for($dtRow = 0; $dtRow < count($tableData); $dtRow++) {
+			$i = array_search($tableData[$dtRow]->capa, $arrLayers);
+			array_push($jaggedArrayByLayer[$i], $dtRow);
+		}
+
+		for($i = 0; $i < count($arrLayers); $i++) {
+			$table = '';
+			$table = strtolower($arrLayers[$i]);
+			$table = strtr( $table, $unwanted_array);
+			
+			$select = $this->switchColumnSelectedMarker($table);
+			$from = $this->switchTableSelectedMarker($table);
+			
+			//$select = "SELECT " . $select;
+			//$from = $this->switchTable('capa', $arrLayers[$i]) . " AS BT";
+			//print_r($select.$from);
+			$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (?";
+
+			for($j = 0; $j < count($jaggedArrayByLayer[$i]); $j++) {
+				$dtRow = $jaggedArrayByLayer[$i][$j];
+				$cond = $this->switchColumn($tableData[$dtRow]->campo, $tableData[$dtRow]->valor);
+
+				if($where[-1] == "?") { // ? symbol is a flag that tells whether a condition has been added
+					$where = substr($where, 0, -1);		// Remove ? symbol
+					$where = $where . $cond;			// Concatenate first condition
+				}
+				else { // Concatenate remaining conditions with either OR or AND depending on the selected rbtn
+					$where = $where . ' ' . $booleanOp . ' ' . $cond;
+				}
+			}
+
+			$where = $where . ")"; // Close user-added conditions
+			//print_r($select.$from.$where);
+			if($table == "giros_comerciales"){
+                $this->db->select($select);
+                $this->db->from($from);
+                $this->db->where($where);
+            }else{
+
+			//print_r($select.$from.$where);
+			$this->db->select($select);
+			$this->db->from($from);
+			/* Some layers have columns from another table (not the base table in ctrl_select_capas)
+			that is not a catalog and thus require an explicit inner join */
+            $arrJoinCondition = $this->getJoinCondition($arrLayers[$i]);
+			if($arrJoinCondition !== NULL)
+				$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
+				$this->db->where($where);
+
+			//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
+            //array_push($arrQueryBuilder, $stmt);
+                            
+            }
+			/* Some layers have columns from another table (not the base table in ctrl_select_capas)
+			that is not a catalog and thus require an explicit inner join */
+			$arrJoinCondition = $this->getJoinCondition($arrLayers[$i]);
+			if($arrJoinCondition !== NULL)
+				$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
+				$this->db->where($where);
+
+			//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
+			//array_push($arrQueryBuilder, $stmt);
+			$queryResult = $this->db->get()->result_array();
+			//print_r($queryResult);
+			//$returnData = array_merge($returnData, $queryResult);
+
+		}
+		
+		return $queryResult;
 	}
 }
 ?>
