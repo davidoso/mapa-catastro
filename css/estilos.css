@@ -23,20 +23,24 @@ body, html{
 }
 .content-wrapper{
     min-height: 70vh;
-    height: 770px;
+    /*height: 770px;*/
+    height: 95% !important;
     background-color: #eee;
    
 }
 
-footer {
+/*footer {
     width: 100%;
     position: relative; 
     bottom: 0; 
     margin-top: 5%;
     height: 80px;
+}*/
+
+footer {
+ 
+    margin-top: 15px;
 }
-
-
 
 header{
     width: 100%; 
@@ -144,6 +148,7 @@ code{
 .btn-dark{
     background-color:#32323d;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .btn-dark:hover{
@@ -152,5 +157,69 @@ code{
 
 .orange{
     color:#FE9A2E;
+}
+/*revisar
+div.map-table {
+    overflow-x: scroll;
+    margin-top: 10px;
+}*/
+/*estilos de prueba
+
+th, td, p, input {
+    font:14px Verdana;
+}
+table, th, td 
+{
+    border: solid 1px #DDD;
+    border-collapse: collapse;
+    padding: 2px 3px;
+    text-align: center;
+}
+th {
+    font-weight:bold;
+}
+*/
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.dataTables_filter{
+    font-family: "Open Sans" , sans-serif;
+    font-size: 16px;
+}
+.div_t{
+    margin-top:20px;
+    margin-bottom: 30px;
+}
+input,.form-control,.form-control-sm{
+    font-size: 14px;
+    font-weight: unset !important;
+    font-family: "Open Sans" , sans-serif;
+}
+
+#myDataSetTable{
+    margin-top: 10px;
+}
+
+.menu{
+    height: 38.8542px !important;
+}
+
+.exportar{
+    text-decoration:none;
+}
+
+.color-exportar{
+    background-color: #FE9A2E;
+    border-color:#FE9A2E;
+
+}
+
+.color-exportar:hover{
+    background-color:#f78913;
+    border-color:#f78913;
+    color:#32323d !important;
 }
 

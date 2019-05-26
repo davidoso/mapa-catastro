@@ -20,11 +20,11 @@
                     <table class="table table-striped table-bordered" id="myDataTable" width="100%" cellspacing="0">
                       <thead class="tbl-blue-th">
                         <tr>
-                         
-                          <th width="26%">CAPA</th>
-                          <th width="23%">CAMPO</th>
-                          <th width="23%">VALOR</th>
-                          <th width="10%">TOTAL</th>
+                          <th id="icono" width="1%">ICONO</th>
+                          <th>CAPA</th>
+                          <th>CAMPO</th>
+                          <th>VALOR</th>
+                          <th>TOTAL</th>
                           <!--<th width="6%"><i style="color:#28a745;" class="fas fa-fw fa-plus" title="Mostrar los resultados"></i></th>-->
                           <th width="6%"><i style="color:#ffc107;" class="fas fa-fw fa-pencil-alt" title="Editar consulta"></i></th>
                           <th width="6%"><i style="color:#dc3545;" class="fas fa-fw fa-trash" title="Eliminar consulta"></i></th>
@@ -34,12 +34,17 @@
                       </tbody>
                     </table> 
                   </div> <!-- table-responsive ends -->
-                  <button id="boton-mapa" class="btn btn-dark btn-sm orange" onclick="myFunctionMap()">Mapa</button>
-                  <button id="boton-tabla" class="btn btn-dark btn-sm" onclick="myFunctionTable()">Datos</button>
+                  
+                    <button id="boton-mapa" class="btn btn-dark btn-sm orange" onclick="myFunctionMap()">Mapa</button>
+                    <button id="boton-tabla" class="btn btn-dark btn-sm" onclick="myFunctionTable()">Datos</button>
+                    <button  style="visibility: hidden; " class="btn btn-dark btn-sm color-exportar" id="exportar-boton"><a id="exportar" class="exportar">Exportar datos a CSV</a></button>
+                    
                   <div id="map" class="map"></div>
                   <div id="mouse-position" class="text-purple-darken" align="right"></div>
-                  <div id="map-table" style="display:none;" class="map-table"></div>
                   
+                  <div id="map-table" class="table-responsive" style="display:none;" class="map-table">
+                  <div align="center"><h1>No hay datos que mostrar<h1></div>
+                  </div>    
                 </div> <!-- card-body mx-3 ends -->
               </div>
             </div>
@@ -61,6 +66,17 @@
 <script type="text/javascript" src="js/filter/map_utm2dec.js"></script>
 <script type="text/javascript" src="js/filter/search_datatable.js"></script>
 <script>
+
+$(document).ready(
+
+  function(){
+     $('#myDataSetTable').DataTable(); 
+    }
+
+  );
+	
+
+
 function myFunctionMap() {
   var x = document.getElementById("map");
   var y = document.getElementById("map-table");
@@ -90,6 +106,9 @@ function myFunctionTable() {
     z.style.display = "none";
     x.style.display = "none";
 }
+
+
+
 </script>
 </body>
 </html>

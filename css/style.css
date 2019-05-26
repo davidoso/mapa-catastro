@@ -9867,7 +9867,9 @@ tbody.collapse.show {
   height: calc(1.8125rem + 2px);
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
-  font-size: 75%; }
+  font-size: 75%; 
+
+}
 
 .custom-select-lg {
   height: calc(2.875rem + 2px);

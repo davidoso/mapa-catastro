@@ -1,13 +1,20 @@
 $(document).ready(function() {
     var con = 1;
     var numero =0;
+
     var tabla = $("#myDataTable").DataTable({
         // https://datatables.net/reference/option/dom
         dom: '<"row"<"col-sm-8 my-dt-title"><"col-sm-4"f>>t<"row"<"col-sm-6"i><"col-sm-6"p>>',
         initComplete: function() {
             $('.my-dt-title').html("<h1>Tabla de búsqueda</h1>");
         },
-        "columns": [  
+        "columns": [ 
+            {   
+                "data": "icono",
+                "searchable": false,
+                "orderable": false,
+             
+            },
             {"data":"capa"},
             {"data":"campo"},
             {"data":"valor"},
@@ -42,18 +49,27 @@ $(document).ready(function() {
         },*/
         "pageLength": 5,
         "pagingType": "simple_numbers",
-        "lengthChange": false
+        "lengthChange": false,
+        "order": [[ 3, "desc" ]]
     }); // $("#myDataTable").DataTable()
 
     $(document).on("keyup", "#inputValor", function(e) {
         
         if(e.which == 13) { // Enter keycode
             this.value = this.value.toUpperCase().replace(/\s{2,}/g, " ").trim(); // Same as focusout in filter.js
-            
+            var icono = document.getElementById("cbCapas").value;
+            icono = icono.replace("á", "a");
+            icono = icono.replace("é", "e");
+            icono = icono.replace("í", "i");
+            icono = icono.replace("ó", "o");
+            icono = icono.replace("ú", "u");
+            icono = icono.replace(" ", "_");
             var capa = document.getElementById("cbCapas").value;
             var campo = document.getElementById("cbCampos").value;
             var valor = this.value;
-
+            
+            
+            icono = "<img class='center' src='images/mapMarkers/" + icono + ".png'>";
             if(valor != '') { // Do not show notification if the input is empty
                 // Validate at least 4 alphanumeric characters in case the user copy-paste some text
                 re = /^[A-Z0-9ÁÉÍÓÚÑ\s]{4,}$/;
@@ -65,7 +81,7 @@ $(document).ready(function() {
                         showToastNotif('Nombre inválido', 'Ingrese no más de 30 caracteres alfanuméricos', 'bottom-right', 'error');
                     }
                     else {
-                        checkBeforeAddFilter(capa, campo, valor);
+                        checkBeforeAddFilter(icono, capa, campo, valor);
                     }
                 }
             }
@@ -73,11 +89,22 @@ $(document).ready(function() {
     });
 
     $(document).on("change", "#cbValores", function() {
+        //icono error ?
+        var icono = document.getElementById("cbCapas").value;
+        icono = icono.toLowerCase();
+        icono = icono.replace("á", "a");
+        icono = icono.replace("é", "e");
+        icono = icono.replace("í", "i");
+        icono =  icono.replace("ó", "o");
+        icono =  icono.replace("ú", "u");
+        icono =  icono.replace(" ", "_");
+        
+        icono = icono = "<img class='center' src='images/mapMarkers/" + icono + ".png'>";
         var capa = document.getElementById("cbCapas").value;
         var campo = document.getElementById("cbCampos").value;
         var valor = document.getElementById("cbValores").value;
 
-        checkBeforeAddFilter(capa, campo, valor);
+        checkBeforeAddFilter(icono, capa, campo, valor);
     });
 
     // https://stackoverflow.com/questions/13343566/set-select-option-selected-by-value
@@ -123,6 +150,7 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".btn-ltf", function() { // Delete layer to single filter(s) rows (ltf)
+        var icono = document.getElementById("cbCapas").value;
         var capa = document.getElementById("cbCapas").value;
         var campo = document.getElementById("cbCampos").value;
         var valor = "";
@@ -135,17 +163,17 @@ $(document).ready(function() {
             return data.capa === capa;
         }).remove().draw(); // Remove one and only one row (layer)
 
-        addFilter(capa, campo, valor); // Add single filter row
+        addFilter(icono, capa, campo, valor); // Add single filter row
     });
 
   
 
-    function checkBeforeAddFilter(capa, campo, valor) {
+    function checkBeforeAddFilter(icono,capa, campo, valor) {
         var data = tabla.data();
         var totalRows = data.count();
 
         if(totalRows == 0) { // If the table is empty, add the row without checking anything
-            addFilter(capa, campo, valor);
+            addFilter(icono, capa, campo, valor);
         }
         else {
             var duplicateRow, layerRow = false;
@@ -164,13 +192,14 @@ $(document).ready(function() {
             }
             // Add the row if it doesn't exist already and there's no the same layer without filters
             if(!duplicateRow && !layerRow) {
-                addFilter(capa, campo, valor);
+                addFilter(icono, capa, campo, valor);
             }
         } // else(totalRows == 0)
     }
 
-    function addFilter(capa, campo, valor) { // Add row either from #inputValor or #cbValores
+    function addFilter(icono, capa, campo, valor) { // Add row either from #inputValor or #cbValores
         tabla.row.add({
+            "icono": icono,
             "capa": capa,
             "campo": campo,
             "valor": valor,
@@ -200,7 +229,9 @@ $(document).ready(function() {
         }
         else {
             switchOption(opt); // Same remaining 4 labels as dropdown options
+            
         }
+        
     });
 
     function switchOption(opt) {
@@ -230,7 +261,7 @@ $(document).ready(function() {
             var totalRows = data.count();
             var duplicateRow = false;
             var sameLayerRows = 0;
-
+           
             if(totalRows == 0) { // If the table is empty, add the row without checking anything
                 addLayer(capa);
             }
@@ -254,11 +285,21 @@ $(document).ready(function() {
                         showSweetAlert(sameLayerRows, capa, 'ftl'); // ftl stands for 'filter to layer'
                     }
             } // else(totalRows == 0)
+            
         } // else(capa == '')
     }
 
     function addLayer(capa) { // Add row either from dropdown or label option click in sidebar
+
+        var icono = capa.toLowerCase()
+        icono = icono.replace("á", "a");
+        icono = icono.replace("é", "e");
+        icono = icono.replace("í", "i");
+        icono =  icono.replace("ó", "o");
+        icono =  icono.replace("ú", "u");
+        icono =  icono.replace(" ", "_");
         tabla.row.add({
+            "icono": "<img class='center' src='images/mapMarkers/" + icono + ".png'>",
             "capa": capa,
             "campo": "(SIN FILTROS)",
             "valor": "(SIN FILTROS)",
@@ -317,9 +358,18 @@ $(document).ready(function() {
         var x = document.getElementById("map");
         var y = document.getElementById("map-table");
         var z = document.getElementById("mouse-position");
-          x.style.display = "block";
-          z.style.display = "block";
-          y.style.display = "none";
+            x.style.display = "block";
+            z.style.display = "block";
+            y.style.display = "none";
+
+        var m = document.getElementById("boton-mapa");
+        var t = document.getElementById("boton-tabla");
+            m.style.color ="orange";
+            t.style.color ="white";
+        
+        var exportar_b = document.getElementById("exportar-boton");
+        exportar_b.style.visibility = "hidden";
+
         remElement(document.getElementById('map-table'));
         
     }
@@ -328,8 +378,52 @@ $(document).ready(function() {
     function remElement(obj) {
         obj.innerHTML="";
     }
-   
-  
+    ///https://jsfiddle.net/mnsinger/65hqxygo/
+    function exportTableToCSV($table, filename) {
+    
+        var $rows = $table.find('tr:has(td),tr:has(th)'),
+            // Temporary delimiter characters unlikely to be typed by keyboard
+            // This is to avoid accidentally splitting the actual contents
+            tmpColDelim = String.fromCharCode(11), // vertical tab character
+            tmpRowDelim = String.fromCharCode(0), // null character
+    
+            // actual delimiter characters for CSV format
+            colDelim = '","',
+            rowDelim = '"\r\n"',
+    
+            // Grab text from table into CSV formatted string
+            csv = '"' + $rows.map(function (i, row) {
+                var $row = $(row), $cols = $row.find('td,th');
+    
+                return $cols.map(function (j, col) {
+                    var $col = $(col), text = $col.text();
+    
+                    return text.replace(/"/g, '""'); 
+    
+                }).get().join(tmpColDelim);
+    
+            }).get().join(tmpRowDelim)
+                .split(tmpRowDelim).join(rowDelim)
+                .split(tmpColDelim).join(colDelim) + '"',
+
+            // Data 
+            csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+            console.log(csv);
+            
+        	if (window.navigator.msSaveBlob) { 
+        		window.navigator.msSaveOrOpenBlob(new Blob([csv], {type: "text/plain;charset=utf-8;"}), "Datos_consultas.csv")
+        	} 
+        	else {
+        		$(this).attr({ 'download': filename, 'href': csvData, 'target': '_blank' }); 
+        	}
+    }
+    
+    $("#exportar").on('click', function (event) {
+        exportTableToCSV.apply(this, [$('#myDataSetTable'), 'Datos_consultas.csv']);
+
+    });
+
+     
 }); // $(document).ready()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

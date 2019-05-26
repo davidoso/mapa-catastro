@@ -153,11 +153,11 @@ class Map_m extends CI_Model {
 	{
 		switch($baseTable) {		// Base table alias is already BT when this function is called
 			case "GIROS COMERCIALES":
-				return array('comercio_tbl_giros_comerciales_licencias AS L', 'BT.id = L.id_giro_comercial');
+				return array("comercio_tbl_giros_comerciales_licencias AS L", "BT.id = L.id_giro_comercial");
 			case "LOCATARIOS MERCADOS":
-				return array('comercio_tbl_mercados AS M', 'BT.id_mercado = M.id');
+				return array("comercio_tbl_mercados AS M", "BT.id_mercado = M.id");
 			case "TIANGUISTAS":
-				return array('comercio_tbl_tianguis AS T', 'BT.id_tianguis = T.id');
+				return array("comercio_tbl_tianguis AS T", "BT.id_tianguis = T.id");					
 			default:				// Any other case will return null so no join condition will be added
 				return null;
 		}
@@ -345,6 +345,8 @@ class Map_m extends CI_Model {
 			" AS BT JOIN ct_colonia USING (id_colonia) JOIN ct_cond_fisica USING (id_cond_fisica) JOIN ct_material USING (id_material)";
 		$colonia =
 			" AS BT JOIN ct_colonia USING (id_colonia)";
+		$colonias =
+			" JOIN ct_colonia USING (id_colonia)";
 		$nivel_escolar =
 			" AS BT JOIN ct_nivel_escolar USING (id_nivel_escolar)";
 		$tipo_ =
@@ -412,10 +414,12 @@ class Map_m extends CI_Model {
 				return $baseTable . $colonia;
 			case "infraestructura_deportiva":
 				return $baseTable . $colonia;
+			case "mercados":
+				return $baseTable . $colonia;
 
 			/* CAPAS QUE REQUIEREN UN JOIN CON OTRAS TABLAS QUE NO SON CATÁLOGOS */
 			case "giros_comerciales":
-				return $baseTable . " AS BT JOIN comercio_tbl_giros_comerciales_licencias AS L ON BT.id = L.id_giro_comercial " . $colonia;
+				return $baseTable . " AS BT JOIN comercio_tbl_giros_comerciales_licencias AS L ON BT.id = L.id_giro_comercial " . $colonias;
 			case "locatarios_mercados":
 				return $baseTable . " AS BT JOIN comercio_tbl_mercados AS M ON BT.id_mercado = M.id";
 			case "tianguistas":
@@ -454,8 +458,8 @@ class Map_m extends CI_Model {
             "jurisdiccion AS 'JURISDICCIÓN'";
 		$espacio_deportivo_and_colonia =
 			"colonia AS 'COLONIA', espacio_deportivo AS 'ESPACIO DEPORTIVO'";
-		$cond_fisica_and_espacio_deportivo =
-			"cond_fisica AS 'CONDICIÓN FÍSICA', espacio_deportivo AS 'ESPACIO DEPORTIVO'";
+		$espacio_deportivo_and_colonia =
+			"espacio_deportivo AS 'ESPACIO DEPORTIVO', colonia AS 'COLONIA'";
 		$tipologia =
 			"tipologia AS 'TIPO'";
 		$tipo_riego =
@@ -510,11 +514,11 @@ class Map_m extends CI_Model {
 			case "giros_comerciales":
 				return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL',  localidad AS 'LOCALIDAD', " . $colonia;
 			case "plazas_comerciales":
-				return $coordinates . "nombre AS 'PLAZA'";
+				return $coordinates . "nombre AS 'NOMBRE'";
 			case "mercados":
-				return $coordinates . "nombre AS 'MERCADO', calle AS 'CALLE',  propietario AS 'PROPIETARIO', tipo_predio AS 'PREDIO'";
+				return $coordinates . "nombre AS 'NOMBRE'," . $colonia . ",calle AS 'CALLE', propietario AS 'PROPIETARIO', tipo_predio AS 'PREDIO'";
 			case "tianguis":
-				return $coordinates . "nombre AS 'TIANGUIS', calle AS 'CALLE',  CONCAT(dia, ' ', horario) AS 'HORARIO', area AS 'ÁREA EN M2' , " . $colonia;
+				return $coordinates . "nombre AS 'TIANGUIS'," . $colonia .", calle AS 'CALLE',  CONCAT(dia, ' ', horario) AS 'HORARIO', area AS 'ÁREA EN M2'";
 			case "locatarios_mercados":
 				return $coordinates . "M.nombre AS 'MERCADO', giro AS 'GIRO', local_ AS 'NO. DE LOCAL', observaciones AS 'OBSERVACIONES'";
 			case "tianguistas":
@@ -526,7 +530,7 @@ class Map_m extends CI_Model {
 
 			/* ALIAS DE VALORES PARA CAPAS DE LA CARPETA: DEPORTES */
 			case "activacion_fisica":
-				return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL', area AS 'ÁREA EN M2', centro_deportivo AS 'CENTRO DEPORTIVO', " .$cond_fisica_and_espacio_deportivo . ", ubicacion AS 'UBICACIÓN', programa AS 'PROGRAMA', promotor AS 'PROMOTOR', num_personas AS 'NO. DE PERSONAS'";
+				return $coordinates . "clave_catastral AS 'CLAVE CATASTRAL', area AS 'ÁREA EN M2', centro_deportivo AS 'CENTRO DEPORTIVO', " .$espacio_deportivo_and_colonia. ", ubicacion AS 'UBICACIÓN', programa AS 'PROGRAMA', promotor AS 'PROMOTOR', num_personas AS 'NO. DE PERSONAS'";
 			case "canchas":
 				return $coordinates . "techada AS 'TECHADA' , " . $cond_fisica_and_espacio_deportivo;
 			case "infraestructura_deportiva":
@@ -701,24 +705,34 @@ class Map_m extends CI_Model {
 
 		for($i = 0; $i < count($arrLayers); $i++) {
 			$table = '';
-			$table = strtolower($arrLayers[$i]);
-			$table = strtr( $table, $unwanted_array);
-			
-			$select = $this->switchColumnSelectedMarker($table);
+			$table = $arrLayers[$i];
+			$table = strtolower(strtr( $table, $unwanted_array));
+			$array = [
+				"CAPA" => $table
+			];
+			if($table=="giros_comerciales"){
+				$baseTable = $this->switchTable("marcador", $table);
+				$select = "BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', nombre_comercial AS 'NOMBRE', clave_catastral AS 'CLAVE CATASTRAL',  localidad AS 'LOCALIDAD', colonia AS 'COLONIA' ";
+			}else{
+				$select = $this->switchColumnSelectedMarker($table);
+			}
 			$from = $this->switchTableSelectedMarker($table);
-			
+			//$from = str_replace("`","",$from);
 			//$select = "SELECT " . $select;
 			//$from = $this->switchTable('capa', $arrLayers[$i]) . " AS BT";
 			//print_r($select.$from);
 			$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (?";
-
+		
+			
 			for($j = 0; $j < count($jaggedArrayByLayer[$i]); $j++) {
 				$dtRow = $jaggedArrayByLayer[$i][$j];
 				$cond = $this->switchColumn($tableData[$dtRow]->campo, $tableData[$dtRow]->valor);
-
+				//print_r($cond);
+			
 				if($where[-1] == "?") { // ? symbol is a flag that tells whether a condition has been added
 					$where = substr($where, 0, -1);		// Remove ? symbol
 					$where = $where . $cond;			// Concatenate first condition
+					
 				}
 				else { // Concatenate remaining conditions with either OR or AND depending on the selected rbtn
 					$where = $where . ' ' . $booleanOp . ' ' . $cond;
@@ -727,42 +741,31 @@ class Map_m extends CI_Model {
 
 			$where = $where . ")"; // Close user-added conditions
 			//print_r($select.$from.$where);
-			if($table == "giros_comerciales"){
-                $this->db->select($select);
-                $this->db->from($from);
-                $this->db->where($where);
-            }else{
 
 			//print_r($select.$from.$where);
 			$this->db->select($select);
 			$this->db->from($from);
+			$this->db->where($where);
+		
 			/* Some layers have columns from another table (not the base table in ctrl_select_capas)
 			that is not a catalog and thus require an explicit inner join */
-            $arrJoinCondition = $this->getJoinCondition($arrLayers[$i]);
+            /*$arrJoinCondition = $this->getJoinCondition($arrLayers[$i]);
 			if($arrJoinCondition !== NULL)
 				$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
 				$this->db->where($where);
-
+			*/
 			//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
             //array_push($arrQueryBuilder, $stmt);
                             
-            }
-			/* Some layers have columns from another table (not the base table in ctrl_select_capas)
-			that is not a catalog and thus require an explicit inner join */
-			$arrJoinCondition = $this->getJoinCondition($arrLayers[$i]);
-			if($arrJoinCondition !== NULL)
-				$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
-				$this->db->where($where);
-
-			//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
-			//array_push($arrQueryBuilder, $stmt);
 			$queryResult = $this->db->get()->result_array();
+			//$queryResult = 
 			//print_r($queryResult);
-			//$returnData = array_merge($returnData, $queryResult);
+			$returnData = array_merge($returnData, $queryResult);
 
 		}
-		
-		return $queryResult;
+		return $returnData;
 	}
+
+	
 }
 ?>

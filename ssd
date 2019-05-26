@@ -1,0 +1,366 @@
+[33mcommit 51b323d626978d621a6e811a27ac5aa718bfdcfd[m[33m ([m[1;36mHEAD -> [m[1;32mnfiltros[m[33m, [m[1;31morigin/nfiltros[m[33m)[m
+Author: Carolina <c.palma.p0@gmail.com>
+Date:   Mon Apr 29 09:07:33 2019 -0500
+
+    filtros, modal, cambios de color en texto
+
+[33mcommit 4dfccdc2613d7899864d394c27f60e5125fc8393[m
+Merge: 2e017f5 34c996e
+Author: Carolina <c.palma.p0@gmail.com>
+Date:   Sun Apr 7 17:57:27 2019 -0500
+
+    Merge branch 'nfiltros' of https://github.com/davidoso/mapa-catastro
+
+[33mcommit 34c996e2bb7d71ef3636dd8f06868fa4b8923c8d[m
+Author: Carolina <2012palma6579@gmail.com>
+Date:   Sun Apr 7 10:47:22 2019 -0600
+
+    filtros, iconos
+
+[33mcommit 2e017f58b8c9fbd555e95d91474c997f041f3561[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Apr 7 10:03:04 2019 -0500
+
+    Change footer color
+
+[33mcommit 3397780eec918581992c33c1cd3799acdbb0910f[m
+Author: Carolina <2012palma6579@gmail.com>
+Date:   Sun Mar 31 12:23:50 2019 -0600
+
+    cambio de colores, filtros
+
+[33mcommit 044cde2f217bb4b1811e5d49b4edcc615a062c7a[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Mar 24 22:43:04 2019 -0600
+
+    Remove localhost comment
+
+[33mcommit 7548d46f46bdef4d36dad2eebb1ac0c3dc2d6744[m[33m ([m[1;32mmaster[m[33m)[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Mar 2 21:40:48 2019 -0600
+
+    Comment details
+
+[33mcommit 585add538b7158992e433e72e32ec8f9f3fbab2c[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Feb 23 21:29:45 2019 -0600
+
+    Standarize curly braces on a new line
+
+[33mcommit bcb5a20c01d2394b4530e0e07d7945a374a94ab4[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Feb 2 15:10:33 2019 -0600
+
+    Clean a couple of code lines
+
+[33mcommit e9c3bda98d744384d2bad462035281aff6a00478[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Jan 27 20:39:03 2019 -0600
+
+    Solved btn-light style from cbCapas and cbShapes
+
+[33mcommit bc66ac3be1dd1db979103ab23a966b7e8fd5f87b[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Mon Dec 31 17:18:53 2018 -0600
+
+    Remove 500 ms timeout in edit-mode
+
+[33mcommit 19264fa79217f77d70b6532eb95d854eb1fdfc2a[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Mon Dec 17 13:41:22 2018 -0600
+
+    New README
+
+[33mcommit 0abcdc12303abe4a6264e9fc578f7077b70162a1[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Mon Dec 17 13:00:23 2018 -0600
+
+    New color for markets and street markets markers
+
+[33mcommit 8591f86380945b037be7d4ef9ba62be498dd1c8f[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Mon Dec 17 11:55:51 2018 -0600
+
+    Removing useless breaks from switch cases. New README
+
+[33mcommit 89d310af98740a51727921fd10821827dcbda337[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Mon Dec 17 11:28:23 2018 -0600
+
+    Trees layer added. Water bodies and streams cannot be added cuz they're not single points
+
+[33mcommit 534b9018e5c3a98e16b8eaebd76078c828d25a10[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Dec 16 22:56:28 2018 -0600
+
+    4 layers added: markets, street markets and their stalls
+
+[33mcommit 4a8a41ccf1a6f386eccf90a3aec47a1f5d188ba8[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Dec 15 23:49:13 2018 -0600
+
+    Displaying business name first instead of type
+
+[33mcommit 340a65764f3b2c4ac1de8279232ac1528dbd35c4[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Dec 15 20:45:37 2018 -0600
+
+    3 layers added: hospitals, trades and malls/markets
+
+[33mcommit bc9e01e3a0b9b2d2dff0110e1d1d3ca2324c5604[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Dec 9 14:58:35 2018 -0600
+
+    Validate maxlength attribute of inputValor
+
+[33mcommit f13f8243a411175f30edf85e40ed2c0e7916e77a[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Dec 8 18:11:10 2018 -0600
+
+    Renaming toast notification js library from Stellar Admin
+
+[33mcommit 5e60b3e813286b21a54c106b3cc7c675c300fb82[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Dec 8 14:33:52 2018 -0600
+
+    Solving margin-left for ul in sidebar and accordion 1 from FAQ
+
+[33mcommit f6789f0d2f8553de0177fd1314b654320e77a957[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Dec 8 12:24:41 2018 -0600
+
+    New README
+
+[33mcommit 3b736d7f88126da8d12a4e5327e4121504851eec[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Dec 8 09:48:06 2018 -0600
+
+    Help modal and final touch before uploading new version to hosting
+
+[33mcommit 50c0f9989d434f6f4723f915f48d4341df5ea37d[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Thu Dec 6 17:02:38 2018 -0600
+
+    Goodbye sqlqueries folder. New README
+
+[33mcommit d19e3d68173c3f7fdc63b4994926c1ef09d917bc[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Thu Dec 6 15:47:18 2018 -0600
+
+    getMapTotals ajax call for AND rbtn and selected marker modal ready
+
+[33mcommit 05badef230bb983eb33edf53b8d65535fca13ac8[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Wed Dec 5 20:07:09 2018 -0600
+
+    getMapTotals ajax call for OR rbtn ready (updates total cells in dt)
+
+[33mcommit ddf9b3cac56965e9935142495371b96c4ee8e43d[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Tue Dec 4 18:58:44 2018 -0600
+
+    getMapMarkers ajax call ready and also clearMap and clearAll options in sidebar
+
+[33mcommit 7f44281c9fa6e87585c756611352e720e1eb3c11[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Mon Dec 3 16:51:15 2018 -0600
+
+    Migration from PDO queries from sqlqueries folder to Map_m model
+
+[33mcommit 1034130ec3d934aeda15cccb1261ffe5bf82942e[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Fri Nov 30 16:28:11 2018 -0600
+
+    Edit option in datatable and toast notifications of edit/delete
+
+[33mcommit ba0c694e03dbfff0e4a838a363f7b1029bc66155[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Thu Nov 29 20:24:06 2018 -0600
+
+    Sweet alerts for ltf and ftl. Frontend validations are almost ready
+
+[33mcommit 9f8fc3cd970cf443e1cd128d57d32c932fc6399b[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Wed Nov 28 20:55:18 2018 -0600
+
+    Toast notifications and switchOption() structure with data-opt attribute
+
+[33mcommit 27d15bcc6eaefd7dfb8db5a39c1396fa237aa2f3[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Wed Nov 28 16:45:04 2018 -0600
+
+    Div map and query addition of queries  to dt from cbValores and inputValor ready
+
+[33mcommit c17a5e0cbce885fdf8d20f843ce716e2bf139056[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Mon Nov 26 18:00:02 2018 -0600
+
+    First commit in branch to develop new frontend
+
+[33mcommit 3f909cf71dfcae35e69f269576db847f87d8bc29[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Mon Nov 26 17:29:35 2018 -0600
+
+    Zip and beta files
+
+[33mcommit 435333087189616d21cc98e8b59d97e5a1cee1e9[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Nov 25 14:39:16 2018 -0600
+
+    Tooltips on column and value
+
+[33mcommit e54e01363204bb38cbbd04a6f2ac3958378df240[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Nov 25 14:07:39 2018 -0600
+
+    Sidebar ready
+
+[33mcommit a5b8c5cfb3b9290a1bc9ce9e796e6bb0c49358e2[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Nov 25 00:22:13 2018 -0600
+
+    Tidying up sidebar and saving map scripts as js files instead of php views
+
+[33mcommit 422d955c8466a20eba963c662fd5464c17660efb[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Nov 24 19:49:21 2018 -0600
+
+    Organizing sections and improving sidebar wireframe
+
+[33mcommit 453c6fdf4da344e4701c38216251ec3570625951[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Nov 24 16:41:52 2018 -0600
+
+    git checkout <c hash> filter.php to save it in views/beta
+
+[33mcommit ecb9e7bd4e4f49cb2cd84491d3239e262a753149[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Nov 24 16:11:23 2018 -0600
+
+    Major turning point: new frontend with Stellar dashboard
+
+[33mcommit 057938a572253ec5720637f9726ad045fdc6d12c[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Mon Nov 19 13:39:54 2018 -0600
+
+    3 comboboxes ready. Missing dropdown menu instead of 5 buttons
+
+[33mcommit a8d2b2d621d0d99ad70cec3f8b0365733eb6a322[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Nov 18 21:05:36 2018 -0600
+
+    getValues AJAX call and new bootstrap.js to set focus on comboboxes
+
+[33mcommit ab0e20a03001db6e04f5b8252a0f952512c0536e[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sat Nov 17 20:48:55 2018 -0600
+
+    getCampos AJAX call and new cbCapas selectbox with awesome bootstrap library
+
+[33mcommit 6525b24aa55ba33138ad5c40d038fddafa4c4fd7[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Fri Nov 9 20:21:53 2018 -0600
+
+    MariaDB 10.1 vs MySQL 5.5 comparison
+
+[33mcommit 0f2c01d99ed2170fe07951eda01d12573124cbb1[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Thu Nov 8 17:09:24 2018 -0600
+
+    README.md v4
+
+[33mcommit c395d5dc990427db874613be3c08546ab147a3d1[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Thu Nov 8 16:54:56 2018 -0600
+
+    README.md v3
+
+[33mcommit 3ec49ceeb4e569df9e41a1e40058b315f96de89c[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Thu Nov 8 16:44:30 2018 -0600
+
+    README.md v2
+
+[33mcommit a27a67de3cb8dacf7c57352e9895eea62b06d75a[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Thu Nov 8 14:18:54 2018 -0600
+
+    README.md
+
+[33mcommit ade5cad653ccf75e40edb091496f7891eee3665b[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Wed Nov 7 16:41:38 2018 -0600
+
+    Labels for radio buttons
+
+[33mcommit 0ca618475519ee648b5a49f8be3b7e3d25fa9a94[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Nov 4 18:48:04 2018 -0600
+
+    Modal bg eee. Idk why it looks  white at times
+
+[33mcommit ea6c9b5730820dde94ed49bdc40d39cabf511bb0[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Nov 4 18:34:53 2018 -0600
+
+    After uploading project to 1and1 host
+
+[33mcommit e1034df532d700842ca7abe465b5fdd0a8a2cdc9[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Nov 4 14:34:29 2018 -0600
+
+    README.txt v3
+
+[33mcommit 066cab88068405cb5b0df162d76e7f1fd7a163c9[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Nov 4 13:02:19 2018 -0600
+
+    Structuring sqlqueries and new column marcador in ctrl_select_capas
+
+[33mcommit a1e037af2d2642902d655c123c6373096c5380ab[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Wed Oct 31 14:39:45 2018 -0600
+
+    README.txt v2
+
+[33mcommit cad63adc331da485da49bc0eedb2e1296f41fad2[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Wed Oct 31 14:10:25 2018 -0600
+
+    README.txt
+
+[33mcommit 898a2b68109abb10618888175dd45c0a8140a14b[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Wed Oct 31 14:06:41 2018 -0600
+
+    New README and arranging views in sections and modals folders
+
+[33mcommit 46a0e2e297bfb8138fb1c9a95992cc76002d8569[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Fri Oct 26 12:48:02 2018 -0500
+
+    New favicon
+
+[33mcommit 7c7e4e8d155f2f53615bd87bd466a5bfcf779fcb[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Sep 30 21:38:34 2018 -0500
+
+    Giving Mapa_model an alias
+
+[33mcommit ba86f95e93122f3d62fad42beffa4edddaff5216[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Sun Sep 30 20:49:40 2018 -0500
+
+    Removing whitespaces and line breaks to make code pretty
+
+[33mcommit ebadcf5b56162f789738926a60d3e1f5b9967b29[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Fri Sep 28 10:32:10 2018 -0500
+
+    Testing CI query builder in mapa_model instead of manual queries
+
+[33mcommit f7e645f39f02c41578e2aa7f2d658d7cd9bbb84d[m
+Author: davidoso <jdavidosori96@gmail.com>
+Date:   Fri Sep 28 09:32:48 2018 -0500
+
+    First commit after MSSQL to MariaDB migration

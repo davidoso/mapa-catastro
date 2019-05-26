@@ -95,4 +95,3 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => FALSE
 );
-$db['default']['port'] = 3333;
