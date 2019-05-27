@@ -75,3 +75,5 @@ Comprobar el nombre con el que aparecerán los campos por capa en `cbCampos` eje
 [Mapa digital actual]: <http://www.catastrocolima.gob.mx/cartografia.html>
 [Propuesta de solución beta]: <http://ateneorid.com/osint-beta>
 [Propuesta de solución mejorada]: <http://ateneorid.com/osint>
+
+https://loading.io/

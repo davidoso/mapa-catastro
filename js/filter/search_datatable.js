@@ -58,12 +58,15 @@ $(document).ready(function() {
         if(e.which == 13) { // Enter keycode
             this.value = this.value.toUpperCase().replace(/\s{2,}/g, " ").trim(); // Same as focusout in filter.js
             var icono = document.getElementById("cbCapas").value;
+            icono = icono.split(' ').join('_');
             icono = icono.replace("á", "a");
             icono = icono.replace("é", "e");
             icono = icono.replace("í", "i");
             icono = icono.replace("ó", "o");
             icono = icono.replace("ú", "u");
-            icono = icono.replace(" ", "_");
+            
+            
+          
             var capa = document.getElementById("cbCapas").value;
             var campo = document.getElementById("cbCampos").value;
             var valor = this.value;
@@ -92,13 +95,14 @@ $(document).ready(function() {
         //icono error ?
         var icono = document.getElementById("cbCapas").value;
         icono = icono.toLowerCase();
+        icono = icono.split(' ').join('_');
         icono = icono.replace("á", "a");
         icono = icono.replace("é", "e");
         icono = icono.replace("í", "i");
         icono =  icono.replace("ó", "o");
         icono =  icono.replace("ú", "u");
-        icono =  icono.replace(" ", "_");
-        
+       
+       
         icono = icono = "<img class='center' src='images/mapMarkers/" + icono + ".png'>";
         var capa = document.getElementById("cbCapas").value;
         var campo = document.getElementById("cbCampos").value;
@@ -291,13 +295,16 @@ $(document).ready(function() {
 
     function addLayer(capa) { // Add row either from dropdown or label option click in sidebar
 
-        var icono = capa.toLowerCase()
+        var icono 
+        icono = capa.toLowerCase()
+        icono = icono.split(' ').join('_');
         icono = icono.replace("á", "a");
         icono = icono.replace("é", "e");
         icono = icono.replace("í", "i");
-        icono =  icono.replace("ó", "o");
-        icono =  icono.replace("ú", "u");
-        icono =  icono.replace(" ", "_");
+        icono = icono.replace("ó", "o");
+        icono = icono.replace("ú", "u");
+       
+       
         tabla.row.add({
             "icono": "<img class='center' src='images/mapMarkers/" + icono + ".png'>",
             "capa": capa,
@@ -366,12 +373,20 @@ $(document).ready(function() {
         var t = document.getElementById("boton-tabla");
             m.style.color ="orange";
             t.style.color ="white";
-        
+
+        var div_t = document.createElement("div");
+        var title = document.createElement("h1");
+        div_t.className = "div_t";
+        div_t.setAttribute("align", "center");
+        title.innerHTML = "No hay datos que mostrar";
+        div_t.appendChild(title);
+
+       
         var exportar_b = document.getElementById("exportar-boton");
         exportar_b.style.visibility = "hidden";
 
         remElement(document.getElementById('map-table'));
-        
+        y.appendChild(div_t);
     }
 
     // Removing eleemnts usig outerHTML property

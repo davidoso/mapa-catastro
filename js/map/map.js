@@ -330,6 +330,16 @@ function continueIfQueryIsValid(datatableObj) {
         url: "index.php/App_c/getMapMarkers",
         data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
         dataType: "json",
+        cache: false,
+       /* shows gif loader 
+       beforeSend: function(){
+            $('#map').hide();
+            $('#imagen').show();
+        },
+        complete: function(){
+            $('#imagen').hide();
+            $('#map').show();
+        },*/
         success: function(data) {
             //console.log("Markers: " + data);
             /* This AJAX call is slower than getMapTotals and requires a lot of time to add the markers
@@ -353,74 +363,92 @@ function continueIfQueryIsValid(datatableObj) {
         data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
         dataType: "json",
         success: function(data) {
-            var exportar_b = document.getElementById("exportar-boton");
-            //var tableData = JSON.stringify(data,null,4);
-            myBooks = data;
-            var col = [];
-            for (var i = 0; i < myBooks.length; i++) {
-                for (var key in myBooks[i]) {
-                    if (col.indexOf(key) === -1) {
-                        col.push(key);
+
+                var exportar_b = document.getElementById("exportar-boton");
+                var div_t = document.createElement("div");
+                var title = document.createElement("h1");
+                //var tableData = JSON.stringify(data,null,4);
+                myData = data;
+                var col = [];
+                for (var i = 0; i < myData.length; i++) {
+                    for (var key in myData[i]) {
+                        if (col.indexOf(key) === -1) {
+                            col.push(key);
+                        }
                     }
                 }
-            }
-    
-            // Create table.
-            var div_t = document.createElement("div");
-            var title = document.createElement("h1");
-
-            div_t.className = "div_t";
-            title.innerHTML = "Tabla de datos";
-            div_t.appendChild(title);
-
-            var table = document.createElement("table");
-            var header = table.createTHead();
-
-            table.className = "table table-striped table-bordered dataTable no-footer display";
-            table.setAttribute("id", "myDataSetTable");
-            table.setAttribute("cellspacing", "0");
-            table.setAttribute("width", "100%");
-  
-            header.className = "tbl-blue-th";
-            // Create table header row from json
-           
-            var tr = table.insertRow(-1);                   // Table row
-            var tr1 = document.createElement("tr"); 
-            table.setAttribute("role", "row");
-            for (var i = 0; i < col.length; i++) {
-                var th = document.createElement("th");      // table header
-                th.innerHTML = col[i];
-                tr.appendChild(th);
-                tr1.appendChild(th);
-                header.appendChild(tr1);
-            }
-    
-            // Add the data to de table
-            for (var i = 0; i < myBooks.length; i++) {
-
-                for (var j = 0; j < col.length; j++) {
-                    var tabCell = tr.insertCell(-1);
-                        if(myBooks[i][col[j]]==undefined)
-                        tabCell.innerHTML = "?"
-                        else
-                        tabCell.innerHTML = myBooks[i][col[j]];
-                }
-                tr = table.insertRow(-1);
-            }
-            var rowCount = table.rows.length;
-            table.deleteRow(rowCount -1);
+                if(myData.length == 0) {
             
-            // Add the json data to the div container
-            var divContainer = document.getElementById("map-table");
-            divContainer.innerHTML = "";
-            //divContainer.appendChild(thead);
-            divContainer.appendChild(div_t);
-            divContainer.appendChild(table);
-            //document.getElementById("map-table").innerHTML += tableData; 
-            $('#myDataSetTable').DataTable({ 
-                "destroy": true, //use for reinitialize datatable
-            });
-            exportar_b.style.visibility = "visible";
+                    div_t.className = "div_t";
+                    div_t.setAttribute("align", "center");
+                    title.innerHTML = "No hay datos que mostrar";
+                    div_t.appendChild(title);
+
+                    var divContainer = document.getElementById("map-table");
+                    divContainer.innerHTML = "";
+                    //divContainer.appendChild(thead);
+                    divContainer.appendChild(div_t);
+                    exportar_b.style.visibility = "hidden";
+                } else {
+              // Create table.
+              
+
+                div_t.className = "div_t";
+                title.innerHTML = "Tabla de datos";
+                div_t.appendChild(title);
+
+                var table = document.createElement("table");
+                var header = table.createTHead();
+
+                table.className = "table table-striped table-bordered dataTable no-footer display";
+                table.setAttribute("id", "myDataSetTable");
+                table.setAttribute("cellspacing", "0");
+                table.setAttribute("width", "100%");
+    
+                header.className = "tbl-blue-th";
+                // Create table header row from json
+            
+                var tr = table.insertRow(-1);                   // Table row
+                var tr1 = document.createElement("tr"); 
+                table.setAttribute("role", "row");
+                for (var i = 0; i < col.length; i++) {
+                    var th = document.createElement("th");      // table header
+                    th.innerHTML = col[i];
+                    tr.appendChild(th);
+                    tr1.appendChild(th);
+                    header.appendChild(tr1);
+                }
+        
+                // Add the data to de table
+                for (var i = 0; i < myData.length; i++) {
+
+                    for (var j = 0; j < col.length; j++) {
+                        var tabCell = tr.insertCell(-1);
+                            if((myData[i][col[j]]==undefined) || (myData[i][col[j]]=="")){
+                            tabCell.innerHTML = "?";
+                         
+                            }else{
+                            tabCell.innerHTML = myData[i][col[j]];
+                            
+                            }
+                    }
+                    tr = table.insertRow(-1);
+                }
+                var rowCount = table.rows.length;
+                table.deleteRow(rowCount -1);
+                
+                // Add the json data to the div container
+                var divContainer = document.getElementById("map-table");
+                divContainer.innerHTML = "";
+                //divContainer.appendChild(thead);
+                divContainer.appendChild(div_t);
+                divContainer.appendChild(table);
+                //document.getElementById("map-table").innerHTML += tableData; 
+                $('#myDataSetTable').DataTable({ 
+                    "destroy": true, //use for reinitialize datatable
+                });
+                exportar_b.style.visibility = "visible";
+                }
         },
         error: function() {
             console.log("Error! Markers could not be retrieved");
