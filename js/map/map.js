@@ -453,6 +453,7 @@ function continueIfQueryIsValid(datatableObj) {
         error: function() {
             console.log("Error! Markers could not be retrieved");
             $('body').css('cursor', 'auto');
+            
         }
 
       

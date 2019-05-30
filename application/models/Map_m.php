@@ -522,7 +522,7 @@ class Map_m extends CI_Model {
 			case "tianguis":
 				return $coordinates . "nombre AS 'TIANGUIS'," . $colonia .", calle AS 'CALLE',  CONCAT(dia, ' ', horario) AS 'HORARIO', area AS 'ÁREA EN M2'";
 			case "locatarios_mercados":
-				return $coordinates . "M.nombre AS 'MERCADO', giro AS 'GIRO', local_ AS 'NO. DE LOCAL', observaciones AS 'OBSERVACIONES' ";
+				return $coordinates . "M.nombre AS 'MERCADO', giro AS 'GIRO', local_ AS 'NO. DE LOCAL', observaciones AS 'OBSERVACIONES'";
 			case "tianguistas":
 				return $coordinates . "T.nombre AS 'TIANGUIS', giro AS 'GIRO', metros AS 'ÁREA EN M2', union_ AS 'UNIÓN' ";
 
@@ -712,48 +712,33 @@ class Map_m extends CI_Model {
 			$array = [
 				"CAPA" => $table
 			];
-			switch($table) {
-				case "giros_comerciales":
-					$select = "BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', nombre_comercial AS 'NOMBRE', clave_catastral AS 'CLAVE CATASTRAL',  localidad AS 'LOCALIDAD', colonia AS 'COLONIA' ";
-					$from = $this->switchTableSelectedMarker($table);
-					break;
-				/*case "locatarios_mercados":
-					$select = $this->switchColumnSelectedMarker($table);					
-					$from = "comercio_tbl_locatarios_mercados AS BT JOIN comercio_tbl_mercados AS M ON BT.id_mercado = M.id ";
-					break;*/
-				default:
-					$select = $this->switchColumnSelectedMarker($table);
-					$from = $this->switchTableSelectedMarker($table);
-					break;
-			}
-			
-			/*
-			if($table=="giros_comerciales"){
-				$baseTable = $this->switchTable("marcador", $table);
+			if("giros_comerciales"){
 				$select = "BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', nombre_comercial AS 'NOMBRE', clave_catastral AS 'CLAVE CATASTRAL',  localidad AS 'LOCALIDAD', colonia AS 'COLONIA' ";
+				$from = $this->switchTableSelectedMarker($table);
 			}else{
 				$select = $this->switchColumnSelectedMarker($table);
+				$from = $this->switchTableSelectedMarker($table);
 			}
-			$from = $this->switchTableSelectedMarker($table);*/
-
-			//$from = str_replace("`","",$from);
-			//$select = "SELECT " . $select;
-			//$from = $this->switchTable('capa', $arrLayers[$i]) . " AS BT";
-			
+		
 			$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (?";
 		
-			
 			for($j = 0; $j < count($jaggedArrayByLayer[$i]); $j++) {
 				$dtRow = $jaggedArrayByLayer[$i][$j];
 				$cond = $this->switchColumn($tableData[$dtRow]->campo, $tableData[$dtRow]->valor);
-				//print_r($cond);
+				$condicion = explode(" =", $cond);
 			
+				if($condicion[0]=="id_cond_fisica" && $table=="semaforos"){
+					$condicion[0]="CE.id_cond_fisica";
+					$cond=$condicion[0]."=".$condicion[1];
+				
+				
+				}
 				if($where[-1] == "?") { // ? symbol is a flag that tells whether a condition has been added
 					$where = substr($where, 0, -1);		// Remove ? symbol
-					$where = $where . $cond;			// Concatenate first condition
+					$where = $where . $cond;	// Concatenate first condition
+						
 					
-				}
-				else { // Concatenate remaining conditions with either OR or AND depending on the selected rbtn
+				}else { // Concatenate remaining conditions with either OR or AND depending on the selected rbtn
 					$where = $where . ' ' . $booleanOp . ' ' . $cond;
 				}
 			}
@@ -761,22 +746,22 @@ class Map_m extends CI_Model {
 			$where = $where . ")"; // Close user-added conditions
 			//print_r($select.$from.$where);
 
+			if($table=="locatarios_mercados"){
+				$queryResult = $this->db->query("SELECT BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', M.nombre AS 'MERCADO', giro AS 'GIRO', local_ AS 'NO. DE LOCAL', observaciones AS 'OBSERVACIONES' FROM comercio_tbl_locatarios_mercados AS BT JOIN comercio_tbl_mercados AS M ON BT.id_mercado = M.id WHERE ". $where)->result_array();
+			}else{
+				if($table=="tianguistas"){
+					$queryResult = $this->db->query("SELECT BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', T.nombre AS 'TIANGUIS', giro AS 'GIRO', metros AS 'ÁREA EN M2', union_ AS 'UNIÓN' FROM comercio_tbl_tianguistas AS BT JOIN comercio_tbl_tianguis AS T ON BT.id_tianguis = T.id WHERE ". $where)->result_array();
+				}else{
+					$this->db->select($select);
+					$this->db->from($from);
+					$this->db->where($where);
+					$queryResult = $this->db->get()->result_array();
+				}
+	
+			}
+
+                     
 			
-			$this->db->select($select);
-			$this->db->from($from);
-			$this->db->where($where);
-		
-			/* Some layers have columns from another table (not the base table in ctrl_select_capas)
-			that is not a catalog and thus require an explicit inner join */
-            /*$arrJoinCondition = $this->getJoinCondition($arrLayers[$i]);
-			if($arrJoinCondition !== NULL)
-				$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
-				$this->db->where($where);
-			*/
-			//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
-            //array_push($arrQueryBuilder, $stmt);
-                            
-			$queryResult = $this->db->get()->result_array();
 			$returnData = array_merge($returnData, $queryResult);
 
 		}
