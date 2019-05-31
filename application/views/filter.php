@@ -16,7 +16,7 @@
             <div class="col-lg-12 grid-margin">
               <div class="card overflow-hidden dashboard-curved-chart new-view">
                 <div class="card-body mx-3">
-                  <div class="table-responsive">
+                  <div class="table-responsive"> 
                     <table class="table table-striped table-bordered" id="myDataTable" width="100%" cellspacing="0">
                       <thead class="tbl-blue-th">
                         <tr>
@@ -74,7 +74,7 @@ $(document).ready(
     }
 
   );
-	
+	 
 
 
 function myFunctionMap() {

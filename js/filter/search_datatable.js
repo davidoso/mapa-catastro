@@ -304,7 +304,6 @@ $(document).ready(function() {
         icono = icono.replace("ó", "o");
         icono = icono.replace("ú", "u");
        
-       
         tabla.row.add({
             "icono": "<img class='center' src='images/mapMarkers/" + icono + ".png'>",
             "capa": capa,
@@ -334,14 +333,23 @@ $(document).ready(function() {
     }
 
     function queryMap() {
-        if(validQuery()) {
-            flickrSource.clear();   // Delete UTM2DEC points (map markers) added during the previous query
-            if(selectedMarker) {    // Delete last selected map marker in case it exists
-                selectedMarker.getFeatures().clear();
-            }
+        var featureValue = featureSelected.value;
+      
+        if(featureValue == 'None') {
             $('body').css('cursor', 'wait');
-            continueIfQueryIsValid(tabla.data()); // Calls getMapTotals() and getMapMarkers() in map.js
-        } // if(validQuery())
+            continueIfQueryIsValid(tabla.data());
+          
+        }else{
+            if(validQuery()) {
+                flickrSource.clear();   // Delete UTM2DEC points (map markers) added during the previous query
+                if(selectedMarker) {    // Delete last selected map marker in case it exists
+                    selectedMarker.getFeatures().clear();
+                }
+                $('body').css('cursor', 'wait');
+                continueIfQueryIsValid(tabla.data()); // Calls getMapTotals() and getMapMarkers() in map.js
+            } // if(validQuery())
+        }
+      
     }
 
     function clearMap() {

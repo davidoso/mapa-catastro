@@ -2,6 +2,13 @@ var maxNumberOfBoxShapes = 2;
 var flickrSource = new ol.source.Vector();
 var boxSource = new ol.source.Vector();
 
+
+function clearMap() {       //This function is repeat in search_datatable.js
+   boxSource.clear();      // Clear features in boxSource vector layer drawn with addInteraction() in map.js
+   // flickrSource.clear();   // Clear map markers from previous query drawn with printMarkers() in map.js
+    if(selectedMarker)      // Clear last selected map marker if exists
+        selectedMarker.getFeatures().clear();
+}
 // https://stackoverflow.com/questions/24315801/how-to-add-markers-with-openlayers-3
 // https://mapicons.mapsmarker.com
 function flickrStyle(layer) {
@@ -90,10 +97,12 @@ var draw;
  * how-to-get-the-coordinates-of-a-drawn-box-in-openlayers/38713686
 */
 // Set box shape properties after drawn
+
 function addInteraction() {
     var featureValue = featureSelected.value;
 
-    if(featureValue !== 'None') {
+   
+
         if(featureValue === 'Polygon') {
             draw = new ol.interaction.Draw({
                 source: boxSource,
@@ -101,16 +110,25 @@ function addInteraction() {
             });
             map.addInteraction(draw);
         } // Polygon
-        else {
+        else {  
             var geometryFunction;
-
+            if(featureValue === 'None') {
+               // clearMap();
+              
+                geometryFunction = ol.interaction.Draw.createRegularPolygon(1);
+                
+            }else{
             if(featureValue === 'Box') {
                 geometryFunction = ol.interaction.Draw.createBox();
             } // Box
-            else {
-                geometryFunction = ol.interaction.Draw.createRegularPolygon(4);
-            } // Square
-
+            else{
+                if(featureValue === 'Circle'){
+                    geometryFunction = ol.interaction.Draw.createRegularPolygon(200);
+                }
+                else {
+                    geometryFunction = ol.interaction.Draw.createRegularPolygon(4);
+                } // Square
+            }
             featureValue = 'Circle'; // Both box and square shape are created by using type: 'Circle'
 
             draw = new ol.interaction.Draw({
@@ -125,7 +143,8 @@ function addInteraction() {
             if(boxSource.getFeatures().length == maxNumberOfBoxShapes)
                 boxSource.clear();
         });
-    } // if(featureValue !== 'None')
+    } // Cambios if(featureValue !== 'None')
+
 }
 
 // Remove feature in case the user selects another option before finishing closing the square, box or polygon
@@ -182,15 +201,7 @@ selectedMarker.on('select', function(e) {
     var lastBox;
 
     if(selected.length) {
-        if(featureValue !== 'None') {
-            maxNumberOfBoxShapes = -1;          // Disable boxSource.clear() on draw.on('drawend')
-            draw.finishDrawing();               // Disable box shape after the user clicks the map marker
-            maxNumberOfBoxShapes = 2;           // Restore boxSource.clear() after the shape was canceled
-
-            lastBox = boxSource.getFeatures()[boxSource.getFeatures().length - 1];
-            boxSource.removeFeature(lastBox);   // Delete any trace of the shape canceled
-        }
-
+     
         selected.forEach(function(feature) {
             //console.info(feature);
             //console.log("Map marker UTM Longitude: " + feature["values_"]["longitude"]);
@@ -213,6 +224,7 @@ selectedMarker.on('select', function(e) {
                     showMarkerInfo(data, coord_x, coord_y);
                 },
                 error: function() {
+                    showToastNotif('Ocurrió un error ', 'No se pudo realizar la consulta intente de nuevo', 'bottom-right', 'error');
                     console.log("Error! Selected marker data could not be retrieved");
                     $('body').css('cursor', 'auto');
                 }
@@ -304,19 +316,22 @@ function continueIfQueryIsValid(datatableObj) {
     }
     tableData = JSON.stringify(tableData);
     //console.log("Table data after JSON:\n" + tableData);
-
-    var pointsArray = getLastFeatureCoord(); // Split all points into individual longitude or latitude
-    //console.log("Points array after JSON:\n" + pointsArray);
-
-    var booleanOp = $('input:radio[name=booleanOps]:checked').val();
-
+    var featureValue = featureSelected.value;
+    var pointsArray = [];
+    var booleanOp;
+    if(featureValue !== 'None') {
+        pointsArray = getLastFeatureCoord(); // Split all points into individual longitude or latitude
+        //console.log("Points array after JSON:\n" + pointsArray);   
+    }
+        booleanOp = $('input:radio[name=booleanOps]:checked').val();
     $.ajax({
         type: "POST",
         url: "index.php/App_c/getMapTotals",
-        data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
+        data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp ,featureValue:featureValue},
         dataType: "json",
         success: function(data) {
             //console.log("Totals: " + data);
+
             printTotals(data);
         },
         error: function() {
@@ -328,7 +343,7 @@ function continueIfQueryIsValid(datatableObj) {
     $.ajax({
         type: "POST",
         url: "index.php/App_c/getMapMarkers",
-        data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
+        data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp ,featureValue:featureValue},
         dataType: "json",
         cache: false,
        /* shows gif loader 
@@ -352,6 +367,7 @@ function continueIfQueryIsValid(datatableObj) {
                 printMarkers(data);
         },
         error: function() {
+            showToastNotif('Ocurrió un error ', 'No se pudo realizar la consulta intente de nuevo', 'bottom-right', 'error');
             console.log("Error! Markers could not be retrieved");
             $('body').css('cursor', 'auto');
         }
@@ -360,7 +376,7 @@ function continueIfQueryIsValid(datatableObj) {
     $.ajax({
         type: "POST",
         url: "index.php/App_c/getMapMarkersData",
-        data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp },
+        data: { tableData:tableData, pointsArray:pointsArray, booleanOp:booleanOp ,featureValue:featureValue},
         dataType: "json",
         success: function(data) {
 
@@ -451,6 +467,7 @@ function continueIfQueryIsValid(datatableObj) {
                 }
         },
         error: function() {
+            showToastNotif('Ocurrió un error ', 'No se pudo realizar la consulta intente de nuevo', 'bottom-right', 'error');
             console.log("Error! Markers could not be retrieved");
             $('body').css('cursor', 'auto');
             

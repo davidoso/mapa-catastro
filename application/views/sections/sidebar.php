@@ -74,10 +74,11 @@
         <li class="nav-item">
             <center>
                 <select class="selectpicker show-tick" id="cbShapes" name="cbShapes" data-style="btn-info">
-                    <option value="Box">RECTÁNGULO</option>
+                    <option value="Circle">CIRCULO</option>
                     <option value="Square">CUADRADO</option>
-                    <option value="Polygon">POLÍGONO</option>
                     <option value="None">NINGUNA</option>
+                    <option value="Polygon">POLÍGONO</option>
+                    <option value="Box">RECTÁNGULO</option>
                 </select>
             </center>
         </li>

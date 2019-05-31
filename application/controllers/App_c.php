@@ -1,6 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+ini_set('max_execution_time', 0); 
+ini_set('memory_limit','2048M');
 class App_c extends CI_Controller {
 
 	// Constructor para cargar el modelo principal
@@ -90,12 +91,14 @@ class App_c extends CI_Controller {
 
 	public function getMapSelectedMarker()
 	{
+	
 		$this->load->model('map_m', 'm');
 		$selectedMarker = $this->m->getMapSelectedMarker();
 		echo json_encode($selectedMarker);
 	}
 	public function getMapMarkersData()
 	{
+
 		$this->load->model('map_m', 'm');
 		$table = $this->m->getMapData();
 		echo json_encode($table);

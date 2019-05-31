@@ -166,9 +166,12 @@ class Map_m extends CI_Model {
 	// This function must not be edited. All the map queries must be added/changed in switchColumn()
 	public function getMapTotals()
 	{
-		$tableData = json_decode($_POST['tableData']);		// 3-column table queries (layer, column and value)
-		$pointsArray = json_decode($_POST['pointsArray']);	// Polygon coordinates in the map
-		$booleanOp = $_POST['booleanOp'];					// OR or AND operator to join WHERE clauses
+		$tableData = json_decode($_POST['tableData']);	
+		if(isset($_POST['pointsArray'])){
+			$pointsArray = json_decode($_POST['pointsArray']);	
+		}	// Polygon coordinates in the map
+		$booleanOp = $_POST['booleanOp'];	
+		$featureValue  = $_POST['featureValue'];				// OR or AND operator to join WHERE clauses
 		$returnData = array();
 		//$arrQueryBuilder = array(); // Output n sql queries after a succesful AJAX call (testing purposes)
 
@@ -179,8 +182,11 @@ class Map_m extends CI_Model {
 				// One user-added condition for each row in the datatable, despite a layer having +1 queries
 				$cond = $this->switchColumn($tableData[$i]->campo, $tableData[$i]->valor);
 				// All elements must be inside the drawn polygon area in the map
-				$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (" . $cond . ")";
-				
+				if($featureValue != "None"){
+					$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (" . $cond . ")";						
+				}else{
+					$where = $cond;
+				}
 					$this->db->select('count(BT.id) AS totalByRow');
 					$this->db->from($from);
 				
@@ -189,7 +195,7 @@ class Map_m extends CI_Model {
 				that is not a catalog and thus require an explicit inner join */
 				$arrJoinCondition = $this->getJoinCondition($tableData[$i]->capa);
 				if($arrJoinCondition !== NULL)
-					$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
+				$this->db->join($arrJoinCondition[0], $arrJoinCondition[1]);
 				$this->db->where($where);
 
 				//$stmt = $this->db->get_compiled_select(); // Save generated sql query (testing purposes)
@@ -235,8 +241,9 @@ class Map_m extends CI_Model {
 				// DB table name alias is BT
 				$from = $this->switchTable('capa', $arrLayers[$i]) . " AS BT";
 				// All elements must be inside the drawn polygon area in the map
-				$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (" . $allLayerCond . ")";
-
+				if($featureValue != "None"){
+					$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (" . $allLayerCond . ")";
+				}
 				$this->db->select('count(BT.id) AS totalByLayer');
 				$this->db->from($from);
 				/* Some layers have columns from another table (not the base table in ctrl_select_capas)
@@ -264,10 +271,12 @@ class Map_m extends CI_Model {
     // This function must not be edited. All the map queries must be added/changed in switchColumn()
 	public function getMapMarkers()
 	{
-		$tableData = json_decode($_POST['tableData']);		// 3-column table queries (layer, column and value)
-		$pointsArray = json_decode($_POST['pointsArray']);	// Polygon coordinates in the map
-		$booleanOp = $_POST['booleanOp'];					// OR or AND operator to join WHERE clauses
-
+		$tableData = json_decode($_POST['tableData']);		// 3-column table queries (layer, column and value)		
+		if(isset($_POST['pointsArray'])){
+			$pointsArray = json_decode($_POST['pointsArray']);	
+		}	// Polygon coordinates in the map
+		$booleanOp = $_POST['booleanOp'];	
+		$featureValue  = $_POST['featureValue'];	
 		/* Since queries are not sorted by layer in the datatable (tabla.data() saves the rows the way they were
 		added, despite colum sorting), $arrLayers saves the layer frontend-names. These will be converted to
 		database table-names later */
@@ -292,12 +301,16 @@ class Map_m extends CI_Model {
 
 		for($i = 0; $i < count($arrLayers); $i++) {
 			// Map marker id
+			
 			$select = "BT.id, BT.coord_x AS longitude, BT.coord_y AS latitude, lower(tr('" . $arrLayers[$i] . "', 'ÁÉÍÓÚÑ ', 'AEIOUN_')) AS layer";
 			// DB table name alias is BT
 			$from = $this->switchTable('capa', $arrLayers[$i]) . " AS BT";
 			// All elements must be inside the drawn polygon area in the map
-			$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (?";
-
+			if($featureValue != "None"){
+				$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (?";
+			}else{
+				$where = "(?";
+			}
 			for($j = 0; $j < count($jaggedArrayByLayer[$i]); $j++) {
 				$dtRow = $jaggedArrayByLayer[$i][$j];
 				$cond = $this->switchColumn($tableData[$dtRow]->campo, $tableData[$dtRow]->valor);
@@ -679,8 +692,11 @@ class Map_m extends CI_Model {
 	public function getMapData()
 	{
 		$tableData = json_decode($_POST['tableData']);		// 3-column table queries (layer, column and value)
-		$pointsArray = json_decode($_POST['pointsArray']);	// Polygon coordinates in the map
+		if(isset($_POST['pointsArray'])){
+			$pointsArray = json_decode($_POST['pointsArray']);	
+		}
 		$booleanOp = $_POST['booleanOp'];					// OR or AND operator to join WHERE clauses
+		$featureValue  = $_POST['featureValue'];	// 
 		$unwanted_array = array('Á'=>'a','É'=>'e','Í'=>'i','Ó'=>'o','Ú'=>'u',' '=>'_');
 		
 		/* Since queries are not sorted by layer in the datatable (tabla.data() saves the rows the way they were
@@ -712,16 +728,18 @@ class Map_m extends CI_Model {
 			$array = [
 				"CAPA" => $table
 			];
-			if("giros_comerciales"){
+			if($table == "giros_comerciales"){
 				$select = "BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', nombre_comercial AS 'NOMBRE', clave_catastral AS 'CLAVE CATASTRAL',  localidad AS 'LOCALIDAD', colonia AS 'COLONIA' ";
 				$from = $this->switchTableSelectedMarker($table);
 			}else{
 				$select = $this->switchColumnSelectedMarker($table);
 				$from = $this->switchTableSelectedMarker($table);
 			}
-		
+			if($featureValue != "None"){
 			$where = "ST_INTERSECTS(ST_GeomFromText('Polygon((" . $this->pointsArrayToString($pointsArray) . "))'), ST_GeomFromText( CONCAT('POINT(', CONVERT(BT.coord_x, CHAR(20)), ' ', CONVERT(BT.coord_y, CHAR(20)), ')') )) AND (?";
-		
+			}else{
+				$where = "(?";
+			}
 			for($j = 0; $j < count($jaggedArrayByLayer[$i]); $j++) {
 				$dtRow = $jaggedArrayByLayer[$i][$j];
 				$cond = $this->switchColumn($tableData[$dtRow]->campo, $tableData[$dtRow]->valor);
