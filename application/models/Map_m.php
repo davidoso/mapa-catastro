@@ -644,7 +644,7 @@ class Map_m extends CI_Model {
 	}
 
 	public function getMapSelectedMarker()
-	{
+	{  
 		$markerData = json_decode($_POST['markerData']); // 3-column map marker (coord_x, coord_y and marker name)
 		
 		// Select columns depending on layer selected
@@ -705,6 +705,7 @@ class Map_m extends CI_Model {
 		$arrLayers = array();
 		$jaggedArrayByLayer = array();
 		$returnData = array();
+	
 		//$arrQueryBuilder = array(); // Output n sql queries after a succesful AJAX call (testing purposes)
 
 		for($dtRow = 0; $dtRow < count($tableData); $dtRow++) {
@@ -720,14 +721,13 @@ class Map_m extends CI_Model {
 			$i = array_search($tableData[$dtRow]->capa, $arrLayers);
 			array_push($jaggedArrayByLayer[$i], $dtRow);
 		}
-
+		$i = 0;
+		$content = 0;	
 		for($i = 0; $i < count($arrLayers); $i++) {
 			$table = '';
 			$table = $arrLayers[$i];
 			$table = strtolower(strtr( $table, $unwanted_array));
-			$array = [
-				"CAPA" => $table
-			];
+
 			if($table == "giros_comerciales"){
 				$select = "BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', nombre_comercial AS 'NOMBRE', clave_catastral AS 'CLAVE CATASTRAL',  localidad AS 'LOCALIDAD', colonia AS 'COLONIA' ";
 				$from = $this->switchTableSelectedMarker($table);
@@ -770,18 +770,23 @@ class Map_m extends CI_Model {
 				if($table=="tianguistas"){
 					$queryResult = $this->db->query("SELECT BT.coord_y AS 'LATITUD', BT.coord_x AS 'LONGITUD', T.nombre AS 'TIANGUIS', giro AS 'GIRO', metros AS 'ÁREA EN M2', union_ AS 'UNIÓN' FROM comercio_tbl_tianguistas AS BT JOIN comercio_tbl_tianguis AS T ON BT.id_tianguis = T.id WHERE ". $where)->result_array();
 				}else{
+				
 					$this->db->select($select);
 					$this->db->from($from);
 					$this->db->where($where);
 					$queryResult = $this->db->get()->result_array();
+					/*$content = (count($queryResult))+$content;
+					while($i<$content){
+						$queryResult[$i] = array('CAPA'=>$table)+$queryResult[$i]; 
+						$i++;*/
+					}
 				}
 	
 			}
-
-                     
+		
+			
 			
 			$returnData = array_merge($returnData, $queryResult);
-
 		}
 		return $returnData;
 	}

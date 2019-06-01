@@ -64,9 +64,7 @@ $(document).ready(function() {
             icono = icono.replace("í", "i");
             icono = icono.replace("ó", "o");
             icono = icono.replace("ú", "u");
-            
-            
-          
+
             var capa = document.getElementById("cbCapas").value;
             var campo = document.getElementById("cbCampos").value;
             var valor = this.value;
@@ -336,6 +334,10 @@ $(document).ready(function() {
         var featureValue = featureSelected.value;
       
         if(featureValue == 'None') {
+            flickrSource.clear();   // Delete UTM2DEC points (map markers) added during the previous query
+            if(selectedMarker) {    // Delete last selected map marker in case it exists
+                selectedMarker.getFeatures().clear();
+            }
             $('body').css('cursor', 'wait');
             continueIfQueryIsValid(tabla.data());
           

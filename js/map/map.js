@@ -3,9 +3,9 @@ var flickrSource = new ol.source.Vector();
 var boxSource = new ol.source.Vector();
 
 
-function clearMap() {       //This function is repeat in search_datatable.js
+function clearMapNone() {       //This function is repeat in search_datatable.js
    boxSource.clear();      // Clear features in boxSource vector layer drawn with addInteraction() in map.js
-   // flickrSource.clear();   // Clear map markers from previous query drawn with printMarkers() in map.js
+  // flickrSource.clear();   // Clear map markers from previous query drawn with printMarkers() in map.js
     if(selectedMarker)      // Clear last selected map marker if exists
         selectedMarker.getFeatures().clear();
 }
@@ -113,10 +113,8 @@ function addInteraction() {
         else {  
             var geometryFunction;
             if(featureValue === 'None') {
-               // clearMap();
-              
-                geometryFunction = ol.interaction.Draw.createRegularPolygon(1);
-                
+                clearMapNone();
+                            
             }else{
             if(featureValue === 'Box') {
                 geometryFunction = ol.interaction.Draw.createBox();
@@ -235,6 +233,7 @@ selectedMarker.on('select', function(e) {
 
 // When jQuery has retrieved the data, this creates features for each layer element and adds them to the map
 function printMarkers(data) {
+
     // Required variables for each element in the data array
     var feature, coordArray, lon, lat, coordinate, geometry;
     // We need to transform the geometries into the view's projection
@@ -385,6 +384,10 @@ function continueIfQueryIsValid(datatableObj) {
                 var title = document.createElement("h1");
                 //var tableData = JSON.stringify(data,null,4);
                 myData = data;
+               // var capa = myData['CAPA'];
+                //console.log(capa);
+                //delete myData['CAPA'];
+               console.log(myData);
                 var col = [];
                 for (var i = 0; i < myData.length; i++) {
                     for (var key in myData[i]) {
@@ -393,6 +396,7 @@ function continueIfQueryIsValid(datatableObj) {
                         }
                     }
                 }
+                console.log(myData);
                 if(myData.length == 0) {
             
                     div_t.className = "div_t";
@@ -423,11 +427,12 @@ function continueIfQueryIsValid(datatableObj) {
     
                 header.className = "tbl-blue-th";
                 // Create table header row from json
-            
+               
                 var tr = table.insertRow(-1);                   // Table row
                 var tr1 = document.createElement("tr"); 
                 table.setAttribute("role", "row");
                 for (var i = 0; i < col.length; i++) {
+                    
                     var th = document.createElement("th");      // table header
                     th.innerHTML = col[i];
                     tr.appendChild(th);
