@@ -4,6 +4,7 @@
 - [Propuesta de solución mejorada]: 2a versión. Para producción
 *user*: catastro
 *pwd*: catastrocolima2018
+- Update: Antes de junio 2019, retiré la beta de Hostinger y Palma removió mi acceso a su fork
 
 
 ## Configuración de PHP requerida
